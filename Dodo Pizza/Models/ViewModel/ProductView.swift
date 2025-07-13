@@ -1,0 +1,37 @@
+//
+//  Product.swift
+//  dodo-pizza-project-final
+//
+//  Created by Zakhar on 28.06.25.
+//
+
+import Foundation
+
+struct ProductView: Codable {
+    let id: UInt
+    let name: String
+    let category: CategoryView
+    let description: String
+    let price: Double
+    let imageURL: String
+    var dough: [ProductOption]?
+    var size: [ProductOption]?
+    var additive: [ProductAdditiveView]?
+}
+
+extension ProductView {
+    
+}
+
+struct ProductOption: Codable, Equatable, Hashable {
+    let option: String
+    var isSelected: Bool
+    let price: Double
+}
+
+struct ProductAdditiveView: Equatable, Codable {
+    let name: String
+    let price: Double
+    let imageURL: String
+    var isSelected: Bool
+}
