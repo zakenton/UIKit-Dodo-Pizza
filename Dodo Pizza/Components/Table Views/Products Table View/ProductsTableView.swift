@@ -12,7 +12,7 @@ protocol ProductTableViewDelegate: AnyObject {
     func didSelectCategory()
     func didSelectProduct(product: ProductView)
 }
-
+// oeifeojf
 final class ProductsTableView: UIView {
     
     
