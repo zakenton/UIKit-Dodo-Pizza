@@ -8,15 +8,28 @@
 import UIKit
 import SnapKit
 
-class CategoryCarouselHeader: UIView {
+final class CategoryCarouselHeader: UIView {
     
     var selectedCategory: CategoryView = .pizza
-    
     private var categories: [CategoryView] = []
-    
     var onCategorySelect: ((CategoryView) -> Void)?
     
-    lazy var collectionView: UICollectionView = CollectionViewFactory.makeCollectionView(delegate: self)
+    lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 10
+        layout.minimumInteritemSpacing = 5
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        layout.itemSize = CGSize(width: 80, height: 35)
+        
+        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        view.backgroundColor = .white
+        view.showsHorizontalScrollIndicator = false
+        view.delegate = self
+        view.dataSource = self
+        
+        return view
+    }()
     
     // MARK: - Init
     override init(frame: CGRect) {
@@ -38,12 +51,10 @@ extension CategoryCarouselHeader {
     }
 }
 
-
-
 // MARK: Setup
 private extension CategoryCarouselHeader {
     func setupView() {
-        setupCollectionView()
+        collectionView.registerCell(CategoryCell.self)
         addSubview(collectionView)
         setupConstraints()
     }
@@ -52,10 +63,6 @@ private extension CategoryCarouselHeader {
         collectionView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-    }
-    
-    func setupCollectionView() {
-        collectionView.registerCell(CategoryCell.self)
     }
 }
 
@@ -74,13 +81,25 @@ extension CategoryCarouselHeader: UICollectionViewDelegate, UICollectionViewData
         return cell
     }
     
+    /// reload chenged buttons
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let category = categories[indexPath.item]
-        guard category != selectedCategory else { return }
+        let newSelectedCategory = categories[indexPath.item]
+        guard newSelectedCategory != selectedCategory else { return }
         
-        selectedCategory = category
-        collectionView.reloadData()
-        onCategorySelect?(category)
+        /// find index of preview selected category
+        if let previousIndex = categories.firstIndex(of: selectedCategory) {
+            let previousIndexPath = IndexPath(item: previousIndex, section: 0)
+            selectedCategory = newSelectedCategory
+            let newIndexPath = indexPath
+            
+            // Перезагрузим только старую и новую ячейку
+            collectionView.reloadItems(at: [previousIndexPath, newIndexPath])
+        } else {
+            selectedCategory = newSelectedCategory
+            collectionView.reloadItems(at: [indexPath])
+        }
+        
+        onCategorySelect?(newSelectedCategory)
     }
 }
 

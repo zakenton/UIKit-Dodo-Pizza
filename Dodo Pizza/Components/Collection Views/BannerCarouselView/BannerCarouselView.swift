@@ -11,7 +11,22 @@ import UIKit
 
 class BannerCarouselView: UIView {
     
-    lazy var collectionView: UICollectionView = CollectionViewFactory.makeBannerCarousel(delegate: self)
+    lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 10
+        layout.minimumInteritemSpacing = 5
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        layout.itemSize = CGSize(width: Layout.screenWidth * 0.6, height: Layout.screenWidth * 0.25)
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .white
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
+        return collectionView
+    }()
     
     // MARK: - Init
     override init(frame: CGRect) {
