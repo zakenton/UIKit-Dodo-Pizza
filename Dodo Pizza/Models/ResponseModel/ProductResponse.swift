@@ -27,7 +27,7 @@ struct ProductAdditiveResponse: Equatable, Codable {
 
 
 extension ProductResponse {
-    func toProductMenu() -> ProductView? {
+    func toProductView() -> ProductView? {
         guard let savePrice = mapPrice(form: price) else {return nil}
         
         let saveCategory = mapCategory(from: category)

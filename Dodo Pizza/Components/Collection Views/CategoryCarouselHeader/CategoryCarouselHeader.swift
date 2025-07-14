@@ -44,9 +44,8 @@ final class CategoryCarouselHeader: UIView {
 
 extension CategoryCarouselHeader {
     
-    func update(categories: [CategoryView], selectedCategory: CategoryView) {
+    func fetchCategoies(categories: [CategoryView]) {
         self.categories = categories
-        self.selectedCategory = selectedCategory
         collectionView.reloadData()
     }
 }

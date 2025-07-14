@@ -14,32 +14,24 @@ protocol IMenuRouter: AnyObject {
 protocol IMenuVCInput: AnyObject {
     func showProducts(_ products: [ProductView])
     func showBanners(_ banners: [ProductView])
-    func showCategories(_ categories: [CategoryView], selectedCategory: CategoryView)
-    func selectCategory(_ products: [ProductView], selectedCategory: CategoryView)
-}
-
-protocol IMenuInteractor: AnyObject {
-    
-    func loadProducts()
-    func loadBanners()
-    func loadCategories()
-    
-    func fetchProducts()
-    func fetchBanners()
-    func fetchCategories()
+    func showCategories(_ categories: [CategoryView])
 }
 
 protocol IMenuPresenterInput: AnyObject {
-    func viewDidLoad()
+    func getProducts(by category: CategoryView)
+    func getBanners()
+    func getCategories()
     func didSelectProduct(_ product: ProductView)
-    func didSelectCategory(_ category: CategoryView)
-    func didTapPriceButton()
-    var currentCategory: CategoryView { get }
+}
+
+protocol IMenuInteractorInput: AnyObject {
+    func getProducts(by category: CategoryView)
+    func getBanners()
+    func getCategories()
 }
 
 protocol IMenuInteractorOutput: AnyObject {
-    func didLoadProducts(_ products: [ProductView])
-    func didLoadBanners(_ banners: [ProductView])
-    func didLoadCategories(_ categories: [CategoryView])
-    func didChangeCategory(_ products: [ProductView])
+    func didGetProducts(_ products: [ProductView])
+    func didGetBanners(_ products: [ProductView])
+    func didGetCategories(_ categories: [CategoryView])
 }

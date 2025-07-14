@@ -7,11 +7,13 @@
 
 import Foundation
 
-protocol IProductsLoader {
-    func loadProducts(completion: @escaping (Result<[ProductResponse], NetworkError>) -> ())
+protocol ILoaderService {
+    func getProducts(by category: CategoryView, completion: @escaping ([ProductView]) -> ())
+    func getBanners(completion: @escaping ([ProductView]) -> ())
+    func getCategories(completion: @escaping ([CategoryView]) -> ())
 }
 
-final class ProductsLoader: IProductsLoader {
+final class LoaderService {
     
     private let session: URLSession
     private let decoder: JSONDecoder
@@ -20,20 +22,155 @@ final class ProductsLoader: IProductsLoader {
         self.session = session
         self.decoder = decoder
     }
+}
+// MARK: - ILoaderService
+extension LoaderService: ILoaderService {
+    func getProducts(by category: CategoryView, completion: @escaping ([ProductView]) -> ()) {
+        let path = APIEndpoint.products(category: category.rawValue).path
+        print("Requesting products from path: \(path)")
+        
+        loadProducts(by: path) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let products):
+                    let mapped = products.compactMap { $0.toProductView() }
+                    completion(mapped)
+                case .failure(let error):
+                    print("Error loading products: \(error)")
+                    completion([])
+                }
+            }
+        }
+    }
     
-    func loadProducts(completion: @escaping (Result<[ProductResponse], NetworkError>) -> ()) {
+    func getBanners(completion: @escaping ([ProductView]) -> ()) {
+        loadBanners { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let products):
+                    let mapped = products.compactMap { $0.toProductView() }
+                    completion(mapped)
+                case .failure(let error):
+                    print("Error loading banners: \(error)")
+                    completion([])
+                }
+            }
+        }
+    }
+    
+    func getCategories(completion: @escaping ([CategoryView]) -> ()) {
+        loadCategories { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let categories):
+                    let mapped = categories.compactMap { $0.toCategoryMenu() }
+                    completion(mapped)
+                case .failure(let error):
+                    print("Error loading categories: \(error)")
+                    completion([])
+                }
+            }
+        }
+    }
+}
+
+//MARK: - Private
+private extension LoaderService {
+    
+    
+    //MARK: loadProducts
+    func loadProducts(by path: String, completion: @escaping (Result<[ProductResponse], NetworkError>) -> ()) {
         let host = NetworkConstants.MokServer
-        let path = APIEndpoint.products.path
+
+        guard let url = URL(string: host + path) else {
+            completion(.failure(.invalidURL))
+            return
+        }
+
+        let request = URLRequest(url: url)
+
+        let task = session.dataTask(with: request) { data, response, error in
+            if let error = error {
+                completion(.failure(.network(error)))
+                return
+            }
+
+            guard let httpResponse = response as? HTTPURLResponse else {
+                completion(.failure(.unknown))
+                return
+            }
+
+            print("Status code: \(httpResponse.statusCode)")
+
+            guard let data else {
+                completion(.failure(.noData))
+                return
+            }
+
+            do {
+                let products = try self.decoder.decode([ProductResponse].self, from: data)
+                completion(.success(products)) // ✅ просто вызов без main
+            } catch {
+                // Печать ошибок — хорошо, но можно и прокинуть .decoding(error)
+                print("Decoding error: \(error)")
+                completion(.failure(.decodingError(error)))
+            }
+        }
+
+        task.resume()
+    }
+    //MARK: loadBanners
+    func loadBanners(completion: @escaping (Result<[ProductResponse], NetworkError>) -> ()) {
+        let host = NetworkConstants.MokServer
+        let path = APIEndpoint.banners.path
         
         guard let url = URL(string: host + path) else {
-            completion(.failure(NetworkError.invalidURL))
+            completion(.failure(.invalidURL))
             return
         }
         
         let request = URLRequest(url: url)
         
         let task = session.dataTask(with: request) { data, response, error in
+            if let error = error {
+                completion(.failure(.network(error)))
+                return
+            }
             
+            guard let httpResponse = response as? HTTPURLResponse else {
+                completion(.failure(.unknown))
+                return
+            }
+            
+            print(httpResponse.statusCode)
+            
+            guard let data else {
+                completion(.failure(.noData))
+                return
+            }
+            
+            do {
+                let products = try self.decoder.decode([ProductResponse].self, from: data)
+                completion(.success(products)) // ⛔️ no main here
+            } catch let error {
+                completion(.failure(.decodingError(error)))
+            }
+        }
+        task.resume()
+    }
+    //MARK: loadCategories
+    func loadCategories(completion: @escaping (Result<[CategoryResponse], NetworkError>) -> ()) {
+        let host = NetworkConstants.MokServer
+        let path = APIEndpoint.categories.path
+        
+        guard let url = URL(string: host + path) else {
+            completion(.failure(.invalidURL))
+            return
+        }
+        
+        let request = URLRequest(url: url)
+        
+        let task = session.dataTask(with: request) { data, response, error in
             if let error = error {
                 completion(.failure(.network(error)))
                 return
@@ -45,31 +182,19 @@ final class ProductsLoader: IProductsLoader {
             }
             print(httpResponse.statusCode)
             
-            
-            
             guard let data else {
                 completion(.failure(.noData))
                 return
             }
             
             do {
-                let products = try self.decoder.decode([ProductResponse].self, from: data)
-                
-                DispatchQueue.main.async {
-                    completion(.success(products))
-                }
-            } catch let DecodingError.dataCorrupted(context) {
-                print("Data corrupted: \(context)")
-            } catch let DecodingError.keyNotFound(key, context) {
-                print("Key '\(key)' not found: \(context.debugDescription)")
-            } catch let DecodingError.valueNotFound(value, context) {
-                print("Value '\(value)' not found: \(context.debugDescription)")
-            } catch let DecodingError.typeMismatch(type, context) {
-                print("Type mismatch for type '\(type)': \(context.debugDescription), path: \(context.codingPath)")
+                let categories = try self.decoder.decode([CategoryResponse].self, from: data)
+                completion(.success(categories))
             } catch {
-                print("Error: \(error)")
+                completion(.failure(.decodingError(error)))
             }
         }
+        
         task.resume()
     }
 }

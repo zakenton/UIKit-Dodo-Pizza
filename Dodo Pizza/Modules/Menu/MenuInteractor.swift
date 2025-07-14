@@ -7,89 +7,86 @@
 
 import Foundation
 
-
-final class MenuInteractor: IMenuInteractor {
+final class MenuInteractor {
     
     weak var presenter: IMenuInteractorOutput?
     
-    private let categoriesLoader: ICategoriesLoader
-    private let productsLoader: IProductsLoader
-    private let bannersLoader: IBannersLoader
+    private var products: [CategoryView: [ProductView]] = [:]
+    private var banners: [ProductView] = []
+    private var categories: [CategoryView] = []
     
-    var currentCategory: CategoryView = .pizza
+    private let loaderService: ILoaderService
     
-    var products: [ProductView] = [] {
-        didSet {
-            presenter?.didLoadProducts(products)
-        }
+    init(loaderService: ILoaderService) {
+        self.loaderService = loaderService
     }
+}
+//MARK: Logic
+private extension MenuInteractor {
+
     
-    var banners: [ProductView] = [] {
-        didSet {
-            presenter?.didLoadBanners(banners)
-        }
-    }
+}
+
+//MARK: Loaders
+private extension MenuInteractor {
     
-    var categories: [CategoryView] = [] {
-        didSet {
-            presenter?.didLoadCategories(categories)
-        }
-    }
-    
-    init(productsLoader: IProductsLoader, bannersLoader: IBannersLoader, categoriesLoader: ICategoriesLoader) {
-        self.categoriesLoader = categoriesLoader
-        self.productsLoader = productsLoader
-        self.bannersLoader = bannersLoader
-    }
-    
-    func loadProducts() {
-        print(1)
-        productsLoader.loadProducts { [weak self] result in
-            switch result {
-            case .success(let products):
-                let mappedProducts = products.compactMap { $0.toProductMenu() }
-                self?.products = mappedProducts
-            case .failure(let error):
-                print("Error loading products: \(error)")
+    func loadProducts(by category: CategoryView) {
+        loaderService.getProducts(by: category) { [weak self] products in
+            guard let self = self else { return }
+            
+            self.products[category] = products
+            DispatchQueue.main.async {
+                self.presenter?.didGetProducts(products)
             }
         }
     }
     
     func loadBanners() {
-        print(2)
-        bannersLoader.loadBanners { [weak self] result in
-            switch result {
-            case .success(let products):
-                let mappedBanners = products.compactMap { $0.toProductMenu() }
-                self?.banners = mappedBanners
-            case .failure(let error):
-                print("Error loading banners: \(error)")
+        loaderService.getBanners { [weak self] banners in
+            guard let self = self else { return }
+            
+            self.banners = banners
+            DispatchQueue.main.async {
+                self.presenter?.didGetBanners(banners)
             }
         }
     }
     
     func loadCategories() {
         print(3)
-        categoriesLoader.loadCategories { [weak self] result in
-            switch result {
-            case .success(let categories):
-                let mappedCategories = categories.compactMap { $0.toCategoryMenu()}
-                self?.categories = mappedCategories
-            case .failure(let error):
-                print("Error loading categories: \(error)")
+        loaderService.getCategories { [weak self] categories in
+            guard let self = self else { return }
+            
+            self.categories = categories
+            DispatchQueue.main.async {
+                self.presenter?.didGetCategories(categories)
             }
         }
     }
-    
-    func fetchProducts() {
-        presenter?.didChangeCategory(products)
+}
+
+extension MenuInteractor: IMenuInteractorInput {
+    func getProducts(by category: CategoryView) {
+        if let cached = products[category] {
+            presenter?.didGetProducts(cached)
+        } else {
+            loadProducts(by: category)
+        }
     }
     
-    func fetchBanners() {
-        
+    func getBanners() {
+        if banners.isEmpty {
+            loadBanners()
+        } else {
+            presenter?.didGetBanners(banners)
+        }
     }
     
-    func fetchCategories() {
-        
+    func getCategories() {
+        if categories.isEmpty {
+            loadCategories()
+        } else {
+            presenter?.didGetCategories(categories)
+        }
     }
 }

@@ -15,10 +15,10 @@ class MenuVC: UIViewController {
     private lazy var tableView = TableViewFactory.makeMenuTableView(delegate: self)
     private let categoriesCarousel = CategoryCarouselHeader()
     
-    private var banners: [ProductView] = []
+    
     private var products: [ProductView] = []
-    private var categories: [CategoryView] = []
-    private var selectedCategory: CategoryView = .pizza
+//    private var categories: [CategoryView] = []
+//    private var selectedCategory: CategoryView = .pizza
     
     private var presenter: IMenuPresenterInput
     
@@ -27,7 +27,10 @@ class MenuVC: UIViewController {
         setupView()
         setupConstraint()
         registerCell()
-        presenter.viewDidLoad()
+        
+        presenter.getBanners()
+        presenter.getCategories()
+        presenter.getProducts(by: categoriesCarousel.selectedCategory)
     }
     
     
@@ -44,27 +47,28 @@ class MenuVC: UIViewController {
 // MARK: - View Input
 extension MenuVC: IMenuVCInput {
     func showProducts(_ products: [ProductView]) {
+        print("showProducts")
+        print(products.count)
         self.products = products
         tableView.reloadData()
     }
     
     func showBanners(_ banners: [ProductView]) {
-        self.banners = banners
-        updateTableHeader()
+        print("showBanners")
+        print(banners.count)
+        updateTableHeader(banners)
     }
     
-    func showCategories(_ categories: [CategoryView], selectedCategory: CategoryView) {
-        self.categories = categories
-        self.selectedCategory = selectedCategory
-        updateCategoriesCarousel()
+    func showCategories(_ categories: [CategoryView]) {
+        print("showCategories")
+        print(categories.count)
+        categoriesCarousel.fetchCategoies(categories: categories)
+        categoriesCarousel.onCategorySelect = { [weak self ] category in
+            self?.presenter.getProducts(by: category)
+        }
     }
     
-    func selectCategory(_ products: [ProductView], selectedCategory: CategoryView) {
-        self.products = products
-        self.selectedCategory = selectedCategory
-        updateCategoriesCarousel()
-        tableView.reloadData()
-    }
+    
 }
 
 // MARK: - View Output
@@ -114,7 +118,6 @@ private extension MenuVC {
         view.backgroundColor = .systemBackground
         view.addSubview(tableView)
         setupTableHeader()
-        setupCategoriesCarousel()
     }
     
     func setupConstraint() {
@@ -160,14 +163,14 @@ private extension MenuVC {
         tableView.tableHeaderView = container
     }
     
-    func setupCategoriesCarousel() {
-        categoriesCarousel.update(categories: categories, selectedCategory: selectedCategory)
-        categoriesCarousel.onCategorySelect = { [weak self ] category in
-            self?.presenter.didSelectCategory(category)
-        }
-    }
+//    func setupCategoriesCarousel() {
+//        categoriesCarousel.fetchCategoies(categories: categories)
+//        categoriesCarousel.onCategorySelect = { [weak self ] category in
+//            self?.presenter.getProducts(by: category)
+//        }
+//    }
     
-    func updateTableHeader() {
+    func updateTableHeader(_ banners: [ProductView]) {
         if let headerView = tableView.tableHeaderView {
             for subview in headerView.subviews {
                 if let bannersCarousel = subview as? BannerCarouselView {
@@ -177,7 +180,7 @@ private extension MenuVC {
         }
     }
     
-    func updateCategoriesCarousel() {
-        categoriesCarousel.update(categories: categories, selectedCategory: selectedCategory)
-    }
+//    func updateCategoriesCarousel() {
+//        categoriesCarousel.fetchCategoies(categories: categories)
+//    }
 }
