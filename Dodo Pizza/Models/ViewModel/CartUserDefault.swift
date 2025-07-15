@@ -8,7 +8,8 @@
 import Foundation
 
 struct CartUserDefault: Equatable, Codable {
-    let id: UInt
+    let productId: UInt
+    let cartItemId: UUID
     let dough: [String]?
     let optins: [String]?
     let additives: [String]?

@@ -52,10 +52,11 @@ protocol IDetailInteractorOutput: AnyObject {
     
     func didСhangedOption(price: Double)
     func didSetAdditive(index: Int, isSelected: Bool)
-    func didSaveProduct()
+    func didSaveProduct(_ product: IProductDisplayable)
     func didErrorSavingProduct()
 }
 
 protocol IDetailRouterInput: AnyObject {
     func closeDetails()
+    func routeProductToSave(_ product: IProductDisplayable)
 }

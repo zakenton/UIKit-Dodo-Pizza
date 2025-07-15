@@ -9,12 +9,11 @@ import Foundation
 
 protocol ICartServiseInput {
     func saveOrIncrementProduct(_ product: CartUserDefault)
-    func decrementProduct(_ product: CartUserDefault)
-    func incrementProduct(_ product: CartUserDefault)
-    func removeProduct(_ product: CartUserDefault)
+    func decrementProduct(by cartId: UUID)
+    func incrementProduct(by cartId: UUID)
+    func removeProducts(by cartId: UUID)
+    func clearCart()
 }
-
-
 
 protocol ICartServiseOutput {
     func loadProducts() -> [CartUserDefault]
@@ -32,59 +31,62 @@ final class CartUserDefaultsService {
         self.encoder = encoder
         self.decoder = decoder
     }
-    
-    private func saveAll(_ products: [CartUserDefault]) {
-        if let data = try? encoder.encode(products) {
-            userDefaults.set(data, forKey: cartKey)
-        }
-        print("Peoducts saved")
-    }
-    
 }
-
 
 // MARK: - Input
 extension CartUserDefaultsService: ICartServiseInput {
     func saveOrIncrementProduct(_ product: CartUserDefault) {
-        var products = loadProducts()
+        var products = getAll()
         
-        if let index = products.firstIndex(where: { $0 == product }) {
+        if let index = products.firstIndex(where: {
+            $0.productId == product.productId &&
+            $0.dough == product.dough &&
+            $0.optins == product.optins &&
+            $0.additives == product.additives
+        })  {
             products[index].quantity += product.quantity
+            print("Product \(products[index].productId) quantity: \(products[index].quantity) ")
         } else {
             products.append(product)
+            print("Added new product to cart")
         }
         
-        saveAll(products)
+        setAll(products)
     }
     
-    func decrementProduct(_ product: CartUserDefault) {
-        var products = loadProducts()
+    func decrementProduct(by cartId: UUID) {
+        var products = getAll()
         
-        if let index = products.firstIndex(where: { $0 == product }) {
+        if let index = products.firstIndex(where: {$0.cartItemId == cartId}) {
             if products[index].quantity > 1 {
                 products[index].quantity -= 1
             } else {
                 products.remove(at: index)
             }
+            setAll(products)
         }
-        
-        saveAll(products)
     }
     
-    func incrementProduct(_ product: CartUserDefault) {
-        var products = loadProducts()
+    func incrementProduct(by cartId: UUID) {
+        var products = getAll()
         
-        if let index = products.firstIndex(where: { $0 == product }) {
+        if let index = products.firstIndex(where: {$0.cartItemId == cartId}) {
             products[index].quantity += 1
+            setAll(products)
         }
-        
-        saveAll(products)
     }
     
-    func removeProduct(_ product: CartUserDefault) {
-        var products = loadProducts()
-        products.removeAll(where: { $0 == product })
-        saveAll(products)
+    func removeProducts(by cartId: UUID) {
+        var products = getAll()
+        
+        products.removeAll { $0.cartItemId == cartId }
+        
+        setAll(products)
+    }
+    
+    func clearCart() {
+        deleteAll()
+        print("Cart is clear")
     }
 }
 
@@ -93,10 +95,28 @@ extension CartUserDefaultsService: ICartServiseInput {
 extension CartUserDefaultsService: ICartServiseOutput {
     
     func loadProducts() -> [CartUserDefault] {
+        return getAll()
+    }
+}
+
+//MARK: Logic
+private extension CartUserDefaultsService {
+    func setAll(_ products: [CartUserDefault]) {
+        if let data = try? encoder.encode(products) {
+            userDefaults.set(data, forKey: cartKey)
+        }
+        print("Products saved: \(products.count)")
+    }
+    
+    func getAll() -> [CartUserDefault] {
         guard let data = userDefaults.data(forKey: cartKey),
               let decoded = try? decoder.decode([CartUserDefault].self, from: data) else {
             return []
         }
         return decoded
+    }
+    
+    func deleteAll() {
+        userDefaults.removeObject(forKey: cartKey)
     }
 }

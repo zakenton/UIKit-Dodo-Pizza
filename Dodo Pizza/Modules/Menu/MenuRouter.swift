@@ -9,18 +9,19 @@ import Foundation
 import UIKit
 
 
-final class MenuRouter: IMenuRouter {
+final class MenuRouter {
     
     weak var menuVC: MenuVC?
-    
-    private let cartServise: ICartServiseInput
-    
-    init(cartServise: ICartServiseInput) {
-        self.cartServise = cartServise
+    weak var menuPresenter: IMenuPresenterInput?
+}
+
+extension MenuRouter: IMenuRouter {
+    func saveProduct(_ product: ProductView) {
+        menuPresenter?.saveProduct(product)
     }
     
-    func showDitailView(product: ProductView) {
-        let detailsVC = DetailBuilder.build(product: product, cartService: cartServise)
+    func showDitailView(with product: ProductView) {
+        let detailsVC = DetailBuilder.build(product: product, router: self)
         menuVC?.present(detailsVC, animated: true)
     }
 }

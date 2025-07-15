@@ -10,12 +10,9 @@ import Foundation
 final class DetailInteractor {
     weak var presenter: IDetailInteractorOutput?
     
-    private let cartService: ICartServiseInput
-    
     private var product: IProductDisplayable
 
-    init(cartService: ICartServiseInput, product: IProductDisplayable) {
-        self.cartService = cartService
+    init(product: IProductDisplayable) {
         self.product = product
     }
 }
@@ -94,8 +91,7 @@ extension DetailInteractor: IDetailInteractorInput {
     }
     
     func saveProductToCart() {
-        print("Saved")
-        presenter?.didSaveProduct()
+        presenter?.didSaveProduct(product)
     }
 }
 

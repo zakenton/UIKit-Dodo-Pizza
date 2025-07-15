@@ -47,8 +47,6 @@
 		907ECF082E1D76DC00A1BBB9 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907ECEC92E1D76DC00A1BBB9 /* NetworkError.swift */; };
 		907ECF092E1D76DC00A1BBB9 /* AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907ECECD2E1D76DC00A1BBB9 /* AppColor.swift */; };
 		907ECF0A2E1D76DC00A1BBB9 /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907ECECE2E1D76DC00A1BBB9 /* Layout.swift */; };
-		907ECF0B2E1D76DC00A1BBB9 /* BannersLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907ECED02E1D76DC00A1BBB9 /* BannersLoader.swift */; };
-		907ECF0C2E1D76DC00A1BBB9 /* CategoriesLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907ECED12E1D76DC00A1BBB9 /* CategoriesLoader.swift */; };
 		907ECF0D2E1D76DC00A1BBB9 /* ProductsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907ECED22E1D76DC00A1BBB9 /* ProductsLoader.swift */; };
 		907ECF0E2E1D76DC00A1BBB9 /* CartUserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907ECED42E1D76DC00A1BBB9 /* CartUserDefaultsService.swift */; };
 		907ECF102E1D76DC00A1BBB9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 907ECED72E1D76DC00A1BBB9 /* Assets.xcassets */; };
@@ -109,8 +107,6 @@
 		907ECEC92E1D76DC00A1BBB9 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		907ECECD2E1D76DC00A1BBB9 /* AppColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColor.swift; sourceTree = "<group>"; };
 		907ECECE2E1D76DC00A1BBB9 /* Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
-		907ECED02E1D76DC00A1BBB9 /* BannersLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannersLoader.swift; sourceTree = "<group>"; };
-		907ECED12E1D76DC00A1BBB9 /* CategoriesLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesLoader.swift; sourceTree = "<group>"; };
 		907ECED22E1D76DC00A1BBB9 /* ProductsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsLoader.swift; sourceTree = "<group>"; };
 		907ECED42E1D76DC00A1BBB9 /* CartUserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartUserDefaultsService.swift; sourceTree = "<group>"; };
 		907ECED72E1D76DC00A1BBB9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -349,13 +345,6 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
-		907ECECB2E1D76DC00A1BBB9 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
-			sourceTree = "<group>";
-		};
 		907ECECF2E1D76DC00A1BBB9 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -368,8 +357,6 @@
 		907ECED32E1D76DC00A1BBB9 /* Loaders */ = {
 			isa = PBXGroup;
 			children = (
-				907ECED02E1D76DC00A1BBB9 /* BannersLoader.swift */,
-				907ECED12E1D76DC00A1BBB9 /* CategoriesLoader.swift */,
 				907ECED22E1D76DC00A1BBB9 /* ProductsLoader.swift */,
 			);
 			path = Loaders;
@@ -398,7 +385,6 @@
 				907ECEAA2E1D76DC00A1BBB9 /* Models */,
 				907ECEC62E1D76DC00A1BBB9 /* Modules */,
 				907ECECA2E1D76DC00A1BBB9 /* Network */,
-				907ECECB2E1D76DC00A1BBB9 /* New Group */,
 				907ECECF2E1D76DC00A1BBB9 /* Resources */,
 				907ECED62E1D76DC00A1BBB9 /* Services */,
 			);
@@ -609,9 +595,7 @@
 				907ECF092E1D76DC00A1BBB9 /* AppColor.swift in Sources */,
 				907ECF1C2E1EFDA900A1BBB9 /* ProductMapper.swift in Sources */,
 				907ECF0A2E1D76DC00A1BBB9 /* Layout.swift in Sources */,
-				907ECF0B2E1D76DC00A1BBB9 /* BannersLoader.swift in Sources */,
 				907ECF782E23DEE800A1BBB9 /* AdditivesCollectionView.swift in Sources */,
-				907ECF0C2E1D76DC00A1BBB9 /* CategoriesLoader.swift in Sources */,
 				907ECF0D2E1D76DC00A1BBB9 /* ProductsLoader.swift in Sources */,
 				907ECF0E2E1D76DC00A1BBB9 /* CartUserDefaultsService.swift in Sources */,
 			);

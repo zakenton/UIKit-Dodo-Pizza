@@ -35,7 +35,11 @@ extension MenuPresenter: IMenuPresenterInput {
     }
     
     func didSelectProduct(_ product: ProductView) {
-        router.showDitailView(product: product)
+        router.showDitailView(with: product)
+    }
+    
+    func saveProduct(_ product: ProductView) {
+        interactor.saveProduct(product)
     }
 }
 

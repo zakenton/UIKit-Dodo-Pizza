@@ -10,11 +10,21 @@ import UIKit
 
 final class DetailRouter {
     weak var detailsVC: DetailsVC?
+    private let router: IMenuRouter
+    
+    init(router: IMenuRouter) {
+        self.router = router
+    }
 }
 
 extension DetailRouter: IDetailRouterInput {
     
     func closeDetails() {
         detailsVC?.dismiss(animated: true)
+    }
+    
+    func routeProductToSave(_ product: any IProductDisplayable) {
+        router.saveProduct(product as! ProductView)
+        closeDetails()
     }
 }

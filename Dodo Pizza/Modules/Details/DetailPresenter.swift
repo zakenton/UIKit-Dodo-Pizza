@@ -83,8 +83,8 @@ extension DetailPresenter: IDetailInteractorOutput {
         detailVC?.updateAdditive(at: index, isSelected: isSelected)
     }
     
-    func didSaveProduct() {
-        router?.closeDetails()
+    func didSaveProduct(_ product: any IProductDisplayable) {
+        router?.routeProductToSave(product)
     }
     
     func didErrorSavingProduct() {

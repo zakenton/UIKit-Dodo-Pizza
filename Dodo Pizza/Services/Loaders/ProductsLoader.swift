@@ -109,9 +109,8 @@ private extension LoaderService {
 
             do {
                 let products = try self.decoder.decode([ProductResponse].self, from: data)
-                completion(.success(products)) // ✅ просто вызов без main
+                completion(.success(products))
             } catch {
-                // Печать ошибок — хорошо, но можно и прокинуть .decoding(error)
                 print("Decoding error: \(error)")
                 completion(.failure(.decodingError(error)))
             }
@@ -151,7 +150,7 @@ private extension LoaderService {
             
             do {
                 let products = try self.decoder.decode([ProductResponse].self, from: data)
-                completion(.success(products)) // ⛔️ no main here
+                completion(.success(products))
             } catch let error {
                 completion(.failure(.decodingError(error)))
             }
