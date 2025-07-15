@@ -240,51 +240,11 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		907ECEAC2E1D76DC00A1BBB9 /* Assembly */ = {
-			isa = PBXGroup;
-			children = (
-				907ECEAB2E1D76DC00A1BBB9 /* CartAssembly.swift */,
-			);
-			path = Assembly;
-			sourceTree = "<group>";
-		};
-		907ECEAD2E1D76DC00A1BBB9 /* Interactor */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Interactor;
-			sourceTree = "<group>";
-		};
-		907ECEAE2E1D76DC00A1BBB9 /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
-		907ECEAF2E1D76DC00A1BBB9 /* Router */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Router;
-			sourceTree = "<group>";
-		};
-		907ECEB12E1D76DC00A1BBB9 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				907ECEB02E1D76DC00A1BBB9 /* CartVC.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		907ECEB22E1D76DC00A1BBB9 /* Cart */ = {
 			isa = PBXGroup;
 			children = (
-				907ECEAC2E1D76DC00A1BBB9 /* Assembly */,
-				907ECEAD2E1D76DC00A1BBB9 /* Interactor */,
-				907ECEAE2E1D76DC00A1BBB9 /* Presenter */,
-				907ECEAF2E1D76DC00A1BBB9 /* Router */,
-				907ECEB12E1D76DC00A1BBB9 /* View */,
+				907ECEB02E1D76DC00A1BBB9 /* CartVC.swift */,
+				907ECEAB2E1D76DC00A1BBB9 /* CartAssembly.swift */,
 			);
 			path = Cart;
 			sourceTree = "<group>";
