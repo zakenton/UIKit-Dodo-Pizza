@@ -65,6 +65,7 @@
 		907ECF772E23DEE800A1BBB9 /* TopBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907ECF712E23DEE800A1BBB9 /* TopBarView.swift */; };
 		907ECF782E23DEE800A1BBB9 /* AdditivesCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907ECF6A2E23DEE800A1BBB9 /* AdditivesCollectionView.swift */; };
 		907ECF792E23DEE800A1BBB9 /* BannerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907ECF6D2E23DEE800A1BBB9 /* BannerCollectionViewCell.swift */; };
+		909311682E266990008E1B41 /* IProductDisplayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909311672E266990008E1B41 /* IProductDisplayable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -127,6 +128,7 @@
 		907ECF6F2E23DEE800A1BBB9 /* BannerLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerLabelView.swift; sourceTree = "<group>"; };
 		907ECF702E23DEE800A1BBB9 /* DitailSegmentControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DitailSegmentControl.swift; sourceTree = "<group>"; };
 		907ECF712E23DEE800A1BBB9 /* TopBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarView.swift; sourceTree = "<group>"; };
+		909311672E266990008E1B41 /* IProductDisplayable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IProductDisplayable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,6 +225,7 @@
 		907ECEA92E1D76DC00A1BBB9 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				909311662E26694E008E1B41 /* Models Protocols */,
 				907ECEA42E1D76DC00A1BBB9 /* CartUserDefault.swift */,
 				907ECEA52E1D76DC00A1BBB9 /* CategoryView.swift */,
 				907ECEA62E1D76DC00A1BBB9 /* ProductCart.swift */,
@@ -470,6 +473,14 @@
 			path = CategoryCarouselHeader;
 			sourceTree = "<group>";
 		};
+		909311662E26694E008E1B41 /* Models Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				909311672E266990008E1B41 /* IProductDisplayable.swift */,
+			);
+			path = "Models Protocols";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -561,6 +572,7 @@
 				907ECEEC2E1D76DC00A1BBB9 /* Image .swift in Sources */,
 				907ECEED2E1D76DC00A1BBB9 /* Lebel.swift in Sources */,
 				907ECF432E20FED600A1BBB9 /* AdditivesCell.swift in Sources */,
+				909311682E266990008E1B41 /* IProductDisplayable.swift in Sources */,
 				907ECEEE2E1D76DC00A1BBB9 /* TableView.swift in Sources */,
 				907ECEEF2E1D76DC00A1BBB9 /* CategoryResponse.swift in Sources */,
 				907ECEF02E1D76DC00A1BBB9 /* ProductResponse.swift in Sources */,

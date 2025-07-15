@@ -12,9 +12,9 @@ final class DetailInteractor {
     
     private let cartService: ICartServiseInput
     
-    private var product: ProductView
+    private var product: IProductDisplayable
 
-    init(cartService: ICartServiseInput, product: ProductView) {
+    init(cartService: ICartServiseInput, product: IProductDisplayable) {
         self.cartService = cartService
         self.product = product
     }
