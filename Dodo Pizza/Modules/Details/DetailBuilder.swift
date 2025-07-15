@@ -10,7 +10,7 @@ import UIKit
 
 final class DetailBuilder {
     
-    static func build(product: ProductView, cartService: ICartServiseInput) -> DetailsVC {
+    static func build(product: IProductDisplayable, cartService: ICartServiseInput) -> DetailsVC {
         let router = DetailRouter()
         let presenter = DetailPresenter()
         let view = DetailsVC(presenter: presenter)

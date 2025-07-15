@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ProductView: Codable {
+struct ProductView: IProductDisplayable, Codable {
     let id: UInt
     let name: String
     let category: CategoryView
