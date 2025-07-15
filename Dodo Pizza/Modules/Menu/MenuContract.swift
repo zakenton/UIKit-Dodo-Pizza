@@ -8,7 +8,8 @@
 import Foundation
 
 protocol IMenuRouter: AnyObject {
-    func showDitailView(product: ProductView)
+    func showDitailView(with product: ProductView)
+    func saveProduct(_ product: ProductView)
 }
 
 protocol IMenuVCInput: AnyObject {
@@ -22,12 +23,14 @@ protocol IMenuPresenterInput: AnyObject {
     func getBanners()
     func getCategories()
     func didSelectProduct(_ product: ProductView)
+    func saveProduct(_ product: ProductView)
 }
 
 protocol IMenuInteractorInput: AnyObject {
     func getProducts(by category: CategoryView)
     func getBanners()
     func getCategories()
+    func saveProduct(_ product: ProductView)
 }
 
 protocol IMenuInteractorOutput: AnyObject {

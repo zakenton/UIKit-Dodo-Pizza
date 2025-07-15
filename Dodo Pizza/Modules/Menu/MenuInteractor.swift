@@ -16,11 +16,14 @@ final class MenuInteractor {
     private var categories: [CategoryView] = []
     
     private let loaderService: ILoaderService
+    private let cartServise: ICartServiseInput
     
-    init(loaderService: ILoaderService) {
+    init(loaderService: ILoaderService, cartServise: ICartServiseInput) {
         self.loaderService = loaderService
+        self.cartServise = cartServise
     }
 }
+
 //MARK: Logic
 private extension MenuInteractor {
 
@@ -88,5 +91,11 @@ extension MenuInteractor: IMenuInteractorInput {
         } else {
             presenter?.didGetCategories(categories)
         }
+    }
+    
+    func saveProduct(_ product: ProductView) {
+        let cartProduct = product.toCartUserDefaults()
+        cartServise.saveOrIncrementProduct(cartProduct)
+        print("Product saved: " + product.name)
     }
 }

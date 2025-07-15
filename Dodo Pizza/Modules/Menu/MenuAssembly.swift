@@ -18,9 +18,9 @@ final class MenuAssembly {
     }
     
     func build() -> UIViewController {
-        let router = MenuRouter(cartServise: cartServise)
+        let router = MenuRouter()
         
-        let interector = MenuInteractor(loaderService: loaderService)
+        let interector = MenuInteractor(loaderService: loaderService, cartServise: cartServise)
         
         let presenter = MenuPresenter(interactor: interector,
                                       router: router)
@@ -30,6 +30,7 @@ final class MenuAssembly {
         menuVC.tabBarItem = UITabBarItem(title: "Menu",
                                         image: UIImage(systemName: "menucard"),
                                         selectedImage: UIImage(systemName: "menucard"))
+        router.menuPresenter = presenter
         
         presenter.menuVC = menuVC
         
