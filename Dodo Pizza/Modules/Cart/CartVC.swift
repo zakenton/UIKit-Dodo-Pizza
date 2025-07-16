@@ -10,18 +10,28 @@ import UIKit
 
 class CartVC: UIViewController {
     
+    lazy var tableView = CartTableView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         setupConstraints()
     }
     
+    
+}
+
+//MARK: - Setup
+extension CartVC {
+    
     func setupViews() {
         view.backgroundColor = .white
+        view.addSubview(tableView)
     }
     
     func setupConstraints() {
-        
+        tableView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
 }
-
