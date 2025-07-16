@@ -67,6 +67,7 @@
 		909F87822E279A4B003A189A /* CartTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909F87812E279A4B003A189A /* CartTableView.swift */; };
 		909F87842E279D74003A189A /* ProductCartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909F87832E279D74003A189A /* ProductCartViewModel.swift */; };
 		909F87862E27A26B003A189A /* CartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909F87852E27A26B003A189A /* CartTableViewCell.swift */; };
+		909F87A62E27F935003A189A /* QuantityControll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909F87A52E27F935003A189A /* QuantityControll.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -131,6 +132,7 @@
 		909F87812E279A4B003A189A /* CartTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartTableView.swift; sourceTree = "<group>"; };
 		909F87832E279D74003A189A /* ProductCartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCartViewModel.swift; sourceTree = "<group>"; };
 		909F87852E27A26B003A189A /* CartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartTableViewCell.swift; sourceTree = "<group>"; };
+		909F87A52E27F935003A189A /* QuantityControll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityControll.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -371,6 +373,7 @@
 		907ECF7A2E23DF0B00A1BBB9 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				909F87A52E27F935003A189A /* QuantityControll.swift */,
 				907ECF702E23DEE800A1BBB9 /* DitailSegmentControl.swift */,
 				907ECF6F2E23DEE800A1BBB9 /* BannerLabelView.swift */,
 				907ECF712E23DEE800A1BBB9 /* TopBarView.swift */,
@@ -544,6 +547,7 @@
 				907ECF772E23DEE800A1BBB9 /* TopBarView.swift in Sources */,
 				907ECEF12E1D76DC00A1BBB9 /* CartUserDefault.swift in Sources */,
 				907ECEF22E1D76DC00A1BBB9 /* CategoryView.swift in Sources */,
+				909F87A62E27F935003A189A /* QuantityControll.swift in Sources */,
 				907ECEF32E1D76DC00A1BBB9 /* ProductCart.swift in Sources */,
 				907ECF202E1EFF3F00A1BBB9 /* DefaultValues.swift in Sources */,
 				907ECF742E23DEE800A1BBB9 /* DitailSegmentControl.swift in Sources */,

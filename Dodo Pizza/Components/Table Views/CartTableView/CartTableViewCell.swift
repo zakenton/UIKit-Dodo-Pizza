@@ -15,12 +15,10 @@ import SnapKit
 final class CartTableViewCell: UITableViewCell {
 
     // MARK: - UI
-
     private let productImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 12
         return imageView
     }()
 
@@ -53,6 +51,8 @@ final class CartTableViewCell: UITableViewCell {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .medium)
         return button
     }()
+    
+    private let quantityCounter = QuantityControll()
 
     private let removeButton: UIButton = {
         let button = UIButton(type: .system)
@@ -68,6 +68,12 @@ final class CartTableViewCell: UITableViewCell {
         setupView()
         setupConstraints()
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        print("Cell height: \(self.frame.height)")
+    }
+
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -76,17 +82,17 @@ final class CartTableViewCell: UITableViewCell {
 
 extension CartTableViewCell {
     func configure(with model: ProductCartViewModel) {
-        // Картинка (подключи Kingfisher/SDWebImage если нужны внешние URL)
+        
         productImageView.image = UIImage(named: model.imageURL)
-        // Название пиццы
+        
         titleLabel.text = model.name
-        // Описание опций
+        
         var options = "\(model.size), \(model.dough)"
         if !model.additive.isEmpty {
             options += ", \(model.additive)"
         }
         optionLabel.text = options
-        // Цена
+        
         priceLabel.text = model.price
     }
 }
@@ -97,49 +103,52 @@ private extension CartTableViewCell {
         contentView.addSubview(productImageView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(optionLabel)
+        contentView.addSubview(removeButton)
+        
+        contentView.addSubview(quantityCounter)
         contentView.addSubview(priceLabel)
         contentView.addSubview(editButton)
-        contentView.addSubview(removeButton)
     }
 
     func setupConstraints() {
-        
-        contentView.snp.makeConstraints { make in
-            make.left.right.equalToSuperview()
-        }
-        // Картинка
         productImageView.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(Layout.offset12)
-            make.top.equalToSuperview().offset(Layout.offset12)
-            make.size.equalTo(CGSize(width: 80, height: 80))
+            make.top.left.equalToSuperview().inset(Layout.offset16)
+            make.size.equalTo(80)
         }
-
-        // Крестик
-        removeButton.snp.makeConstraints { make in
-            make.right.equalToSuperview().inset(Layout.offset12)
-            make.top.equalToSuperview().offset(Layout.offset12)
-            make.size.equalTo(20)
-        }
-
-        // Название (title)
+        
         titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(Layout.offset12)
+            make.top.equalToSuperview().inset(Layout.offset12)
             make.left.equalTo(productImageView.snp.right).offset(Layout.offset8)
-            make.right.equalTo(removeButton.snp.left).offset(Layout.offset8)
+            make.right.equalTo(removeButton.snp.left).offset(-Layout.offset6)
         }
-
-        // Описание (optionLabel)
+        
         optionLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(2)
-            make.left.right.equalTo(titleLabel)
+            make.top.equalTo(titleLabel.snp.bottom).offset(3)
+            make.left.equalTo(productImageView.snp.right).offset(Layout.offset8)
+            make.right.equalTo(removeButton.snp.left).offset(-Layout.offset6)
             make.bottom.equalTo(productImageView.snp.bottom)
         }
-
-        // Кнопка "Изменить"
+        
+        removeButton.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(Layout.offset8)
+            make.right.equalToSuperview().inset(Layout.offset8)
+            make.size.equalTo(20)
+        }
+        
+        quantityCounter.snp.makeConstraints { make in
+            make.top.equalTo(productImageView.snp.bottom).offset(Layout.offset6)
+            make.right.equalTo(contentView.snp.right).inset(Layout.offset6)
+            make.bottom.equalTo(contentView.snp.bottom).inset(Layout.offset6)
+        }
+        
         editButton.snp.makeConstraints { make in
-            make.top.equalTo(productImageView.snp.bottom).offset(2)
-            make.right.equalToSuperview().inset(Layout.offset12)
-            make.bottom.equalToSuperview().inset(Layout.offset8)
+            make.centerY.equalTo(quantityCounter.snp.centerY)
+            make.right.equalTo(quantityCounter.snp.left).offset(-5)
+        }
+        
+        priceLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(quantityCounter.snp.centerY)
+            make.left.equalTo(productImageView.snp.left)
         }
     }
 }
