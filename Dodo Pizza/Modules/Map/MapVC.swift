@@ -7,8 +7,17 @@
 
 import Foundation
 import UIKit
+import MapKit
 
 class MapVC: UIViewController {
+    
+    private let mapView: MKMapView = {
+        let map = MKMapView()
+        
+        
+        
+        return map
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
