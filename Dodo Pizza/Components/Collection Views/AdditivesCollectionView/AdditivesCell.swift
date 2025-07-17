@@ -80,7 +80,7 @@ extension AdditivesCell {
     func configure(with option: ProductAdditiveView, isSelected: Bool = false) {
         imageView.image = UIImage(named: option.imageURL)
         titleLabel.text = option.name
-        priceLabel.text = String(format: "%.2f ₽", option.price)
+        priceLabel.text = String(format: "%.2f €", option.price)
         highlight(option.isSelected)
     }
 

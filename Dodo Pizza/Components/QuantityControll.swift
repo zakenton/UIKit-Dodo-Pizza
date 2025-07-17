@@ -10,7 +10,16 @@ import Foundation
 import UIKit
 import SnapKit
 
+
+
 final class QuantityControll: UIControl {
+    
+    private var quantity: Int = 1 {
+        didSet {
+            quantityLabel.text = "\(quantity)"
+            sendActions(for: .valueChanged)
+        }
+    }
     
     private let plusButton: UIButton = {
         let button = UIButton()
@@ -20,7 +29,6 @@ final class QuantityControll: UIControl {
     
     private let quantityLabel: UILabel = {
         let label = UILabel()
-        label.text = "10"
         label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         label.textColor = .white
         label.textAlignment = .center
@@ -40,7 +48,8 @@ final class QuantityControll: UIControl {
         addViews()
         setupConstraints()
         
-        
+        plusButton.addTarget(self, action: #selector(plusTapped), for: .touchUpInside)
+        minusButton.addTarget(self, action: #selector(minusTapped), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
@@ -49,13 +58,19 @@ final class QuantityControll: UIControl {
 }
 
 extension QuantityControll {
-    func setQuantity(_ count: String) {
-        quantityLabel.text = count
+    func setQuantity(_ count: Int) {
+        quantity = count
     }
 }
 
-extension QuantityControll {
+private extension QuantityControll {
+    @objc func plusTapped() {
+        quantity += 1
+    }
     
+    @objc func minusTapped() {
+        if quantity >= 0 { quantity -= 1 }
+    }
 }
 
 // MARK: - Setup

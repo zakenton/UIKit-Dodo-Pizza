@@ -79,7 +79,7 @@ final class CartTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 }
-
+//MARK: Configure
 extension CartTableViewCell {
     func configure(with model: ProductCartViewModel) {
         
@@ -94,7 +94,13 @@ extension CartTableViewCell {
         optionLabel.text = options
         
         priceLabel.text = model.price
+        
+        quantityCounter.setQuantity(model.quantity)
     }
+}
+
+extension CartTableViewCell {
+    
 }
 
 // MARK: - UI Setup
