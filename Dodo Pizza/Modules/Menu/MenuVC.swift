@@ -163,12 +163,7 @@ private extension MenuVC {
         tableView.tableHeaderView = container
     }
     
-//    func setupCategoriesCarousel() {
-//        categoriesCarousel.fetchCategoies(categories: categories)
-//        categoriesCarousel.onCategorySelect = { [weak self ] category in
-//            self?.presenter.getProducts(by: category)
-//        }
-//    }
+
     
     func updateTableHeader(_ banners: [ProductView]) {
         if let headerView = tableView.tableHeaderView {
@@ -179,8 +174,4 @@ private extension MenuVC {
             }
         }
     }
-    
-//    func updateCategoriesCarousel() {
-//        categoriesCarousel.fetchCategoies(categories: categories)
-//    }
 }

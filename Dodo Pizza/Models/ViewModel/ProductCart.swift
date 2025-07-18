@@ -8,7 +8,8 @@
 import Foundation
 
 struct ProductCart: IProductDisplayable, Codable {
-    let id: UInt
+    let productId: UInt
+    let cartItemId: UUID
     let name: String
     let description: String
     let price: Double
@@ -18,3 +19,4 @@ struct ProductCart: IProductDisplayable, Codable {
     var additive: [ProductAdditiveView]?
     var quantiti: UInt
 }
+
