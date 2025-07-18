@@ -64,6 +64,8 @@
 		907ECF782E23DEE800A1BBB9 /* AdditivesCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907ECF6A2E23DEE800A1BBB9 /* AdditivesCollectionView.swift */; };
 		907ECF792E23DEE800A1BBB9 /* BannerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907ECF6D2E23DEE800A1BBB9 /* BannerCollectionViewCell.swift */; };
 		909311682E266990008E1B41 /* IProductDisplayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909311672E266990008E1B41 /* IProductDisplayable.swift */; };
+		909F87F02E2A1CB8003A189A /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909F87EF2E2A1CB8003A189A /* Map.swift */; };
+		909F87F22E2A1CBE003A189A /* StoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909F87F12E2A1CBE003A189A /* StoreService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -125,6 +127,8 @@
 		907ECF702E23DEE800A1BBB9 /* DitailSegmentControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DitailSegmentControl.swift; sourceTree = "<group>"; };
 		907ECF712E23DEE800A1BBB9 /* TopBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarView.swift; sourceTree = "<group>"; };
 		909311672E266990008E1B41 /* IProductDisplayable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IProductDisplayable.swift; sourceTree = "<group>"; };
+		909F87EF2E2A1CB8003A189A /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
+		909F87F12E2A1CBE003A189A /* StoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -305,6 +309,8 @@
 		907ECEBE2E1D76DC00A1BBB9 /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				909F87F12E2A1CBE003A189A /* StoreService.swift */,
+				909F87EF2E2A1CB8003A189A /* Map.swift */,
 				907ECEBA2E1D76DC00A1BBB9 /* MapAssembly.swift */,
 				907ECEBC2E1D76DC00A1BBB9 /* MapVC.swift */,
 			);
@@ -563,6 +569,7 @@
 				907ECEEF2E1D76DC00A1BBB9 /* CategoryResponse.swift in Sources */,
 				907ECEF02E1D76DC00A1BBB9 /* ProductResponse.swift in Sources */,
 				907ECF772E23DEE800A1BBB9 /* TopBarView.swift in Sources */,
+				909F87F22E2A1CBE003A189A /* StoreService.swift in Sources */,
 				907ECEF12E1D76DC00A1BBB9 /* CartUserDefault.swift in Sources */,
 				907ECEF22E1D76DC00A1BBB9 /* CategoryView.swift in Sources */,
 				907ECEF32E1D76DC00A1BBB9 /* ProductCart.swift in Sources */,
@@ -584,6 +591,7 @@
 				907ECF002E1D76DC00A1BBB9 /* MenuAssembly.swift in Sources */,
 				907ECF012E1D76DC00A1BBB9 /* MenuInteractor.swift in Sources */,
 				907ECF022E1D76DC00A1BBB9 /* MenuPresenter.swift in Sources */,
+				909F87F02E2A1CB8003A189A /* Map.swift in Sources */,
 				907ECF792E23DEE800A1BBB9 /* BannerCollectionViewCell.swift in Sources */,
 				907ECF032E1D76DC00A1BBB9 /* MenuRouter.swift in Sources */,
 				907ECF1E2E1EFF0900A1BBB9 /* MappingErrors.swift in Sources */,
