@@ -20,7 +20,7 @@ struct ProductView: IProductDisplayable, Codable {
 }
 
 extension ProductView {
-    func toCartUserDefaults() -> ProductCart {
+    func toProductCart() -> ProductCart {
         return ProductCart(
             productId: self.id,
             cartItemId: UUID(),
