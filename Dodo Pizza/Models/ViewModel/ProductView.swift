@@ -20,27 +20,19 @@ struct ProductView: IProductDisplayable, Codable {
 }
 
 extension ProductView {
-    func toCartUserDefaults() -> CartUserDefault {
-        /// only selected!
-        let selectedDough = dough?
-            .filter { $0.isSelected }
-            .map { $0.option }
-        
-        let selectedOptions = size?
-            .filter { $0.isSelected }
-            .map { $0.option }
-        
-        let selectedAdditives = additive?
-            .filter { $0.isSelected }
-            .map { $0.name }
-        
-        
-        return CartUserDefault(productId: id,
-                               cartItemId: UUID(),
-                               dough: selectedDough,
-                               optins: selectedOptions,
-                               additives: selectedAdditives,
-                               quantity: 1)
+    func toCartUserDefaults() -> ProductCart {
+        return ProductCart(
+            productId: self.id,
+            cartItemId: UUID(),
+            name: self.name,
+            description: self.description,
+            price: self.price,
+            imageURL: self.imageURL,
+            dough: self.dough,
+            size: self.size,
+            additive: self.additive,
+            quantiti: 1
+        )
     }
 }
 
