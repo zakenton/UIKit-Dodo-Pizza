@@ -12,6 +12,8 @@ enum ButtonStyle {
     case cross
     case price
     case addToCart
+    case useThisAddress
+    case savedAddress
 }
 
 final class Button: UIButton {
@@ -25,6 +27,10 @@ final class Button: UIButton {
             createPriceButton(price: text)
         case .addToCart:
             createAddToCartButton(text: text)
+        case .useThisAddress:
+            createUseThisAddressButton(text: text)
+        case .savedAddress:
+            createSevedAddressButton(text: text)
         }
     }
     
@@ -68,6 +74,36 @@ final class Button: UIButton {
         config.cornerStyle = .capsule
         config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6)
 
+        self.configuration = config
+    }
+    
+    private func createUseThisAddressButton(text: String) {
+        var config = UIButton.Configuration.plain()
+
+        var attributedTitle = AttributedString("\(text)")
+        attributedTitle.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        attributedTitle.foregroundColor = .brown
+
+        config.attributedTitle = attributedTitle
+        config.baseForegroundColor = .white
+        config.background.backgroundColor = AppColor.Button.orang1
+        config.cornerStyle = .capsule
+        config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6)
+
+        self.configuration = config
+    }
+    
+    private func createSevedAddressButton(text: String) {
+        var config = UIButton.Configuration.plain()
+        
+        var attributedTitle = AttributedString("📍\(text)")
+        
+        attributedTitle.font = .systemFont(ofSize: 14, weight: .medium)
+        attributedTitle.foregroundColor = .black
+        config.attributedTitle = attributedTitle
+        config.baseForegroundColor = .black
+        config.baseBackgroundColor = .lightGray
+        config.cornerStyle = .capsule
         self.configuration = config
     }
 }

@@ -4,8 +4,6 @@
 //
 //  Created by Zakhar on 03.07.25.
 //
-
-import Foundation
 import UIKit
 
 final class MapAssembly {

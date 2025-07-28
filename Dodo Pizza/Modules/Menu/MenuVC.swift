@@ -17,10 +17,9 @@ class MenuVC: UIViewController {
     
     
     private var products: [ProductView] = []
-//    private var categories: [CategoryView] = []
-//    private var selectedCategory: CategoryView = .pizza
     
     private var presenter: IMenuPresenterInput
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

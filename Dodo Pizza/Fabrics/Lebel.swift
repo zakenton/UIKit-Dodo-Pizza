@@ -18,6 +18,9 @@ enum LabelStyle {
     case productCellDescriptionLabel
     
     case detailVCDescriptionLebel
+    
+    case mapMarkLabel
+    case mapAddressLabel
 }
 
 final class Label: UILabel {
@@ -42,6 +45,12 @@ final class Label: UILabel {
             
         case .detailVCDescriptionLebel:
             createDetailVCDescriptionLebel(text: text)
+            
+        case .mapMarkLabel:
+            createMapMarkLabel(text: text)
+            
+        case .mapAddressLabel:
+            createMapAddressLebel(text: text)
         }
     }
     
@@ -106,5 +115,21 @@ private extension Label {
         self.textColor = AppColor.Label.gray
         self.numberOfLines = 0
         self.lineBreakMode = .byWordWrapping
+    }
+}
+
+private extension Label {
+    func createMapMarkLabel(text: String) {
+        self.text = text
+        self.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        self.textAlignment = .left
+        self.textColor = AppColor.Label.black
+    }
+    
+    func createMapAddressLebel(text: String) {
+        self.text = text
+        self.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        self.textAlignment = .left
+        self.textColor = AppColor.Label.gray
     }
 }

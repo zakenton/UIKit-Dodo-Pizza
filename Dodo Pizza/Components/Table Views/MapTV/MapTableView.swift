@@ -10,13 +10,13 @@ import SnapKit
 
 final class MapTableView: UITableView {
     
-    private var products: [ProductCartViewModel] = MockProductCartViewModel.products
+    private var userAddress: [Address] = []
     
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
         delegate = self
         dataSource = self
-        registerCell(CartTableViewCell.self)
+        registerCell(MapTableViewCell.self)
     }
     
     required init?(coder: NSCoder) {
@@ -25,18 +25,20 @@ final class MapTableView: UITableView {
 }
 
 extension MapTableView: UITableViewDelegate {
-    
+    func fetchAddress(with userAddress: [Address]) {
+        self.userAddress = userAddress
+    }
 }
 
 extension MapTableView: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        products.count
+        userAddress.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueCell(indexPath) as CartTableViewCell
-        cell.configure(with: products[indexPath.row])
+        let cell = tableView.dequeueCell(indexPath) as MapTableViewCell
+        cell.configure(address: userAddress[indexPath.row])
         return cell
     }
 }
