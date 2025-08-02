@@ -33,7 +33,7 @@ final class ProductCell: UITableViewCell {
     
     var image = Image(style: .productCellImage, imageUrl: "")
     
-    var priceButton = Button(style: .price, text: "")
+    var priceButton = Button(style: .price("0.00"))
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

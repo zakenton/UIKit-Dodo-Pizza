@@ -11,7 +11,7 @@ import SnapKit
 final class DeliveryView: UIView {
     
     // MARK: UI Elements
-    private let myAddressButton = Button(style: .savedAddress, text: "Saved Address")
+    private let myAddressButton = Button(style: .savedAddress("Saved Address"))
     
     let addressTextField: UITextField = {
         let tf = UITextField()
@@ -23,7 +23,7 @@ final class DeliveryView: UIView {
         return tf
     }()
     
-    private let saveAddressButton = Button(style: .useThisAddress, text: "Use this Address")
+    private let saveAddressButton = Button(style: .useThisAddress("Use this Address"))
     
     private let userAddressTableView = MapTableView()
     

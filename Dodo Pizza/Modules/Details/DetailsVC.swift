@@ -21,8 +21,8 @@ final class DetailsVC: UIViewController {
         return view
     }()
 
-    private let dismissViewButton = Button(style: .cross, text: "")
-    private let addToCartButton = Button(style: .addToCart, text: "")
+    private let dismissViewButton = Button(style: .cross)
+    private let addToCartButton = Button(style: .addToCart("0.00"))
     private let productImage = Image(style: .ditailImage, imageUrl: "")
     private let productDescription = Label(style: .detailVCDescriptionLebel, text: "")
     private let sizeSegmentControl = DitailSegmentControl()

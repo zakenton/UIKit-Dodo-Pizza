@@ -10,41 +10,56 @@ import UIKit
 
 enum ButtonStyle {
     case cross
-    case price
-    case addToCart
-    case useThisAddress
-    case savedAddress
-    case additional
+    case price(String)
+    case addToCart(String)
+    case useThisAddress(String)
+    case savedAddress(String)
+    case additional(String)
     case checkout
 }
 
 final class Button: UIButton {
     
-    init(style: ButtonStyle, text: String = "") {
+    private let style: ButtonStyle
+    
+    init(style: ButtonStyle) {
+        self.style = style
         super.init(frame: .zero)
-        switch style {
-        case .cross:
-            createCrossButton()
-        case .price:
-            createPriceButton(price: text)
-        case .addToCart:
-            createAddToCartButton(text: text)
-        case .useThisAddress:
-            createUseThisAddressButton(text: text)
-        case .savedAddress:
-            createSevedAddressButton(text: text)
-        case .additional:
-            createAdditButton(text: text)
-        case .checkout:
-            createCheckoutButton()
-        }
+        configureButton(style: style)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func createCrossButton() {
+    private func configureButton(style: ButtonStyle) {
+        switch style {
+        case .cross:
+            configureCrossButton()
+            
+        case .price(let price):
+            configurePriceButton(price: price)
+            
+        case .addToCart(let text):
+            configureActionButton(text: "from \(text)€", backgroundColor: AppColor.Button.orang1)
+            
+        case .useThisAddress(let text):
+            configureActionButton(text: text, backgroundColor: AppColor.Button.orang1)
+            
+        case .savedAddress(let text):
+            configureSavedAddressButton(text: text)
+            
+        case .additional(let text):
+            configureAdditionalButton(text: text)
+            
+        case .checkout:
+            configureActionButton(text: "Checkout", backgroundColor: AppColor.Button.orang1)
+        }
+    }
+    
+    // MARK: - Button Configurations
+    
+    private func configureCrossButton() {
         var config = UIButton.Configuration.plain()
         config.image = UIImage.cross
         config.cornerStyle = .capsule
@@ -52,96 +67,71 @@ final class Button: UIButton {
         self.configuration = config
     }
     
-    private func createPriceButton(price: String) {
-        var config = UIButton.Configuration.plain()
-
+    private func configurePriceButton(price: String) {
+        var config = baseButtonConfiguration()
+        
         var attributedTitle = AttributedString(price)
-        attributedTitle.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        attributedTitle.font = .boldSystemFont(ofSize: 16)
         attributedTitle.foregroundColor = .black
 
         config.attributedTitle = attributedTitle
-        config.baseForegroundColor = AppColor.Button.orang1
         config.background.backgroundColor = AppColor.Button.orang3
-        config.cornerStyle = .capsule
-
+        config.baseForegroundColor = AppColor.Button.orang1
+        
         self.configuration = config
     }
     
-    private func createAddToCartButton(text: String) {
-        var config = UIButton.Configuration.plain()
+    private func configureActionButton(text: String, backgroundColor: UIColor) {
+        var config = baseButtonConfiguration()
+            
+            var attributedTitle = AttributedString(text)
+            attributedTitle.font = .systemFont(ofSize: 16, weight: .medium)
+            attributedTitle.foregroundColor = .white  // Changed from .brown to .white
 
-        var attributedTitle = AttributedString("from \(text)€")
-        attributedTitle.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        attributedTitle.foregroundColor = .brown
-
-        config.attributedTitle = attributedTitle
-        config.baseForegroundColor = .white
-        config.background.backgroundColor = AppColor.Button.orang1
-        config.cornerStyle = .capsule
-        config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6)
-
-        self.configuration = config
+            config.attributedTitle = attributedTitle
+            config.background.backgroundColor = backgroundColor
+            config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6)
+            config.baseForegroundColor = .white  // Added this line for additional safety
+            
+            self.configuration = config
     }
     
-    private func createUseThisAddressButton(text: String) {
-        var config = UIButton.Configuration.plain()
-
-        var attributedTitle = AttributedString("\(text)")
-        attributedTitle.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        attributedTitle.foregroundColor = .brown
-
-        config.attributedTitle = attributedTitle
-        config.baseForegroundColor = .white
-        config.background.backgroundColor = AppColor.Button.orang1
-        config.cornerStyle = .capsule
-        config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6)
-
-        self.configuration = config
-    }
-    
-    private func createSevedAddressButton(text: String) {
-        var config = UIButton.Configuration.plain()
+    private func configureSavedAddressButton(text: String) {
+        var config = baseButtonConfiguration()
         
         var attributedTitle = AttributedString("📍\(text)")
-        
-        attributedTitle.font = .systemFont(ofSize: 14, weight: .medium)
+        attributedTitle.font = .systemFont(ofSize: 14, weight: .regular)
         attributedTitle.foregroundColor = .black
+        
         config.attributedTitle = attributedTitle
+        config.background.backgroundColor = .systemGray6
         config.baseForegroundColor = .black
-        config.baseBackgroundColor = .lightGray
-        config.cornerStyle = .capsule
+        
         self.configuration = config
     }
     
-    private func createAdditButton(text: String) {
-        self.setTitle(text, for: .normal)
-        self.setTitleColor(.orange, for: .normal)
-        self.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+    private func configureAdditionalButton(text: String) {
+        setTitle(text, for: .normal)
+        setTitleColor(.orange, for: .normal)
+        titleLabel?.font = .systemFont(ofSize: 15, weight: .medium)
     }
     
-    private func createCheckoutButton() {
+    // MARK: - Helpers
+    
+    private func baseButtonConfiguration() -> UIButton.Configuration {
         var config = UIButton.Configuration.plain()
-
-        var attributedTitle = AttributedString("Checkout")
-        attributedTitle.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        attributedTitle.foregroundColor = .brown
-
-        config.attributedTitle = attributedTitle
-        config.baseForegroundColor = .white
-        config.background.backgroundColor = AppColor.Button.orang1
         config.cornerStyle = .capsule
-        config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6)
-
-        self.configuration = config
+        return config
     }
 }
 
 extension Button {
-    
     func updatePrice(_ price: Double) {
+        guard case .price = style else { return }
+        
         var config = self.configuration
         var attributedTitle = AttributedString(String(format: "%.2f€", price))
-        attributedTitle.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        attributedTitle.font = .boldSystemFont(ofSize: 16)
         attributedTitle.foregroundColor = .black
         config?.attributedTitle = attributedTitle
         self.configuration = config

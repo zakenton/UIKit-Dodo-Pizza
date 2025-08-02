@@ -30,8 +30,8 @@ final class CartTableViewCell: UITableViewCell {
     private let optionLabel = Label(style: .cartCellOptionLabel, text: "")
     private let priceLabel = Label(style: .cartCellPriceLabel, text: "")
     private let quantityCounter = QuantityView()
-    private let editButton = Button(style: .additional, text: "Edit")
-    private let removeButton = Button(style: .cross, text: "")
+    private let editButton = Button(style: .additional("edit"))
+    private let removeButton = Button(style: .cross)
     
     // MARK: - Init
     
