@@ -34,6 +34,7 @@ final class DetailsVC: UIViewController {
     // MARK: - Init
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("DetailVC init ✅")
         setupView()
         presenter?.viewDidLoad()
         
@@ -103,11 +104,13 @@ private extension DetailsVC  {
     
     @objc func updateSelectedSize() {
         let index = sizeSegmentControl.selectedIndex
+        print(index)
         presenter?.didSelectSize(index: index)
     }
     
     @objc func updateSelectedDough() {
         let index = doughSegmentControl.selectedIndex
+        print(index)
         presenter?.didSelectDough(index: index)
     }
 }
@@ -150,7 +153,7 @@ private extension DetailsVC {
         dismissViewButton.addTarget(self, action: #selector(dismissView), for: .touchUpInside)
         addToCartButton.addTarget(self, action: #selector(addToCart), for: .touchUpInside)
         sizeSegmentControl.addTarget(self, action: #selector(updateSelectedSize), for: .valueChanged)
-        doughSegmentControl.addTarget(self, action: #selector(updateSelectedDough), for: .touchUpInside)
+        doughSegmentControl.addTarget(self, action: #selector(updateSelectedDough), for: .valueChanged)
     }
     //MARK: setupConstraints
     func setupConstraints() {

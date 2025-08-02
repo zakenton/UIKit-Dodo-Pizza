@@ -14,6 +14,7 @@ enum ImageStyle {
     case productCellImage
     case ditailImage
     case cartImage
+    case emptyView
 }
 
 final class Image: UIImageView {
@@ -34,7 +35,10 @@ final class Image: UIImageView {
             createDetailImage()
             
         case .cartImage:
-            return
+            createCartImage()
+            
+        case .emptyView:
+            createCartEmptyImage()
         }
     }
     
@@ -66,5 +70,19 @@ final class Image: UIImageView {
         self.contentMode = .scaleAspectFill
         self.heightAnchor.constraint(equalToConstant: 0.40 * Layout.screenWidth).isActive = true
         self.widthAnchor.constraint(equalToConstant: 0.40 * Layout.screenWidth).isActive = true
+    }
+    
+    func createCartImage() {
+        self.contentMode = .scaleAspectFill
+        self.clipsToBounds = true
+    }
+    
+    func createCartEmptyImage() {
+        self.image = UIImage(named: "empty view")
+        self.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        self.widthAnchor.constraint(equalToConstant: 130).isActive = true
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.contentMode = .scaleAspectFit
+        self.clipsToBounds = true
     }
 }

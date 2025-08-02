@@ -9,62 +9,36 @@ import Foundation
 import UIKit
 import SnapKit
 
-import UIKit
-import SnapKit
+protocol ICartTableViewCellDelegate: AnyObject {
+    func didTapIncrementQuantity(for cartId: UUID)
+    func didTapDecrementQuantity(for cartId: UUID)
+    func didTapDeleteProduct(with cartId: UUID)
+    func didTapChangeButton(for product: ProductCart)
+}
 
 final class CartTableViewCell: UITableViewCell {
-
-    // MARK: - UI
-    private let productImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        return imageView
-    }()
-
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 16)
-        label.numberOfLines = 1
-        return label
-    }()
-
-    private let optionLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
-        label.textColor = .gray
-        label.numberOfLines = 1
-        return label
-    }()
-
-    private let priceLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
-        label.textColor = .black
-        return label
-    }()
-
-    private let editButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Изменить", for: .normal)
-        button.setTitleColor(.orange, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .medium)
-        return button
-    }()
     
-    private let quantityCounter = QuantityControll()
-
-    private let removeButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(systemName: "xmark"), for: .normal)
-        button.tintColor = .gray
-        return button
-    }()
-
+    // MARK: - Properties
+    
+    weak var delegate: ICartTableViewCellDelegate?
+    private var product: ProductCart?
+    
+    // MARK: - UI Components
+    
+    private let productImageView = Image(style: .cartImage, imageUrl: "")
+    private let titleLabel = Label(style: .cartCellTitleLabel, text: "")
+    private let optionLabel = Label(style: .cartCellOptionLabel, text: "")
+    private let priceLabel = Label(style: .cartCellPriceLabel, text: "")
+    private let quantityCounter = QuantityView()
+    private let editButton = Button(style: .additional, text: "Edit")
+    private let removeButton = Button(style: .cross, text: "")
+    
     // MARK: - Init
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupView()
+        setupActions()
         setupConstraints()
     }
     
@@ -72,28 +46,69 @@ final class CartTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 }
-//MARK: Configure
+
+// MARK: - Configuration
+
 extension CartTableViewCell {
-    func configure(with model: ProductCartViewModel) {
+    func configure(with product: ProductCart) {
+        self.product = product
+        productImageView.image = UIImage(named: product.imageURL)
+        titleLabel.text = product.name
+        optionLabel.text = formattedOptionsString(for: product)
+        priceLabel.text = String(format: "%.2f €", product.price)
+        quantityCounter.setQuantity(product.quantity)
+    }
+    
+    private func formattedOptionsString(for product: ProductCart) -> String {
+        var optionsParts = [String]()
         
-        productImageView.image = UIImage(named: model.imageURL)
-        
-        titleLabel.text = model.name
-        
-        var options = "\(model.size), \(model.dough)"
-        if !model.additive.isEmpty {
-            options += ", \(model.additive)"
+        if let selectedSize = product.size?.first(where: { $0.isSelected }) {
+            optionsParts.append(selectedSize.option)
         }
-        optionLabel.text = options
         
-        priceLabel.text = model.price
+        if let selectedDough = product.dough?.first(where: { $0.isSelected }) {
+            optionsParts.append(selectedDough.option)
+        }
         
-        quantityCounter.setQuantity(model.quantity)
+        if let selectedAdditives = product.additive?
+            .filter({ $0.isSelected })
+            .map({ $0.name }),
+           !selectedAdditives.isEmpty {
+            let additivesString = selectedAdditives.joined(separator: ", ")
+            optionsParts.append(additivesString)
+        }
+        
+        return optionsParts.joined(separator: ", ")
     }
 }
 
-extension CartTableViewCell {
+
+// MARK: - QuantityViewDelegate
+
+extension CartTableViewCell: IQuantityViewDelegate {
+    func didTapPlusButton() {
+        guard let product = product else { return }
+        delegate?.didTapIncrementQuantity(for: product.cartItemId)
+    }
     
+    func didTapMinusButton() {
+        guard let product = product else { return }
+        delegate?.didTapDecrementQuantity(for: product.cartItemId)
+    }
+}
+
+// MARK: - Action Handlers
+
+private extension CartTableViewCell {
+    @objc func changeButtonTapped() {
+        guard let product = product else { return }
+        delegate?.didTapChangeButton(for: product)
+    }
+    
+    @objc func deleteButtonTapped() {
+        guard let product = product else { return }
+        delegate?.didTapDeleteProduct(with: product.cartItemId)
+    }
 }
 
 // MARK: - UI Setup
@@ -108,11 +123,19 @@ private extension CartTableViewCell {
         contentView.addSubview(priceLabel)
         contentView.addSubview(editButton)
     }
+    //MARK: Setup Actions
+    func setupActions() {
+        editButton.addTarget(self, action: #selector(changeButtonTapped), for: .touchUpInside)
+        removeButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
+        quantityCounter.delegate = self
+    }
 
+    //MARK: Setup Constraints
     func setupConstraints() {
         productImageView.snp.makeConstraints { make in
-            make.top.left.equalToSuperview().inset(Layout.offset16)
-            make.size.equalTo(80)
+            make.top.leading.equalToSuperview().inset(16)
+            make.width.equalTo(80)
+            make.height.equalTo(80).priority(.high)
         }
         
         titleLabel.snp.makeConstraints { make in

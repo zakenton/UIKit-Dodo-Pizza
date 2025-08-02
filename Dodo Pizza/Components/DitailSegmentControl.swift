@@ -53,8 +53,11 @@ extension DitailSegmentControl {
         setupSlider()
         
         if let selectedIndex = options.firstIndex(where: { $0.isSelected }) {
+            
+            print("\(selectedIndex )")
             selectIndex(selectedIndex, animated: false)
         } else {
+            self.options[0].isSelected = true
             selectIndex(0, animated: false)
         }
     }

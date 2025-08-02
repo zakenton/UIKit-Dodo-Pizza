@@ -11,15 +11,14 @@ import UIKit
 import SnapKit
 
 
+protocol IQuantityViewDelegate: AnyObject {
+    func didTapPlusButton()
+    func didTapMinusButton()
+}
 
-final class QuantityControll: UIControl {
+final class QuantityView: UIView {
     
-    private var quantity: Int = 1 {
-        didSet {
-            quantityLabel.text = "\(quantity)"
-            sendActions(for: .valueChanged)
-        }
-    }
+    weak var delegate: IQuantityViewDelegate?
     
     private let plusButton: UIButton = {
         let button = UIButton()
@@ -57,24 +56,25 @@ final class QuantityControll: UIControl {
     }
 }
 
-extension QuantityControll {
-    func setQuantity(_ count: Int) {
-        quantity = count
+extension QuantityView {
+    func setQuantity(_ count: UInt) {
+        print("setQuantity")
+        quantityLabel.text = String(count)
     }
 }
 
-private extension QuantityControll {
+private extension QuantityView {
     @objc func plusTapped() {
-        quantity += 1
+        delegate?.didTapPlusButton()
     }
     
     @objc func minusTapped() {
-        if quantity >= 0 { quantity -= 1 }
+        delegate?.didTapMinusButton()
     }
 }
 
 // MARK: - Setup
-private extension QuantityControll {
+private extension QuantityView {
     func setupView() {
         layer.cornerRadius = 15
         backgroundColor = .gray

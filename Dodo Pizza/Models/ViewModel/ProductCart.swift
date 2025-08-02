@@ -17,6 +17,6 @@ struct ProductCart: IProductDisplayable, Codable {
     var dough: [ProductOption]?
     var size: [ProductOption]?
     var additive: [ProductAdditiveView]?
-    var quantiti: UInt
+    var quantity: UInt
 }
 

@@ -67,7 +67,7 @@ extension CartService: ICartServiseInput {
             existingProduct.additive == product.additive
         }) {
             // Увеличиваем количество
-            products[index].quantiti += product.quantiti
+            products[index].quantity += product.quantity
         } else {
             // Добавляем новый продукт
             products.append(product)
@@ -80,8 +80,8 @@ extension CartService: ICartServiseInput {
         var products = getAllProducts()
         
         if let index = products.firstIndex(where: { $0.cartItemId == cartId }) {
-            if products[index].quantiti > 1 {
-                products[index].quantiti -= 1
+            if products[index].quantity > 1 {
+                products[index].quantity -= 1
             } else {
                 products.remove(at: index)
             }
@@ -93,7 +93,7 @@ extension CartService: ICartServiseInput {
         var products = getAllProducts()
         
         if let index = products.firstIndex(where: { $0.cartItemId == cartId }) {
-            products[index].quantiti += 1
+            products[index].quantity += 1
             saveAllProducts(products)
         }
     }

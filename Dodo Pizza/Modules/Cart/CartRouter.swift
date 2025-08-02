@@ -1,0 +1,29 @@
+//
+//  CartRouter.swift
+//  Dodo Pizza
+//
+//  Created by Zakhar on 28.07.25.
+//
+
+import Foundation
+
+import Foundation
+import UIKit
+
+
+final class CartRouter {
+    
+    weak var cartVC: CartVC?
+    weak var cartPresenter: ICartPresenterInput?
+}
+
+extension CartRouter: IRouter {
+    func saveProduct(_ product: IProductDisplayable) {
+        cartPresenter?.saveAdditedProduct(product as! ProductCart)
+    }
+    
+    func showDitailView(with product: IProductDisplayable) {
+        let detailsVC = DetailBuilder.build(product: product, router: self)
+        cartVC?.present(detailsVC, animated: true)
+    }
+}

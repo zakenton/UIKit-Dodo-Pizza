@@ -31,7 +31,7 @@ extension ProductView {
             dough: self.dough,
             size: self.size,
             additive: self.additive,
-            quantiti: 1
+            quantity: 1
         )
     }
 }
@@ -42,7 +42,7 @@ struct ProductOption: Codable, Equatable, Hashable {
     let price: Double
 }
 
-struct ProductAdditiveView: Equatable, Codable {
+struct ProductAdditiveView: Equatable, Codable, Hashable {
     let name: String
     let price: Double
     let imageURL: String

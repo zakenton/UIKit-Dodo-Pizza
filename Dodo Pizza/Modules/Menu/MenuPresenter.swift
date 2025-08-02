@@ -12,9 +12,9 @@ class MenuPresenter {
     weak var menuVC: IMenuVCInput?
     
     private let interactor: IMenuInteractorInput
-    private let router: IMenuRouter
+    private let router: IRouter
     
-    init(interactor: MenuInteractor, router: IMenuRouter) {
+    init(interactor: MenuInteractor, router: IRouter) {
         self.interactor = interactor
         self.router = router
     }

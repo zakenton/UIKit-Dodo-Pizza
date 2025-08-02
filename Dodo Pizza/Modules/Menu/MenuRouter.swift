@@ -15,12 +15,12 @@ final class MenuRouter {
     weak var menuPresenter: IMenuPresenterInput?
 }
 
-extension MenuRouter: IMenuRouter {
-    func saveProduct(_ product: ProductView) {
-        menuPresenter?.saveProduct(product)
+extension MenuRouter: IRouter {
+    func saveProduct(_ product: IProductDisplayable) {
+        menuPresenter?.saveProduct(product as! ProductView)
     }
     
-    func showDitailView(with product: ProductView) {
+    func showDitailView(with product: IProductDisplayable) {
         let detailsVC = DetailBuilder.build(product: product, router: self)
         menuVC?.present(detailsVC, animated: true)
     }

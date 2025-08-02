@@ -7,9 +7,9 @@
 
 import Foundation
 
-protocol IMenuRouter: AnyObject {
-    func showDitailView(with product: ProductView)
-    func saveProduct(_ product: ProductView)
+protocol IRouter: AnyObject {
+    func showDitailView(with product: IProductDisplayable)
+    func saveProduct(_ product: IProductDisplayable)
 }
 
 protocol IMenuVCInput: AnyObject {

@@ -53,7 +53,7 @@ final class DependencyContainer {
         
         mapAssembly = MapAssembly()
         
-        cartAssembly = CartAssembly()
+        cartAssembly = CartAssembly(cartServise: cartServise)
         
         rootTabBarController = RootTabBarController(menuAssembly: menuAssembly,
                                                     mapAssembly: mapAssembly,
