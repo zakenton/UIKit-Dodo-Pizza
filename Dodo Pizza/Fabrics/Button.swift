@@ -14,11 +14,13 @@ enum ButtonStyle {
     case addToCart
     case useThisAddress
     case savedAddress
+    case additional
+    case checkout
 }
 
 final class Button: UIButton {
     
-    init(style: ButtonStyle, text: String) {
+    init(style: ButtonStyle, text: String = "") {
         super.init(frame: .zero)
         switch style {
         case .cross:
@@ -31,6 +33,10 @@ final class Button: UIButton {
             createUseThisAddressButton(text: text)
         case .savedAddress:
             createSevedAddressButton(text: text)
+        case .additional:
+            createAdditButton(text: text)
+        case .checkout:
+            createCheckoutButton()
         }
     }
     
@@ -104,6 +110,28 @@ final class Button: UIButton {
         config.baseForegroundColor = .black
         config.baseBackgroundColor = .lightGray
         config.cornerStyle = .capsule
+        self.configuration = config
+    }
+    
+    private func createAdditButton(text: String) {
+        self.setTitle(text, for: .normal)
+        self.setTitleColor(.orange, for: .normal)
+        self.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+    }
+    
+    private func createCheckoutButton() {
+        var config = UIButton.Configuration.plain()
+
+        var attributedTitle = AttributedString("Checkout")
+        attributedTitle.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        attributedTitle.foregroundColor = .brown
+
+        config.attributedTitle = attributedTitle
+        config.baseForegroundColor = .white
+        config.background.backgroundColor = AppColor.Button.orang1
+        config.cornerStyle = .capsule
+        config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6)
+
         self.configuration = config
     }
 }

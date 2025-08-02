@@ -94,8 +94,8 @@ extension MenuInteractor: IMenuInteractorInput {
     }
     
     func saveProduct(_ product: ProductView) {
-        let cartProduct = product.toCartUserDefaults()
-        cartServise.saveOrIncrementProduct(cartProduct)
+        let productCart = product.toProductCart()
+        cartServise.saveOrIncrementProduct(productCart)
         print("Product saved: " + product.name)
     }
 }

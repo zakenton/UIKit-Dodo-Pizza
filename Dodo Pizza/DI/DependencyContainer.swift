@@ -21,7 +21,7 @@ final class DependencyContainer {
 //    let categoriesLoader: CategoriesLoader
     let loaderService: LoaderService
     
-    let cartServise: CartUserDefaultsService
+    let cartServise: CartService
     
     
     let menuAssembly: MenuAssembly
@@ -47,13 +47,13 @@ final class DependencyContainer {
 //        categoriesLoader = CategoriesLoader(session: session,
 //                                            decoder: decoder)
         
-        cartServise = CartUserDefaultsService(userDefaults: userDefaults, encoder: encoder, decoder: decoder)
+        cartServise = CartService(userDefaults: userDefaults, encoder: encoder, decoder: decoder)
         
         menuAssembly = MenuAssembly(loaderService: loaderService, cartServise: cartServise)
         
         mapAssembly = MapAssembly()
         
-        cartAssembly = CartAssembly()
+        cartAssembly = CartAssembly(cartServise: cartServise)
         
         rootTabBarController = RootTabBarController(menuAssembly: menuAssembly,
                                                     mapAssembly: mapAssembly,

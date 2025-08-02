@@ -10,9 +10,9 @@ import UIKit
 
 final class DetailRouter {
     weak var detailsVC: DetailsVC?
-    private let router: IMenuRouter
+    private let router: IRouter
     
-    init(router: IMenuRouter) {
+    init(router: IRouter) {
         self.router = router
     }
 }
@@ -24,7 +24,7 @@ extension DetailRouter: IDetailRouterInput {
     }
     
     func routeProductToSave(_ product: any IProductDisplayable) {
-        router.saveProduct(product as! ProductView)
+        router.saveProduct(product)
         closeDetails()
     }
 }

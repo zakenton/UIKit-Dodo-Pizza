@@ -9,8 +9,13 @@ import Foundation
 
 final class DetailPresenter {
     weak var detailVC: DetailsVC?
-    var interactor: IDetailInteractorInput?
-    var router: IDetailRouterInput?
+    private let interactor: IDetailInteractorInput?
+    private let router: IDetailRouterInput?
+    
+    init(interactor: IDetailInteractorInput?, router: IDetailRouterInput?) {
+        self.interactor = interactor
+        self.router = router
+    }
 }
 
 // MARK: Private Logic

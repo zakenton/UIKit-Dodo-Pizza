@@ -10,16 +10,17 @@ import UIKit
 
 final class DetailBuilder {
     
-    static func build(product: IProductDisplayable, router: IMenuRouter) -> DetailsVC {
+    static func build(product: IProductDisplayable, router: IRouter) -> DetailsVC {
         let router = DetailRouter(router: router)
-        let presenter = DetailPresenter()
-        let view = DetailsVC(presenter: presenter)
+        
         let interactor = DetailInteractor(product: product)
+        
+        let presenter = DetailPresenter(interactor: interactor, router: router)
+        let view = DetailsVC(presenter: presenter)
+        
         
         router.detailsVC = view
         presenter.detailVC = view
-        presenter.interactor = interactor
-        presenter.router = router
         interactor.presenter = presenter
         
         return view
