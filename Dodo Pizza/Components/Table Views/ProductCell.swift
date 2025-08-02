@@ -27,11 +27,11 @@ final class ProductCell: UITableViewCell {
         return stackView
     }()
     
-    var title = Label(style: .productCellLabel, text: "")
+    var title = Label(style: .productCellTitle)
     
-    var descriptions = Label(style: .productCellDescriptionLabel, text: "")
+    var descriptions = Label(style: .productCellDescription)
     
-    var image = Image(style: .productCellImage, imageUrl: "")
+    var image = ImageView(style: .productCell)
     
     var priceButton = Button(style: .price("0.00"))
     

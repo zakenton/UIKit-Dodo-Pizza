@@ -41,7 +41,7 @@ final class Button: UIButton {
             configurePriceButton(price: price)
             
         case .addToCart(let text):
-            configureActionButton(text: "from \(text)€", backgroundColor: AppColor.Button.orang1)
+            configureActionButton(text: "\(text)€", backgroundColor: AppColor.Button.orang1)
             
         case .useThisAddress(let text):
             configureActionButton(text: text, backgroundColor: AppColor.Button.orang1)
@@ -86,12 +86,12 @@ final class Button: UIButton {
             
             var attributedTitle = AttributedString(text)
             attributedTitle.font = .systemFont(ofSize: 16, weight: .medium)
-            attributedTitle.foregroundColor = .white  // Changed from .brown to .white
+            attributedTitle.foregroundColor = .white
 
             config.attributedTitle = attributedTitle
             config.background.backgroundColor = backgroundColor
             config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6)
-            config.baseForegroundColor = .white  // Added this line for additional safety
+            config.baseForegroundColor = .white
             
             self.configuration = config
     }
@@ -127,13 +127,42 @@ final class Button: UIButton {
 
 extension Button {
     func updatePrice(_ price: Double) {
-        guard case .price = style else { return }
+        switch style {
+        case .price:
+            updatePriceButton(price)
+        case .addToCart:
+            updateAddToCartButton(price)
+        default:
+            break
+        }
+    }
+    
+    private func updatePriceButton(_ price: Double) {
+        var config = self.configuration ?? baseButtonConfiguration()
         
-        var config = self.configuration
-        var attributedTitle = AttributedString(String(format: "%.2f€", price))
+        var attributedTitle = AttributedString(String(format: "from %.2f€", price))
         attributedTitle.font = .boldSystemFont(ofSize: 16)
         attributedTitle.foregroundColor = .black
-        config?.attributedTitle = attributedTitle
+
+        config.attributedTitle = attributedTitle
+        config.background.backgroundColor = AppColor.Button.orang3
+        config.baseForegroundColor = AppColor.Button.orang1
+        
+        self.configuration = config
+    }
+    
+    private func updateAddToCartButton(_ price: Double) {
+        var config = self.configuration ?? baseButtonConfiguration()
+        
+        var attributedTitle = AttributedString(String(format: "%.2f€", price))
+        attributedTitle.font = .systemFont(ofSize: 16, weight: .medium)
+        attributedTitle.foregroundColor = .white
+
+        config.attributedTitle = attributedTitle
+        config.background.backgroundColor = AppColor.Button.orang1
+        config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6)
+        config.baseForegroundColor = .white
+        
         self.configuration = config
     }
 }

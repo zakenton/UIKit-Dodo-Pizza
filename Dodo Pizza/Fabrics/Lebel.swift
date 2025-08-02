@@ -5,193 +5,146 @@
 //  Created by Zakhar on 29.06.25.
 //
 
-import Foundation
 import UIKit
 
 enum LabelStyle {
     case menuLabel
-    
-    case bannerTitleLabel
-    case bannerPriceLabel
-    
-    case productCellLabel
-    case productCellDescriptionLabel
-    
-    case detailVCDescriptionLebel
-    
-    case mapMarkLabel
-    case mapAddressLabel
-    
-    case cartCellTitleLabel
-    case cartCellOptionLabel
-    case cartCellPriceLabel
-    case cartEmptyTitleLabel
-    case cartEmptyDescriptionLabel
+    case bannerTitle
+    case bannerPrice
+    case productCellTitle
+    case productCellDescription
+    case detailDescription
+    case mapMark
+    case mapAddress
+    case cartTitle
+    case cartOption
+    case cartPrice
+    case emptyTitle
+    case emptyDescription
 }
 
 final class Label: UILabel {
     
-    init(style: LabelStyle, text: String) {
+    init(style: LabelStyle, text: String = "") {
         super.init(frame: .zero)
-        switch style {
-        case .menuLabel:
-            createMenuLebel(text: text)
-            
-        case .bannerTitleLabel:
-            createBannerTitleLabel(text: text)
-            
-        case .bannerPriceLabel:
-            createBannerPriceLebel(text: text)
-            
-        case .productCellLabel:
-            createProductCellLabel(text: text)
-            
-        case .productCellDescriptionLabel:
-            createProductCellDescriptionLabel(text: text)
-            
-        case .detailVCDescriptionLebel:
-            createDetailVCDescriptionLebel(text: text)
-            
-        case .mapMarkLabel:
-            createMapMarkLabel(text: text)
-            
-        case .mapAddressLabel:
-            createMapAddressLebel(text: text)
-            
-        case .cartCellTitleLabel:
-            createCartTitleLabel(text: text)
-            
-        case .cartCellOptionLabel:
-            createCartOptionLabel(text: text)
-            
-        case .cartCellPriceLabel:
-            createCartPriceLabel(text: text)
-            
-        case .cartEmptyTitleLabel:
-            createCartEmptyTitleLabel(text: text)
-            
-        case .cartEmptyDescriptionLabel:
-            createCartEmptyDescriptionLabel(text: text)
-        }
+        configure(with: style, text: text)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-}
-
-// MARK: - Menu
-private extension Label {
     
-    func createMenuLebel(text: String) {
+    private func configure(with style: LabelStyle, text: String) {
         self.text = text
-        self.font = UIFont.systemFont(ofSize: 25, weight: .medium)
-        self.textAlignment = .left
-        self.textColor = AppColor.Label.black
-    }
-}
-
-// MARK: - Banner
-private extension Label {
-    
-    func createBannerTitleLabel(text: String) {
-        self.text = text
-        self.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        self.textAlignment = .left
-        self.textColor = AppColor.Label.black
-    }
-    
-    func createBannerPriceLebel(text: String) {
-        self.text = text
-        self.font = UIFont.systemFont(ofSize: 14)
-        self.textAlignment = .left
-        self.textColor = AppColor.Label.black
-    }
-}
-
-// MARK: - Product Cell
-private extension Label {
-    
-    func createProductCellLabel(text: String)  {
-        self.text = text
-        self.font = UIFont.systemFont(ofSize: 20, weight: .medium)
-        self.textAlignment = .left
-        self.textColor = AppColor.Label.black
+        translatesAutoresizingMaskIntoConstraints = false
+        
+        switch style {
+        case .menuLabel:
+            configureMenuLabel()
+        case .bannerTitle:
+            configureBannerTitle()
+        case .bannerPrice:
+            configureBannerPrice()
+        case .productCellTitle:
+            configureProductCellTitle()
+        case .productCellDescription:
+            configureProductCellDescription()
+        case .detailDescription:
+            configureDetailDescription()
+        case .mapMark:
+            configureMapMark()
+        case .mapAddress:
+            configureMapAddress()
+        case .cartTitle:
+            configureCartTitle()
+        case .cartOption:
+            configureCartOption()
+        case .cartPrice:
+            configureCartPrice()
+        case .emptyTitle:
+            configureEmptyTitle()
+        case .emptyDescription:
+            configureEmptyDescription()
+        }
     }
     
-    func createProductCellDescriptionLabel(text: String) {
-        self.text = text
-        self.font = UIFont.systemFont(ofSize: 15, weight: .medium)
-        self.textAlignment = .left
-        self.textColor = AppColor.Label.gray
-    }
-}
-
-
-//MARK: DetailVC
-private extension Label {
+    // MARK: - Configuration Methods
     
-    func createDetailVCDescriptionLebel(text: String) {
-        self.text = text
-        self.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        self.textAlignment = .center
-        self.textColor = AppColor.Label.gray
-        self.numberOfLines = 0
-        self.lineBreakMode = .byWordWrapping
-    }
-}
-
-//MARK: MapVC
-private extension Label {
-    func createMapMarkLabel(text: String) {
-        self.text = text
-        self.font = UIFont.systemFont(ofSize: 18, weight: .medium)
-        self.textAlignment = .left
-        self.textColor = AppColor.Label.black
+    private func configureMenuLabel() {
+        font = .systemFont(ofSize: 25, weight: .medium)
+        textAlignment = .left
+        textColor = AppColor.Label.black
     }
     
-    func createMapAddressLebel(text: String) {
-        self.text = text
-        self.font = UIFont.systemFont(ofSize: 15, weight: .medium)
-        self.textAlignment = .left
-        self.textColor = AppColor.Label.gray
-    }
-}
-
-//MARK: Cart TableViewCell
-private extension Label {
-    func createCartTitleLabel(text: String) {
-        self.font = UIFont.boldSystemFont(ofSize: 16)
-        self.numberOfLines = 1
+    private func configureBannerTitle() {
+        font = .systemFont(ofSize: 16, weight: .medium)
+        textAlignment = .left
+        textColor = AppColor.Label.black
     }
     
-    func createCartOptionLabel(text: String) {
-        self.font = UIFont.systemFont(ofSize: 14)
-        self.textColor = AppColor.Label.gray
-        self.numberOfLines = 1
+    private func configureBannerPrice() {
+        font = .systemFont(ofSize: 14)
+        textAlignment = .left
+        textColor = AppColor.Label.black
     }
     
-    func createCartPriceLabel(text: String) {
-        self.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
-        self.textColor = AppColor.Label.black
-    }
-}
-
-//MARK: Cart Empty View
-
-private extension Label {
-    func createCartEmptyTitleLabel(text: String) {
-        self.text = text
-        self.font = UIFont.systemFont(ofSize: 22, weight: .bold)
-        self.textAlignment = .center
-        self.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        self.translatesAutoresizingMaskIntoConstraints = false
+    private func configureProductCellTitle() {
+        font = .systemFont(ofSize: 20, weight: .medium)
+        textAlignment = .left
+        textColor = AppColor.Label.black
     }
     
-    func createCartEmptyDescriptionLabel(text: String) {
-        self.text = text
-        self.numberOfLines = 0
-        self.font = UIFont.systemFont(ofSize: 15, weight: .medium)
-        self.textAlignment = .center
+    private func configureProductCellDescription() {
+        font = .systemFont(ofSize: 15, weight: .medium)
+        textAlignment = .left
+        textColor = AppColor.Label.gray
+    }
+    
+    private func configureDetailDescription() {
+        font = .systemFont(ofSize: 16, weight: .medium)
+        textAlignment = .center
+        textColor = AppColor.Label.gray
+        numberOfLines = 0
+        lineBreakMode = .byWordWrapping
+    }
+    
+    private func configureMapMark() {
+        font = .systemFont(ofSize: 18, weight: .medium)
+        textAlignment = .left
+        textColor = AppColor.Label.black
+    }
+    
+    private func configureMapAddress() {
+        font = .systemFont(ofSize: 15, weight: .medium)
+        textAlignment = .left
+        textColor = AppColor.Label.gray
+    }
+    
+    private func configureCartTitle() {
+        font = .boldSystemFont(ofSize: 16)
+        numberOfLines = 1
+    }
+    
+    private func configureCartOption() {
+        font = .systemFont(ofSize: 14)
+        textColor = AppColor.Label.gray
+        numberOfLines = 1
+    }
+    
+    private func configureCartPrice() {
+        font = .systemFont(ofSize: 16, weight: .semibold)
+        textColor = AppColor.Label.black
+    }
+    
+    private func configureEmptyTitle() {
+        font = .systemFont(ofSize: 22, weight: .bold)
+        textAlignment = .center
+        heightAnchor.constraint(equalToConstant: 40).isActive = true
+    }
+    
+    private func configureEmptyDescription() {
+        numberOfLines = 0
+        font = .systemFont(ofSize: 15, weight: .medium)
+        textAlignment = .center
     }
 }

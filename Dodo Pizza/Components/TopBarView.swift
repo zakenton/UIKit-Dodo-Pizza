@@ -10,7 +10,7 @@ import SnapKit
 
 class TopBarView: UIView {
     
-    private let headerImageView = Image(style: .logoHeaderImage, imageUrl: "")
+    private let headerImageView = ImageView(style: .logoHeader)
     
     // MARK: - Init
     override init(frame: CGRect) {

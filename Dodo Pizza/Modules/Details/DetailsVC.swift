@@ -23,8 +23,8 @@ final class DetailsVC: UIViewController {
 
     private let dismissViewButton = Button(style: .cross)
     private let addToCartButton = Button(style: .addToCart("0.00"))
-    private let productImage = Image(style: .ditailImage, imageUrl: "")
-    private let productDescription = Label(style: .detailVCDescriptionLebel, text: "")
+    private let productImage = ImageView(style: .detail)
+    private let productDescription = Label(style: .detailDescription)
     private let sizeSegmentControl = DitailSegmentControl()
     private let doughSegmentControl = DitailSegmentControl()
     private let additivesCollection = AdditivesCollectionView()
@@ -104,13 +104,11 @@ private extension DetailsVC  {
     
     @objc func updateSelectedSize() {
         let index = sizeSegmentControl.selectedIndex
-        print(index)
         presenter?.didSelectSize(index: index)
     }
     
     @objc func updateSelectedDough() {
         let index = doughSegmentControl.selectedIndex
-        print(index)
         presenter?.didSelectDough(index: index)
     }
 }

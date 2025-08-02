@@ -10,9 +10,9 @@ import SnapKit
 
 final class MapTableViewCell: UITableViewCell {
     //MARK: UIElements
-    private let markLabel = Label(style: .mapMarkLabel, text: "")
+    private let markLabel = Label(style: .mapMark)
     
-    private let addressLabel = Label(style: .mapAddressLabel, text: "")
+    private let addressLabel = Label(style: .mapAddress)
     
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

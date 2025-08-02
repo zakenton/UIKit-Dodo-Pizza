@@ -5,84 +5,98 @@
 //  Created by Zakhar on 29.06.25.
 //
 
-import Foundation
 import UIKit
 
 enum ImageStyle {
-    case logoHeaderImage
-    case bannerCellImage
-    case productCellImage
-    case ditailImage
-    case cartImage
+    case logoHeader
+    case bannerCell
+    case productCell
+    case detail
+    case cart
     case emptyView
 }
 
-final class Image: UIImageView {
+final class ImageView: UIImageView {
     
-    init(style: ImageStyle, imageUrl: String) {
+    private let style: ImageStyle
+    private let imageUrl: String?
+    
+    init(style: ImageStyle, imageUrl: String? = nil) {
+        self.style = style
+        self.imageUrl = imageUrl
         super.init(frame: .zero)
-        
-        switch style {
-        
-        case .logoHeaderImage: createLogoHeaderImage()
-            
-        case .bannerCellImage: createBannerCellImage()
-            
-        case .productCellImage:
-            createMenuImage()
-            
-        case .ditailImage:
-            createDetailImage()
-            
-        case .cartImage:
-            createCartImage()
-            
-        case .emptyView:
-            createCartEmptyImage()
-        }
+        configureImageView()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func createLogoHeaderImage() {
-        self.image = UIImage(named: "logoDodoPizza")
-        self.contentMode = .scaleAspectFit
-        self.clipsToBounds = true
+    private func configureImageView() {
+        translatesAutoresizingMaskIntoConstraints = false
+        clipsToBounds = true
+        
+        switch style {
+        case .logoHeader:
+            configureLogoHeader()
+        case .bannerCell:
+            configureBannerCell()
+        case .productCell:
+            configureProductCell()
+        case .detail:
+            configureDetailImage()
+        case .cart:
+            configureCartImage()
+        case .emptyView:
+            configureEmptyView()
+        }
     }
     
-    func createBannerCellImage() {
-        self.contentMode = .scaleAspectFill
-        self.clipsToBounds = true
-        self.widthAnchor.constraint(equalToConstant: Layout.screenWidth * 0.20).isActive = true
-        self.heightAnchor.constraint(equalToConstant: Layout.screenWidth * 0.20).isActive = true
+    // MARK: - Configuration Methods
+    
+    private func configureLogoHeader() {
+        image = UIImage(named: "logoDodoPizza")
+        contentMode = .scaleAspectFit
     }
     
-    func createDetailImage() {
-        self.contentMode = .scaleAspectFit
-        self.heightAnchor.constraint(equalToConstant: 0.70 * Layout.screenWidth).isActive = true
-        self.widthAnchor.constraint(equalToConstant: 0.70 * Layout.screenWidth).isActive = true
+    private func configureBannerCell() {
+        contentMode = .scaleAspectFill
+        let size = Layout.screenWidth * 0.20
+        NSLayoutConstraint.activate([
+            widthAnchor.constraint(equalToConstant: size),
+            heightAnchor.constraint(equalToConstant: size)
+        ])
     }
     
-    func createMenuImage() {
-        self.image = UIImage.hawaii
-        self.contentMode = .scaleAspectFill
-        self.heightAnchor.constraint(equalToConstant: 0.40 * Layout.screenWidth).isActive = true
-        self.widthAnchor.constraint(equalToConstant: 0.40 * Layout.screenWidth).isActive = true
+    private func configureProductCell() {
+        image = UIImage.hawaii
+        contentMode = .scaleAspectFill
+        let size = Layout.screenWidth * 0.40
+        NSLayoutConstraint.activate([
+            widthAnchor.constraint(equalToConstant: size),
+            heightAnchor.constraint(equalToConstant: size)
+        ])
     }
     
-    func createCartImage() {
-        self.contentMode = .scaleAspectFill
-        self.clipsToBounds = true
+    private func configureDetailImage() {
+        contentMode = .scaleAspectFit
+        let size = Layout.screenWidth * 0.70
+        NSLayoutConstraint.activate([
+            widthAnchor.constraint(equalToConstant: size),
+            heightAnchor.constraint(equalToConstant: size)
+        ])
     }
     
-    func createCartEmptyImage() {
-        self.image = UIImage(named: "empty view")
-        self.heightAnchor.constraint(equalToConstant: 200).isActive = true
-        self.widthAnchor.constraint(equalToConstant: 130).isActive = true
-        self.translatesAutoresizingMaskIntoConstraints = false
-        self.contentMode = .scaleAspectFit
-        self.clipsToBounds = true
+    private func configureCartImage() {
+        contentMode = .scaleAspectFill
+    }
+    
+    private func configureEmptyView() {
+        image = UIImage(named: "empty view")
+        contentMode = .scaleAspectFit
+        NSLayoutConstraint.activate([
+            widthAnchor.constraint(equalToConstant: 130),
+            heightAnchor.constraint(equalToConstant: 200)
+        ])
     }
 }

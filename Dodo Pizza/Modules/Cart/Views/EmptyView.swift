@@ -2,13 +2,13 @@ import UIKit
 
 class EmptyView: UIView {
     
-    var emptyImageView = Image(style: .emptyView, imageUrl: "")
+    var emptyImageView = ImageView(style: .emptyView)
     
-    var emptyTitleLabel = Label(style: .cartEmptyTitleLabel, text: "Nothing here yet... 🍕")
+    var emptyTitleLabel = Label(style: .emptyTitle, text: "Nothing here yet... 🍕")
     
-    var emptyDescriptionLabel = Label(style: .cartEmptyDescriptionLabel, text: "Add a pizza to your cart! Or maybe two)")
+    var emptyDescriptionLabel = Label(style: .emptyDescription, text: "Add a pizza to your cart! Or maybe two)")
     
-    var emptyShippingLabel = Label(style: .cartEmptyDescriptionLabel, text: "We'll deliver your order from €10🚀")
+    var emptyShippingLabel = Label(style: .emptyDescription, text: "We'll deliver your order from €10🚀")
     
     override init(frame: CGRect) {
         super.init(frame: frame)

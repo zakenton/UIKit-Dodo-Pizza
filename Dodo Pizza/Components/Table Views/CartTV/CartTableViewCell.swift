@@ -25,10 +25,10 @@ final class CartTableViewCell: UITableViewCell {
     
     // MARK: - UI Components
     
-    private let productImageView = Image(style: .cartImage, imageUrl: "")
-    private let titleLabel = Label(style: .cartCellTitleLabel, text: "")
-    private let optionLabel = Label(style: .cartCellOptionLabel, text: "")
-    private let priceLabel = Label(style: .cartCellPriceLabel, text: "")
+    private let productImageView = ImageView(style: .cart, imageUrl: "")
+    private let titleLabel = Label(style: .cartTitle)
+    private let optionLabel = Label(style: .cartOption)
+    private let priceLabel = Label(style: .cartPrice)
     private let quantityCounter = QuantityView()
     private let editButton = Button(style: .additional("edit"))
     private let removeButton = Button(style: .cross)

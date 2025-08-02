@@ -12,7 +12,7 @@ import SnapKit
 final class CartBottomView: UIView {
     
     private let orderButton = Button(style: .checkout)
-    private let priceLabel = Label(style: .productCellLabel, text: "26.00€")
+    private let priceLabel = Label(style: .cartPrice)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
