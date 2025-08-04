@@ -17,6 +17,7 @@ class MenuVC: UIViewController {
     
     
     private var products: [ProductView] = []
+    private var banners: [ProductView] = []
     
     private var presenter: IMenuPresenterInput
     
@@ -29,7 +30,7 @@ class MenuVC: UIViewController {
         
         presenter.getBanners()
         presenter.getCategories()
-        presenter.getProducts(by: categoriesCarousel.selectedCategory)
+        
     }
     
     
@@ -46,28 +47,25 @@ class MenuVC: UIViewController {
 // MARK: - View Input
 extension MenuVC: IMenuVCInput {
     func showProducts(_ products: [ProductView]) {
-        print("showProducts")
         print(products.count)
         self.products = products
-        tableView.reloadData()
+        tableView.reloadSections(IndexSet(integer: MenuCells.productList.rawValue), with: .fade)
     }
     
     func showBanners(_ banners: [ProductView]) {
-        print("showBanners")
         print(banners.count)
-        updateTableHeader(banners)
+        self.banners = banners
+        tableView.reloadSections(IndexSet(integer: MenuCells.banner.rawValue), with: .fade)
     }
     
     func showCategories(_ categories: [CategoryView]) {
-        print("showCategories")
         print(categories.count)
         categoriesCarousel.fetchCategoies(categories: categories)
         categoriesCarousel.onCategorySelect = { [weak self ] category in
             self?.presenter.getProducts(by: category)
         }
+        presenter.getProducts(by: categoriesCarousel.selectedCategory)
     }
-    
-    
 }
 
 // MARK: - View Output
@@ -77,36 +75,99 @@ extension MenuVC: ProductCellDelegate {
     }
 }
 
-
+//MARK: Cells ENUM
+enum MenuCells: Int, CaseIterable {
+    case topBar
+    case banner
+    case productList
+}
 
 // MARK: - TableView Delegate
 extension MenuVC: UITableViewDelegate {
     
+    ///проблема была не в constraits TopBarView и не в кортинке внутри него
+    ///по какойто причине к кажной секции добался пустой Header
+    ///если выставить высоту на 0  Header вроде как полностью уходит с view
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 40
+        guard let menuSections = MenuCells.init(rawValue: section) else {return 0}
+        
+        switch menuSections {
+        case .topBar:
+            return 0
+        case .banner:
+            return 0
+        case .productList:
+            return 40
+        }
     }
+    
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        guard let menuSection = MenuCells(rawValue: indexPath.section) else { return 0 }
+//        
+//        switch menuSection {
+//        case .topBar:
+//            return UITableView.automaticDimension
+//        case .banner:
+//            return UITableView.automaticDimension
+//        case .tableView:
+//            return UITableView.automaticDimension
+//        }
+//    }
 }
 
 // MARK: - TableView DataSource
 extension MenuVC: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return MenuCells.allCases.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return products.count
+        guard let menuSections = MenuCells.init(rawValue: section) else {return 0}
+        
+        switch menuSections {
+        case .topBar:
+            return 1
+        case .banner:
+            return 1
+        case .productList:
+            return products.count
+        }
     }
     
+    // нет смысла использовать заглушку в виде пустого View
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return categoriesCarousel
+        guard let menuSections = MenuCells.init(rawValue: section) else {return nil}
+        
+        switch menuSections {
+        case .topBar:
+            return nil
+        case .banner:
+            return nil
+        case .productList:
+            return categoriesCarousel
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueCell(indexPath) as ProductCell
-        cell.update(with: products[indexPath.row])
-        cell.delegate = self
-        return cell
+        guard let menuSections = MenuCells.init(rawValue: indexPath.section) else {return UITableViewCell()}
+        
+        switch menuSections {
+        case .topBar:
+            let cell = tableView.dequeueCell(indexPath) as TopBarCell
+            return cell
+        case .banner:
+            let cell = tableView.dequeueCell(indexPath) as BannerCell
+            cell.setCarousel(with: banners)
+            return cell
+        case .productList:
+            let cell = tableView.dequeueCell(indexPath) as ProductCell
+            cell.update(with: products[indexPath.row])
+            cell.delegate = self
+            return cell
+        }
     }
 }
 
@@ -116,7 +177,6 @@ private extension MenuVC {
     func setupView() {
         view.backgroundColor = .systemBackground
         view.addSubview(tableView)
-        setupTableHeader()
     }
     
     func setupConstraint() {
@@ -126,51 +186,8 @@ private extension MenuVC {
     }
     
     func registerCell() {
+        tableView.registerCell(TopBarCell.self)
+        tableView.registerCell(BannerCell.self)
         tableView.registerCell(ProductCell.self)
-    }
-    
-    // MARK: TableHeader
-    func setupTableHeader() {
-        let container = UIView()
-        
-        let topBar = TopBarView()
-        let bannerLabel = BannerLabelView()
-        bannerLabel.setText("Bestsellers")
-        let bannersCarousel = BannerCarouselView()
-        
-        container.addSubview(topBar)
-        container.addSubview(bannerLabel)
-        container.addSubview(bannersCarousel)
-        
-        topBar.snp.makeConstraints { make in
-            make.top.left.right.equalToSuperview()
-        }
-        
-        bannerLabel.snp.makeConstraints { make in
-            make.top.equalTo(topBar.snp.bottom).offset(Layout.offset6)
-            make.left.right.equalToSuperview()
-        }
-        
-        bannersCarousel.snp.makeConstraints { make in
-            make.top.equalTo(bannerLabel.snp.bottom).offset(Layout.offset6)
-            make.left.right.equalToSuperview()
-            make.bottom.equalToSuperview()
-            make.height.equalTo(150)
-        }
-        
-        container.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 250)
-        tableView.tableHeaderView = container
-    }
-    
-
-    
-    func updateTableHeader(_ banners: [ProductView]) {
-        if let headerView = tableView.tableHeaderView {
-            for subview in headerView.subviews {
-                if let bannersCarousel = subview as? BannerCarouselView {
-                    bannersCarousel.update(with: banners)
-                }
-            }
-        }
     }
 }

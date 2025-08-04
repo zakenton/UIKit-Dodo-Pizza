@@ -16,6 +16,11 @@ final class TableViewFactory {
         tableView.delegate = delegate
         tableView.dataSource = delegate
         tableView.separatorStyle = .none
+        
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0
+        }
+        
         return tableView
     }
 }

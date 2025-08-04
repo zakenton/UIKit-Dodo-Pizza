@@ -20,6 +20,8 @@ final class DetailsVC: UIViewController {
         view.spacing = 16
         return view
     }()
+    
+
 
     private let dismissViewButton = Button(style: .cross)
     private let addToCartButton = Button(style: .addToCart("0.00"))
@@ -131,6 +133,7 @@ private extension DetailsVC {
     func addSubViews() {
         view.addSubview(scrollView)
         scrollView.addSubview(stackView)
+        scrollView.addSubview(stackView)
         
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
@@ -162,11 +165,6 @@ private extension DetailsVC {
         stackView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
             make.width.equalToSuperview()
-        }
-        
-        productImage.snp.makeConstraints { make in
-            make.height.equalTo(Layout.screenWidth * 0.90)
-            
         }
         
         sizeSegmentControl.snp.makeConstraints { make in

@@ -56,7 +56,12 @@ final class ImageView: UIImageView {
     
     private func configureLogoHeader() {
         image = UIImage(named: "logoDodoPizza")
-        contentMode = .scaleAspectFit
+        contentMode = .scaleAspectFill
+        clipsToBounds = true
+        let aspectRatio: CGFloat = 386 / 2316
+        NSLayoutConstraint.activate([
+            heightAnchor.constraint(equalTo: widthAnchor, multiplier: aspectRatio)
+        ])
     }
     
     private func configureBannerCell() {
@@ -95,7 +100,7 @@ final class ImageView: UIImageView {
         image = UIImage(named: "empty view")
         contentMode = .scaleAspectFit
         NSLayoutConstraint.activate([
-            widthAnchor.constraint(equalToConstant: 130),
+
             heightAnchor.constraint(equalToConstant: 200)
         ])
     }

@@ -24,6 +24,10 @@ class BannerCarouselView: UIView {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.isScrollEnabled = true
+        collectionView.panGestureRecognizer.cancelsTouchesInView = false
+        collectionView.isUserInteractionEnabled = true
+
         
         return collectionView
     }()
@@ -43,7 +47,9 @@ class BannerCarouselView: UIView {
     
     func update(with products: [ProductView]) {
         banners = products
+        print(banners.count)
         collectionView.reloadData()
+        print("reloadData")
     }
 }
 // MARK: - Setup
@@ -56,7 +62,7 @@ private extension BannerCarouselView {
     
     func setupConstraint() {
         collectionView.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(10)
+            make.edges.equalToSuperview()
         }
     }
     
@@ -67,6 +73,12 @@ private extension BannerCarouselView {
 
 // MARK: Delegate, DataSource
 extension BannerCarouselView: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("🟢 Нажата ячейка на indexPath: \(indexPath.row)")
+    }
+
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return banners.count
     }
@@ -74,6 +86,7 @@ extension BannerCarouselView: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueCell(indexPath) as BannerCollectionViewCell
         cell.update(banners[indexPath.row])
+        print("return Cell CollectionView")
         return cell
     }
 }

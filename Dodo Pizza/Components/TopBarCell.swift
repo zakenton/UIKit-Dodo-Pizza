@@ -8,13 +8,13 @@
 import UIKit
 import SnapKit
 
-class TopBarView: UIView {
+class TopBarCell: UITableViewCell {
     
     private let headerImageView = ImageView(style: .logoHeader)
     
     // MARK: - Init
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupView()
         setupConstraints()
     }
@@ -25,18 +25,17 @@ class TopBarView: UIView {
 }
 
 // MARK: - Setup
-private extension TopBarView {
+private extension TopBarCell {
     
     func setupView() {
-        addSubview(headerImageView)
+        contentView.addSubview(headerImageView)
     }
     
     func setupConstraints() {
         headerImageView.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(Layout.offset6)
+            make.left.equalToSuperview().offset(Layout.offset16)
             make.centerY.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(0.5)
-            make.height.lessThanOrEqualToSuperview().multipliedBy(0.8)
+            make.right.equalTo(contentView.snp.centerX)
         }
     }
 }
