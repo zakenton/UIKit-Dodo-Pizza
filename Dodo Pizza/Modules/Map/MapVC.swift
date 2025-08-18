@@ -64,9 +64,9 @@ private extension MapVC {
             }
             
             if let placemark = placemarks?.first, let location = placemark.location {
-                self.mapView.centerMap(on: location.coordinate)
+                mapView.centerMap(on: location.coordinate)
                 
-                self.mapView.addAnnotation(
+                mapView.addAnnotation(
                     at: location.coordinate,
                     title: address,
                     subtitle: placemark.locality
@@ -81,6 +81,7 @@ private extension MapVC {
     func setupViews() {
         view.backgroundColor = .white
         mapView.setupMap(restaurants: StoreService.fetchStores())
+        bottomSheet.fetchAdresses(restorant: StoreService.fetchStores())
         setupAddressTextField()
     }
     

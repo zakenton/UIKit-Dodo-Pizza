@@ -29,7 +29,7 @@ final class MapTableViewCell: UITableViewCell {
 extension MapTableViewCell {
     func configure(address: Address) {
         markLabel.text = address.label.rawValue
-        
+        addressLabel.text = address.address
     }
 }
 
@@ -39,10 +39,6 @@ private extension MapTableViewCell {
     func setupView() {
         contentView.addSubview(markLabel)
         contentView.addSubview(addressLabel)
-        
-        contentView.layer.cornerRadius = 10
-        contentView.layer.borderWidth = 2
-        contentView.layer.borderColor = CGColor(red: 252/255, green: 241/255, blue: 231/255, alpha: 1)
     }
     
     func setupConstraints() {

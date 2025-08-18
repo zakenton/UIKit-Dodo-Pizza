@@ -101,19 +101,6 @@ extension MenuVC: UITableViewDelegate {
             return 40
         }
     }
-    
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        guard let menuSection = MenuCells(rawValue: indexPath.section) else { return 0 }
-//        
-//        switch menuSection {
-//        case .topBar:
-//            return UITableView.automaticDimension
-//        case .banner:
-//            return UITableView.automaticDimension
-//        case .tableView:
-//            return UITableView.automaticDimension
-//        }
-//    }
 }
 
 // MARK: - TableView DataSource

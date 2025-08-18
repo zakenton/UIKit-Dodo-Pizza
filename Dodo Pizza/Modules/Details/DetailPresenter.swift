@@ -23,7 +23,6 @@ private extension DetailPresenter {
     
 }
 
-
 // MARK: Input
 extension DetailPresenter: IDetailPresenterInput {
     func didTapCloseButton() {
@@ -31,7 +30,6 @@ extension DetailPresenter: IDetailPresenterInput {
     }
     
     func viewDidLoad() {
-        print("Presenter viewDidLoad")
         interactor?.setupView()
     }
     

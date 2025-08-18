@@ -16,11 +16,7 @@ final class DependencyContainer {
     
     private let userDefaults: UserDefaults
     
-    
-//    let bannersLoader: BannersLoader
-//    let categoriesLoader: CategoriesLoader
     let loaderService: LoaderService
-    
     let cartServise: CartService
     
     
@@ -38,14 +34,6 @@ final class DependencyContainer {
         
         loaderService = LoaderService(session: session, decoder: decoder)
         
-//        productsLoader = ProductsLoader(session: session,
-//                                        decoder: decoder)
-//        
-//        bannersLoader = BannersLoader(session: session,
-//                                      decoder: decoder)
-//        
-//        categoriesLoader = CategoriesLoader(session: session,
-//                                            decoder: decoder)
         
         cartServise = CartService(userDefaults: userDefaults, encoder: encoder, decoder: decoder)
         

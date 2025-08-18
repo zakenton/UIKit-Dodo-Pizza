@@ -20,8 +20,6 @@ final class DetailsVC: UIViewController {
         view.spacing = 16
         return view
     }()
-    
-
 
     private let dismissViewButton = Button(style: .cross)
     private let addToCartButton = Button(style: .addToCart("0.00"))

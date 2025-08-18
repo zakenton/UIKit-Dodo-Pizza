@@ -15,6 +15,7 @@
 		901EB8222E132249002DAD69 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 901EB8212E132249002DAD69 /* SnapKit */; };
 		9074EC642E3F7C8D00459229 /* BannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9074EC632E3F7C8D00459229 /* BannerCell.swift */; };
 		9074EC682E3F8A5300459229 /* EmptyView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9074EC672E3F8A5300459229 /* EmptyView2.swift */; };
+		9074EC6D2E42146B00459229 /* OrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9074EC6C2E42145A00459229 /* OrderView.swift */; };
 		907ECEDC2E1D76DC00A1BBB9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907ECE852E1D76DC00A1BBB9 /* AppDelegate.swift */; };
 		907ECEDD2E1D76DC00A1BBB9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907ECE862E1D76DC00A1BBB9 /* SceneDelegate.swift */; };
 		907ECEE12E1D76DC00A1BBB9 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907ECE8C2E1D76DC00A1BBB9 /* CategoryCell.swift */; };
@@ -93,6 +94,7 @@
 		901EB79F2E132162002DAD69 /* Dodo Pizza.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Dodo Pizza.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9074EC632E3F7C8D00459229 /* BannerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerCell.swift; sourceTree = "<group>"; };
 		9074EC672E3F8A5300459229 /* EmptyView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView2.swift; sourceTree = "<group>"; };
+		9074EC6C2E42145A00459229 /* OrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderView.swift; sourceTree = "<group>"; };
 		907ECE852E1D76DC00A1BBB9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		907ECE862E1D76DC00A1BBB9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		907ECE8C2E1D76DC00A1BBB9 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
@@ -469,6 +471,7 @@
 		90861AEF2E2BE6BA00065E9A /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				9074EC6C2E42145A00459229 /* OrderView.swift */,
 				909F87F12E2A1CBE003A189A /* StoreService.swift */,
 				909F87EF2E2A1CB8003A189A /* MapView.swift */,
 				90861AF02E2BE6EC00065E9A /* BottomSheetView.swift */,
@@ -655,6 +658,7 @@
 				90025AD32E37C30400291A8E /* CartRouter.swift in Sources */,
 				907ECF092E1D76DC00A1BBB9 /* AppColor.swift in Sources */,
 				909F87862E27A26B003A189A /* CartTableViewCell.swift in Sources */,
+				9074EC6D2E42146B00459229 /* OrderView.swift in Sources */,
 				907ECF1C2E1EFDA900A1BBB9 /* ProductMapper.swift in Sources */,
 				907ECF0A2E1D76DC00A1BBB9 /* Layout.swift in Sources */,
 				90861AFA2E2CFB5100065E9A /* MapTableViewCell.swift in Sources */,
