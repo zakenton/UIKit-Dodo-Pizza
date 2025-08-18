@@ -31,8 +31,7 @@ final class RestaurantAnnotation: NSObject, MKAnnotation {
         address.coordinate ?? CLLocationCoordinate2D()
     }
     var title: String? {
-        // Если хочется название ресторана — можно добавить в Address поле name
-        address.address // Или какое-то другое поле, если появится name
+        address.address 
     }
     var subtitle: String? {
         "\(address.zipcode), \(address.city)"

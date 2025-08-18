@@ -16,16 +16,18 @@ enum SheetType: String, Equatable {
 
 final class BottomSheetView: UIView {
     
-    var userAddress: [Address] = []
-    var restorantAddress: [Address] = []
+    private var userAddress: [Address] = []
+    private var restorantAddress: [Address] = []
     
     
     // MARK: UI Elements
     let deliveryView = DeliveryView()
+    let orderView = OrderView()
     
     // MARK: Init
     override init(frame: CGRect) {
         super.init(frame: frame)
+        orderView.setupTable(with: restorantAddress)
         setupView()
         addViews()
         setupConstraints()
@@ -37,7 +39,6 @@ final class BottomSheetView: UIView {
 }
 
 // MARK: - PUBLIC API
-
 extension BottomSheetView {
     func configure(for type: SheetType) {
         switch type {
@@ -46,6 +47,14 @@ extension BottomSheetView {
         case .order:
             showOrderView()
         }
+    }
+    
+    func fetchAdresses(user: [Address]) {
+        self.userAddress = user
+    }
+    
+    func fetchAdresses(restorant: [Address]) {
+        self.restorantAddress = restorant
     }
 }
 
@@ -61,21 +70,22 @@ private extension BottomSheetView {
         // Показываем только форму адреса
         deliveryView.isHidden = false
         setHeight(multiplier: 0.40)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            self.deliveryView.addressTextField.becomeFirstResponder()
-        }
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+//            self.deliveryView.addressTextField.becomeFirstResponder()
+//        }
+        orderView.isHidden = true
     }
     
     func showOrderView() {
         // Показываем только список ресторанов
         deliveryView.isHidden = true
         setHeight(multiplier: 0.30)
+        orderView.isHidden = false
     }
     
     func setHeight(multiplier: CGFloat) {
         guard let superview = superview else { return }
-        self.snp.remakeConstraints { make in
+        snp.remakeConstraints { make in
             make.left.right.bottom.equalToSuperview()
             make.height.equalTo(superview.snp.height).multipliedBy(multiplier)
         }
@@ -93,6 +103,7 @@ private extension BottomSheetView {
     //MARK: add Views
     func addViews() {
         addSubview(deliveryView)
+        addSubview(orderView)
     }
     
     // MARK: Constraints
@@ -100,18 +111,9 @@ private extension BottomSheetView {
         deliveryView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+        
+        orderView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
 }
-
-
-//MARK: TableView DataSourse
-
-//extension BottomSheetView: UITableViewDelegate, UITableViewDataSource {
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        restorantAddress.count
-//    }
-//    
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        <#code#>
-//    }
-//}

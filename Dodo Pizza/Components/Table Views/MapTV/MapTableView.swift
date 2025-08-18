@@ -10,7 +10,7 @@ import SnapKit
 
 final class MapTableView: UITableView {
     
-    private var userAddress: [Address] = []
+    private var address: [Address] = []
     
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
@@ -26,19 +26,19 @@ final class MapTableView: UITableView {
 
 extension MapTableView: UITableViewDelegate {
     func fetchAddress(with userAddress: [Address]) {
-        self.userAddress = userAddress
+        self.address = userAddress
     }
 }
 
 extension MapTableView: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        userAddress.count
+        address.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(indexPath) as MapTableViewCell
-        cell.configure(address: userAddress[indexPath.row])
+        cell.configure(address: address[indexPath.row])
         return cell
     }
 }

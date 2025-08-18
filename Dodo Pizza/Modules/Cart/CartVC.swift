@@ -53,6 +53,7 @@ extension CartVC {
     func showEmptyView() {
         emptyView.isHidden = false
         tableView.isHidden = true
+        bottomView.isHidden = true
     }
     
     func showTableView() {

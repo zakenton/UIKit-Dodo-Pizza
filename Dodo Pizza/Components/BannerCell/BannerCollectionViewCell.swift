@@ -12,11 +12,11 @@ import SnapKit
 class BannerCollectionViewCell: UICollectionViewCell {
     
     // MARK: - View Elements
-    private let productImageView = Image(style: .bannerCellImage, imageUrl: "")
+    private let productImageView = ImageView(style: .bannerCell)
     
-    private let titleLebel = Label(style: .bannerTitleLabel, text: "")
+    private let titleLebel = Label(style: .bannerTitle)
     
-    private let priceLabel = Label(style: .bannerPriceLabel, text: "")
+    private let priceLabel = Label(style: .bannerPrice)
     
     private lazy var textStack: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [titleLebel, priceLabel])

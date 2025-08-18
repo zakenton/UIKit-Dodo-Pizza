@@ -21,10 +21,10 @@ final class DetailsVC: UIViewController {
         return view
     }()
 
-    private let dismissViewButton = Button(style: .cross, text: "")
-    private let addToCartButton = Button(style: .addToCart, text: "")
-    private let productImage = Image(style: .ditailImage, imageUrl: "")
-    private let productDescription = Label(style: .detailVCDescriptionLebel, text: "")
+    private let dismissViewButton = Button(style: .cross)
+    private let addToCartButton = Button(style: .addToCart("0.00"))
+    private let productImage = ImageView(style: .detail)
+    private let productDescription = Label(style: .detailDescription)
     private let sizeSegmentControl = DitailSegmentControl()
     private let doughSegmentControl = DitailSegmentControl()
     private let additivesCollection = AdditivesCollectionView()
@@ -104,13 +104,11 @@ private extension DetailsVC  {
     
     @objc func updateSelectedSize() {
         let index = sizeSegmentControl.selectedIndex
-        print(index)
         presenter?.didSelectSize(index: index)
     }
     
     @objc func updateSelectedDough() {
         let index = doughSegmentControl.selectedIndex
-        print(index)
         presenter?.didSelectDough(index: index)
     }
 }
@@ -132,6 +130,7 @@ private extension DetailsVC {
     //MARK: addSubViews
     func addSubViews() {
         view.addSubview(scrollView)
+        scrollView.addSubview(stackView)
         scrollView.addSubview(stackView)
         
         stackView.isLayoutMarginsRelativeArrangement = true
@@ -164,11 +163,6 @@ private extension DetailsVC {
         stackView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
             make.width.equalToSuperview()
-        }
-        
-        productImage.snp.makeConstraints { make in
-            make.height.equalTo(Layout.screenWidth * 0.90)
-            
         }
         
         sizeSegmentControl.snp.makeConstraints { make in

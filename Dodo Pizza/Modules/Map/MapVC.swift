@@ -10,7 +10,7 @@ import MapKit
 
 class MapVC: UIViewController {
     
-    private var selectOptions = SelectorView()
+    private lazy var selectOptions = SelectorView()
     lazy var mapView = MapView()
     lazy var bottomSheet = BottomSheetView()
     
@@ -26,7 +26,10 @@ class MapVC: UIViewController {
         selectOptions.addTarget(self, action: #selector(selectionChanged), for: .valueChanged)
         bottomSheet.configure(for: .delivery)
     }
-    
+}
+
+// MARK: Private
+private extension MapVC {
     
     @objc private func selectionChanged(_ sender: SelectorView) {
         if sender.selectedIndex == 0 {
@@ -35,16 +38,10 @@ class MapVC: UIViewController {
             bottomSheet.configure(for: .order)
         }
     }
-}
-
-// MARK: Private
-private extension MapVC {
     
     @objc private func addressTextChanged(_ textField: UITextField) {
-        // Отменяем предыдущий таймер
         searchTimer?.invalidate()
         
-        // Запускаем новый таймер с задержкой
         searchTimer = Timer.scheduledTimer(
             timeInterval: searchDelay,
             target: self,
@@ -57,7 +54,6 @@ private extension MapVC {
     @objc private func performAddressSearch() {
         guard let address = bottomSheet.deliveryView.addressTextField.text, !address.isEmpty else { return }
         
-        // Геокодирование адреса
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(address) { [weak self] (placemarks, error) in
             guard let self = self else { return }
@@ -68,11 +64,9 @@ private extension MapVC {
             }
             
             if let placemark = placemarks?.first, let location = placemark.location {
-                // Обновляем карту в MapView
-                self.mapView.centerMap(on: location.coordinate)
+                mapView.centerMap(on: location.coordinate)
                 
-                // Можно добавить аннотацию
-                self.mapView.addAnnotation(
+                mapView.addAnnotation(
                     at: location.coordinate,
                     title: address,
                     subtitle: placemark.locality
@@ -87,6 +81,7 @@ private extension MapVC {
     func setupViews() {
         view.backgroundColor = .white
         mapView.setupMap(restaurants: StoreService.fetchStores())
+        bottomSheet.fetchAdresses(restorant: StoreService.fetchStores())
         setupAddressTextField()
     }
     
@@ -128,7 +123,7 @@ private extension MapVC {
 extension MapVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        performAddressSearch() // Поиск сразу при нажатии Return
+        performAddressSearch()
         return true
     }
 }

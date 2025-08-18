@@ -11,7 +11,7 @@ import SnapKit
 final class DeliveryView: UIView {
     
     // MARK: UI Elements
-    private let myAddressButton = Button(style: .savedAddress, text: "Saved Address")
+    private let myAddressButton = Button(style: .savedAddress("Saved Address"))
     
     let addressTextField: UITextField = {
         let tf = UITextField()
@@ -23,9 +23,7 @@ final class DeliveryView: UIView {
         return tf
     }()
     
-    private let saveAddressButton = Button(style: .useThisAddress, text: "Use this Address")
-    
-    private let userAddressTableView = MapTableView()
+    private let saveAddressButton = Button(style: .useThisAddress("Use this Address"))
     
     // MARK: Init
     override init(frame: CGRect) {
@@ -34,7 +32,6 @@ final class DeliveryView: UIView {
         addViews()
         setupConstraints()
         addTargets()
-        userAddressTableView.fetchAddress(with: StoreService.fetchUserAddresses())
     }
     
     required init?(coder: NSCoder) {
@@ -50,12 +47,7 @@ private extension DeliveryView {
     }
     
     @objc func didTapChangeViewButton() {
-        if userAddressTableView.isHidden == true {
-            showAddressList()
-            print("True")
-        } else {
-            showAddNewAddressView()
-        }
+        
     }
 }
 
@@ -66,14 +58,12 @@ private extension DeliveryView {
     func showAddressList() {
         addressTextField.isHidden = true
         saveAddressButton.isHidden = true
-        userAddressTableView.isHidden = false
         myAddressButton.configuration?.attributedTitle = AttributedString("+ Add new")
     }
     
     func showAddNewAddressView() {
         addressTextField.isHidden = false
         saveAddressButton.isHidden = false
-        userAddressTableView.isHidden = true
         myAddressButton.configuration?.attributedTitle = AttributedString("📍Saved Address")
     }
     
@@ -88,8 +78,6 @@ private extension DeliveryView {
         addSubview(myAddressButton)
         addSubview(addressTextField)
         addSubview(saveAddressButton)
-        addSubview(userAddressTableView)
-        userAddressTableView.isHidden = true
     }
     
     // MARK: Constraints
@@ -111,11 +99,6 @@ private extension DeliveryView {
             make.top.equalTo(addressTextField.snp.bottom).offset(12)
             make.left.right.equalToSuperview().inset(16)
             make.height.equalTo(50)
-        }
-        
-        userAddressTableView.snp.makeConstraints { make in
-            make.top.equalTo(myAddressButton.snp.bottom).offset(12)
-            make.left.right.bottom.equalToSuperview()
         }
     }
 }
