@@ -30,7 +30,6 @@ class MenuVC: UIViewController {
         
         presenter.getBanners()
         presenter.getCategories()
-        
     }
     
     
@@ -73,6 +72,10 @@ extension MenuVC: ProductCellDelegate {
     func didTapPriceButton(for product: ProductView) {
         presenter.didSelectProduct(product)
     }
+}
+
+extension MenuVC {
+    
 }
 
 //MARK: Cells ENUM

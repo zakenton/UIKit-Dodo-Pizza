@@ -12,6 +12,8 @@ class TopBarCell: UITableViewCell {
     
     private let headerImageView = ImageView(style: .logoHeader)
     
+    private let accountButton = Button(style: .account)
+    
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -29,6 +31,7 @@ private extension TopBarCell {
     
     func setupView() {
         contentView.addSubview(headerImageView)
+        contentView.addSubview(accountButton)
     }
     
     func setupConstraints() {
@@ -36,6 +39,11 @@ private extension TopBarCell {
             make.left.equalToSuperview().offset(Layout.offset16)
             make.centerY.equalToSuperview()
             make.right.equalTo(contentView.snp.centerX)
+        }
+        
+        accountButton.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview()
+            make.right.equalToSuperview().inset(Layout.offset16)
         }
     }
 }
