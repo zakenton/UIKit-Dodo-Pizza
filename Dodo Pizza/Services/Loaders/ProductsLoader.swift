@@ -193,7 +193,6 @@ private extension LoaderService {
                 completion(.failure(.decodingError(error)))
             }
         }
-        
         task.resume()
     }
 }
