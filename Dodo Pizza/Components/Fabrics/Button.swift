@@ -125,6 +125,7 @@ final class Button: UIButton {
         config.image = UIImage(systemName: "line.3.horizontal")
         config.preferredSymbolConfigurationForImage = .init(pointSize: 18, weight: .semibold)
         config.contentInsets = .zero
+        config.baseForegroundColor = .black
         self.configuration = config
 
         contentHorizontalAlignment = .fill

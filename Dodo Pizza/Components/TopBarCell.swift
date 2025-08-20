@@ -8,10 +8,15 @@
 import UIKit
 import SnapKit
 
+protocol TopBarCellDelegate: AnyObject {
+    func openAccountView()
+}
+
 class TopBarCell: UITableViewCell {
     
-    private let headerImageView = ImageView(style: .logoHeader)
+    var delegate: TopBarCellDelegate?
     
+    private let headerImageView = ImageView(style: .logoHeader)
     private let accountButton = Button(style: .account)
     
     // MARK: - Init
@@ -26,10 +31,18 @@ class TopBarCell: UITableViewCell {
     }
 }
 
+private extension TopBarCell {
+    @objc func didTapAccountButton() {
+        delegate?.openAccountView()
+    }
+}
+
 // MARK: - Setup
 private extension TopBarCell {
     
     func setupView() {
+        accountButton.addTarget(self, action: #selector(didTapAccountButton), for: .touchUpInside)
+        
         contentView.addSubview(headerImageView)
         contentView.addSubview(accountButton)
     }
@@ -42,7 +55,7 @@ private extension TopBarCell {
         }
         
         accountButton.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview()
+            make.centerY.equalToSuperview()
             make.right.equalToSuperview().inset(Layout.offset16)
         }
     }
