@@ -16,6 +16,7 @@ enum ButtonStyle {
     case savedAddress(String)
     case additional(String)
     case checkout
+    case account
 }
 
 final class Button: UIButton {
@@ -54,6 +55,9 @@ final class Button: UIButton {
             
         case .checkout:
             configureActionButton(text: "Checkout", backgroundColor: AppColor.Button.orang1)
+            
+        case .account:
+            configureAccountButton()
         }
     }
     
@@ -116,6 +120,19 @@ final class Button: UIButton {
         titleLabel?.font = .systemFont(ofSize: 15, weight: .medium)
     }
     
+    private func configureAccountButton() {
+        var config = UIButton.Configuration.plain()
+        config.image = UIImage(systemName: "line.3.horizontal")
+        config.preferredSymbolConfigurationForImage = .init(pointSize: 18, weight: .semibold)
+        config.contentInsets = .zero
+        config.baseForegroundColor = .black
+        self.configuration = config
+
+        contentHorizontalAlignment = .fill
+        contentVerticalAlignment = .fill
+    }
+
+
     // MARK: - Helpers
     
     private func baseButtonConfiguration() -> UIButton.Configuration {
