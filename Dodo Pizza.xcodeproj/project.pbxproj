@@ -13,6 +13,8 @@
 		90025AD52E37C98500291A8E /* MenuInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90025AD42E37C98500291A8E /* MenuInteractor.swift */; };
 		90025AD72E37FF5C00291A8E /* CartInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90025AD62E37FF5C00291A8E /* CartInteractor.swift */; };
 		900AA9AC2E55FD6D009DB397 /* AccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900AA9AB2E55FD6D009DB397 /* AccountVC.swift */; };
+		900AA9AF2E5889FA009DB397 /* AddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900AA9AE2E5889FA009DB397 /* AddressTableViewCell.swift */; };
+		900AA9B12E588A21009DB397 /* AddressListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900AA9B02E588A21009DB397 /* AddressListView.swift */; };
 		901EB8222E132249002DAD69 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 901EB8212E132249002DAD69 /* SnapKit */; };
 		9074EC642E3F7C8D00459229 /* BannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9074EC632E3F7C8D00459229 /* BannerCell.swift */; };
 		9074EC6D2E42146B00459229 /* OrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9074EC6C2E42145A00459229 /* OrderView.swift */; };
@@ -92,6 +94,8 @@
 		90025AD42E37C98500291A8E /* MenuInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuInteractor.swift; sourceTree = "<group>"; };
 		90025AD62E37FF5C00291A8E /* CartInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartInteractor.swift; sourceTree = "<group>"; };
 		900AA9AB2E55FD6D009DB397 /* AccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountVC.swift; sourceTree = "<group>"; };
+		900AA9AE2E5889FA009DB397 /* AddressTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressTableViewCell.swift; sourceTree = "<group>"; };
+		900AA9B02E588A21009DB397 /* AddressListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressListView.swift; sourceTree = "<group>"; };
 		901EB79F2E132162002DAD69 /* Dodo Pizza.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Dodo Pizza.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9074EC632E3F7C8D00459229 /* BannerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerCell.swift; sourceTree = "<group>"; };
 		9074EC6C2E42145A00459229 /* OrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderView.swift; sourceTree = "<group>"; };
@@ -177,6 +181,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		900AA9AD2E5889D6009DB397 /* AddressTV */ = {
+			isa = PBXGroup;
+			children = (
+				900AA9AE2E5889FA009DB397 /* AddressTableViewCell.swift */,
+				900AA9B02E588A21009DB397 /* AddressListView.swift */,
+			);
+			path = AddressTV;
+			sourceTree = "<group>";
+		};
 		901EB7962E132162002DAD69 = {
 			isa = PBXGroup;
 			children = (
@@ -442,6 +455,7 @@
 		907ECF7C2E23DF3900A1BBB9 /* Table Views */ = {
 			isa = PBXGroup;
 			children = (
+				900AA9AD2E5889D6009DB397 /* AddressTV */,
 				90861AF82E2CFB1C00065E9A /* MapTV */,
 				909F87802E279A2C003A189A /* CartTV */,
 				907ECE9F2E1D76DC00A1BBB9 /* TableView.swift */,
@@ -633,6 +647,7 @@
 				907ECEF82E1D76DC00A1BBB9 /* DetailBuilder.swift in Sources */,
 				90861AFC2E2E82F300065E9A /* AddressViewModel.swift in Sources */,
 				907ECEF92E1D76DC00A1BBB9 /* DetailInteractor.swift in Sources */,
+				900AA9AF2E5889FA009DB397 /* AddressTableViewCell.swift in Sources */,
 				907ECEFA2E1D76DC00A1BBB9 /* DetailPresenter.swift in Sources */,
 				907ECEFB2E1D76DC00A1BBB9 /* DetailRouter.swift in Sources */,
 				90025AD52E37C98500291A8E /* MenuInteractor.swift in Sources */,
@@ -657,6 +672,7 @@
 				907ECF082E1D76DC00A1BBB9 /* NetworkError.swift in Sources */,
 				90025AD32E37C30400291A8E /* CartRouter.swift in Sources */,
 				907ECF092E1D76DC00A1BBB9 /* AppColor.swift in Sources */,
+				900AA9B12E588A21009DB397 /* AddressListView.swift in Sources */,
 				909F87862E27A26B003A189A /* CartTableViewCell.swift in Sources */,
 				9074EC6D2E42146B00459229 /* OrderView.swift in Sources */,
 				907ECF1C2E1EFDA900A1BBB9 /* ProductMapper.swift in Sources */,
