@@ -6,7 +6,7 @@
 //
 import UIKit
 
-final class MapAssembly {
+final class MapAssebly {
     
     init() {
         
