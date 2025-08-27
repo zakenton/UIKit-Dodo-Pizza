@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-final class DetailBuilder {
+final class DetailAssembly {
     
     static func build(product: IProductDisplayable, router: IRouter) -> DetailsVC {
         let router = DetailRouter(router: router)

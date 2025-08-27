@@ -6,18 +6,23 @@
 //
 import UIKit
 
-final class MapAssebly {
+final class MapAssembly {
     
-    init() {
-        
+    private let addressLoader: IAddressLoaderService
+    
+    init(addressLoader: IAddressLoaderService) {
+        self.addressLoader = addressLoader
     }
     
     func build() -> UIViewController {
-        let mapVC = MapVC()
+        let interactor = MapInteractor(restoransLoader: addressLoader)
+        let presenter = MapPresenter(interactor: interactor)
+        let mapVC = MapVC(presenter: presenter)
         mapVC.tabBarItem = UITabBarItem(title: "Map",
                                         image: UIImage(systemName: "location"),
                                         selectedImage: UIImage(systemName: "location"))
-        
+        presenter.view = mapVC
+        interactor.presenter = presenter
         return mapVC
     }
 }

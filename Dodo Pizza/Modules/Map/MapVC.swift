@@ -8,7 +8,14 @@
 import UIKit
 import MapKit
 
+protocol IMapVCInput: AnyObject {
+    func fetchRestorans(address: [Address])
+    func fetchUserAddress(address: [Address])
+}
+
 class MapVC: UIViewController {
+    
+    private let presenter: IMapPresenterInput
     
     private lazy var selectOptions = SelectorView()
     lazy var mapView = MapView()
@@ -17,14 +24,34 @@ class MapVC: UIViewController {
     private var searchTimer: Timer?
     private let searchDelay: TimeInterval = 2.0
     
+    init(presenter: IMapPresenterInput, searchTimer: Timer? = nil) {
+        self.presenter = presenter
+        self.searchTimer = searchTimer
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter.viewDidLoad()
+        
         setupViews()
-        addViews()
-        setupConstraints()
         
         selectOptions.addTarget(self, action: #selector(selectionChanged), for: .valueChanged)
         bottomSheet.configure(for: .delivery)
+    }
+}
+
+extension MapVC: IMapVCInput {
+    func fetchRestorans(address: [Address]) {
+        mapView.setupMap(restaurants: address)
+    }
+    
+    func fetchUserAddress(address: [Address]) {
+        
     }
 }
 
@@ -80,7 +107,10 @@ private extension MapVC {
 private extension MapVC {
     func setupViews() {
         view.backgroundColor = .white
-        mapView.setupMap(restaurants: StoreService.fetchStores())
+        
+        addViews()
+        setupConstraints()
+        
         bottomSheet.fetchAdresses(restorant: StoreService.fetchStores())
         setupAddressTextField()
     }

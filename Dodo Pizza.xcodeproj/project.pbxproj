@@ -37,7 +37,7 @@
 		907ECEF52E1D76DC00A1BBB9 /* ProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907ECEA82E1D76DC00A1BBB9 /* ProductView.swift */; };
 		907ECEF62E1D76DC00A1BBB9 /* CartAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907ECEAB2E1D76DC00A1BBB9 /* CartAssembly.swift */; };
 		907ECEF72E1D76DC00A1BBB9 /* CartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907ECEB02E1D76DC00A1BBB9 /* CartVC.swift */; };
-		907ECEF82E1D76DC00A1BBB9 /* DetailBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907ECEB32E1D76DC00A1BBB9 /* DetailBuilder.swift */; };
+		907ECEF82E1D76DC00A1BBB9 /* DetailAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907ECEB32E1D76DC00A1BBB9 /* DetailAssembly.swift */; };
 		907ECEF92E1D76DC00A1BBB9 /* DetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907ECEB42E1D76DC00A1BBB9 /* DetailInteractor.swift */; };
 		907ECEFA2E1D76DC00A1BBB9 /* DetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907ECEB52E1D76DC00A1BBB9 /* DetailPresenter.swift */; };
 		907ECEFB2E1D76DC00A1BBB9 /* DetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907ECEB62E1D76DC00A1BBB9 /* DetailRouter.swift */; };
@@ -83,6 +83,10 @@
 		909F87A62E27F935003A189A /* QuantityControll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909F87A52E27F935003A189A /* QuantityControll.swift */; };
 		909F87F02E2A1CB8003A189A /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909F87EF2E2A1CB8003A189A /* MapView.swift */; };
 		909F87F22E2A1CBE003A189A /* StoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909F87F12E2A1CBE003A189A /* StoreService.swift */; };
+		90C1DB842E5DE11D008689F4 /* MapPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C1DB832E5DE11D008689F4 /* MapPresenter.swift */; };
+		90C1DB862E5DE140008689F4 /* MapInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C1DB852E5DE140008689F4 /* MapInteractor.swift */; };
+		90C1DB882E5F2A91008689F4 /* AddressResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C1DB872E5F2A91008689F4 /* AddressResponse.swift */; };
+		90C1DB8A2E5F2C00008689F4 /* AddressLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C1DB892E5F2C00008689F4 /* AddressLoader.swift */; };
 		90F21B0A2E3D03FF00836E95 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F21B092E3D03FF00836E95 /* EmptyView.swift */; };
 		90F21B0C2E3E096A00836E95 /* CartBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F21B0B2E3E096A00836E95 /* CartBottomView.swift */; };
 /* End PBXBuildFile section */
@@ -118,7 +122,7 @@
 		907ECEA82E1D76DC00A1BBB9 /* ProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductView.swift; sourceTree = "<group>"; };
 		907ECEAB2E1D76DC00A1BBB9 /* CartAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartAssembly.swift; sourceTree = "<group>"; };
 		907ECEB02E1D76DC00A1BBB9 /* CartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartVC.swift; sourceTree = "<group>"; };
-		907ECEB32E1D76DC00A1BBB9 /* DetailBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBuilder.swift; sourceTree = "<group>"; };
+		907ECEB32E1D76DC00A1BBB9 /* DetailAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAssembly.swift; sourceTree = "<group>"; };
 		907ECEB42E1D76DC00A1BBB9 /* DetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInteractor.swift; sourceTree = "<group>"; };
 		907ECEB52E1D76DC00A1BBB9 /* DetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresenter.swift; sourceTree = "<group>"; };
 		907ECEB62E1D76DC00A1BBB9 /* DetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRouter.swift; sourceTree = "<group>"; };
@@ -165,6 +169,10 @@
 		909F87A52E27F935003A189A /* QuantityControll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityControll.swift; sourceTree = "<group>"; };
 		909F87EF2E2A1CB8003A189A /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		909F87F12E2A1CBE003A189A /* StoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreService.swift; sourceTree = "<group>"; };
+		90C1DB832E5DE11D008689F4 /* MapPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPresenter.swift; sourceTree = "<group>"; };
+		90C1DB852E5DE140008689F4 /* MapInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapInteractor.swift; sourceTree = "<group>"; };
+		90C1DB872E5F2A91008689F4 /* AddressResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressResponse.swift; sourceTree = "<group>"; };
+		90C1DB892E5F2C00008689F4 /* AddressLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressLoader.swift; sourceTree = "<group>"; };
 		90F21B092E3D03FF00836E95 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		90F21B0B2E3E096A00836E95 /* CartBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartBottomView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -275,6 +283,7 @@
 			children = (
 				907ECEA12E1D76DC00A1BBB9 /* CategoryResponse.swift */,
 				907ECEA22E1D76DC00A1BBB9 /* ProductResponse.swift */,
+				90C1DB872E5F2A91008689F4 /* AddressResponse.swift */,
 			);
 			path = ResponseModel;
 			sourceTree = "<group>";
@@ -318,7 +327,7 @@
 		907ECEB92E1D76DC00A1BBB9 /* Details */ = {
 			isa = PBXGroup;
 			children = (
-				907ECEB32E1D76DC00A1BBB9 /* DetailBuilder.swift */,
+				907ECEB32E1D76DC00A1BBB9 /* DetailAssembly.swift */,
 				907ECEB72E1D76DC00A1BBB9 /* DetailsContract.swift */,
 				907ECEB52E1D76DC00A1BBB9 /* DetailPresenter.swift */,
 				907ECEB42E1D76DC00A1BBB9 /* DetailInteractor.swift */,
@@ -333,6 +342,8 @@
 			children = (
 				907ECEBA2E1D76DC00A1BBB9 /* MapAssembly.swift */,
 				907ECEBC2E1D76DC00A1BBB9 /* MapVC.swift */,
+				90C1DB832E5DE11D008689F4 /* MapPresenter.swift */,
+				90C1DB852E5DE140008689F4 /* MapInteractor.swift */,
 				90861AEF2E2BE6BA00065E9A /* Components */,
 			);
 			path = Map;
@@ -386,6 +397,7 @@
 			isa = PBXGroup;
 			children = (
 				907ECED22E1D76DC00A1BBB9 /* ProductsLoader.swift */,
+				90C1DB892E5F2C00008689F4 /* AddressLoader.swift */,
 			);
 			path = Loaders;
 			sourceTree = "<group>";
@@ -628,12 +640,14 @@
 				9074EC642E3F7C8D00459229 /* BannerCell.swift in Sources */,
 				909311682E266990008E1B41 /* IProductDisplayable.swift in Sources */,
 				907ECEEE2E1D76DC00A1BBB9 /* TableView.swift in Sources */,
+				90C1DB882E5F2A91008689F4 /* AddressResponse.swift in Sources */,
 				907ECEEF2E1D76DC00A1BBB9 /* CategoryResponse.swift in Sources */,
 				907ECEF02E1D76DC00A1BBB9 /* ProductResponse.swift in Sources */,
 				907ECF772E23DEE800A1BBB9 /* TopBarCell.swift in Sources */,
 				909F87F22E2A1CBE003A189A /* StoreService.swift in Sources */,
 				907ECEF22E1D76DC00A1BBB9 /* CategoryView.swift in Sources */,
 				909F87A62E27F935003A189A /* QuantityControll.swift in Sources */,
+				90C1DB842E5DE11D008689F4 /* MapPresenter.swift in Sources */,
 				90F21B0A2E3D03FF00836E95 /* EmptyView.swift in Sources */,
 				907ECEF32E1D76DC00A1BBB9 /* ProductCart.swift in Sources */,
 				907ECF202E1EFF3F00A1BBB9 /* DefaultValues.swift in Sources */,
@@ -644,7 +658,7 @@
 				907ECEF52E1D76DC00A1BBB9 /* ProductView.swift in Sources */,
 				907ECEF62E1D76DC00A1BBB9 /* CartAssembly.swift in Sources */,
 				907ECEF72E1D76DC00A1BBB9 /* CartVC.swift in Sources */,
-				907ECEF82E1D76DC00A1BBB9 /* DetailBuilder.swift in Sources */,
+				907ECEF82E1D76DC00A1BBB9 /* DetailAssembly.swift in Sources */,
 				90861AFC2E2E82F300065E9A /* AddressViewModel.swift in Sources */,
 				907ECEF92E1D76DC00A1BBB9 /* DetailInteractor.swift in Sources */,
 				900AA9AF2E5889FA009DB397 /* AddressTableViewCell.swift in Sources */,
@@ -656,6 +670,7 @@
 				907ECEFD2E1D76DC00A1BBB9 /* DetailsVC.swift in Sources */,
 				907ECF762E23DEE800A1BBB9 /* BannerLabelView.swift in Sources */,
 				907ECEFE2E1D76DC00A1BBB9 /* MapAssembly.swift in Sources */,
+				90C1DB8A2E5F2C00008689F4 /* AddressLoader.swift in Sources */,
 				907ECEFF2E1D76DC00A1BBB9 /* MapVC.swift in Sources */,
 				907ECF002E1D76DC00A1BBB9 /* MenuAssembly.swift in Sources */,
 				90861AF52E2CF63900065E9A /* DeliveryView.swift in Sources */,
@@ -667,6 +682,7 @@
 				907ECF1E2E1EFF0900A1BBB9 /* MappingErrors.swift in Sources */,
 				907ECF042E1D76DC00A1BBB9 /* MenuVC.swift in Sources */,
 				907ECF052E1D76DC00A1BBB9 /* ProductCell.swift in Sources */,
+				90C1DB862E5DE140008689F4 /* MapInteractor.swift in Sources */,
 				907ECF062E1D76DC00A1BBB9 /* APIEndpoint.swift in Sources */,
 				907ECF072E1D76DC00A1BBB9 /* NetworkConstants.swift in Sources */,
 				907ECF082E1D76DC00A1BBB9 /* NetworkError.swift in Sources */,

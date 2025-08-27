@@ -30,11 +30,13 @@ final class RestaurantAnnotation: NSObject, MKAnnotation {
     var coordinate: CLLocationCoordinate2D {
         address.coordinate ?? CLLocationCoordinate2D()
     }
+    
     var title: String? {
-        address.address 
+        address.label.rawValue // ← сначала Mark (например "Home", "Work")
     }
+    
     var subtitle: String? {
-        "\(address.zipcode), \(address.city)"
+        "\(address.address), \(address.zipcode) \(address.city)"
     }
 
     init(address: Address) {

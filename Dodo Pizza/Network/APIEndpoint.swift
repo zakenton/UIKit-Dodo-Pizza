@@ -11,6 +11,7 @@ enum APIEndpoint {
     case products(category: String?)
     case banners
     case categories
+    case address
     
     var path: String {
         switch self {
@@ -24,6 +25,8 @@ enum APIEndpoint {
             return "/banners"
         case .categories:
             return "/categories"
+        case .address:
+            return "/address"
         }
     }
 }

@@ -16,7 +16,8 @@ final class DependencyContainer {
     
     private let userDefaults: UserDefaults
     
-    let loaderService: LoaderService
+    let productsLoader: LoaderService
+    let addressLoader: AddressLoaderService
     let cartServise: CartService
     
     
@@ -32,14 +33,13 @@ final class DependencyContainer {
         encoder = JSONEncoder()
         userDefaults = UserDefaults.standard
         
-        loaderService = LoaderService(session: session, decoder: decoder)
-        
-        
+        productsLoader = LoaderService(session: session, decoder: decoder)
+        addressLoader = AddressLoaderService(session: session, decoder: decoder)
         cartServise = CartService(userDefaults: userDefaults, encoder: encoder, decoder: decoder)
         
-        menuAssembly = MenuAssembly(loaderService: loaderService, cartServise: cartServise)
+        menuAssembly = MenuAssembly(loaderService: productsLoader, cartServise: cartServise)
         
-        mapAssembly = MapAssembly()
+        mapAssembly = MapAssembly(addressLoader: addressLoader)
         
         cartAssembly = CartAssembly(cartServise: cartServise)
         
