@@ -6,27 +6,44 @@
 //
 
 import Foundation
+import CoreLocation
 
 protocol IMapInteractorInput: AnyObject {
     func getRestorans()
+    func geocode(_ query: String)
 }
 
 protocol IMapInteractorOutput: AnyObject {
     func didLoad(addresses: [Address])
     func didFail(_ error: Error)
+    func didGeocode(query: String, coordinate: CLLocationCoordinate2D, city: String?)
+    func didFailGeocode(_ error: Error)
 }
 
 final class MapInteractor {
     weak var presenter: IMapInteractorOutput?
     
     private let restoransLoader: IAddressLoaderService
+    private let geocoding: IGeocodingService
     
-    init(restoransLoader: IAddressLoaderService) {
+    init(restoransLoader: IAddressLoaderService, geocoding: IGeocodingService) {
         self.restoransLoader = restoransLoader
+        self.geocoding = geocoding
     }
 }
 
 extension MapInteractor: IMapInteractorInput {
+    func geocode(_ query: String) {
+        geocoding.geocode(query: query) { result in
+            switch result {
+            case .success(let item):
+                self.presenter?.didGeocode(query: query, coordinate: item.coordinate, city: item.city)
+            case .failure(let err):
+                self.presenter?.didFailGeocode(err)
+            }
+        }
+    }
+    
     func getRestorans() {
         restoransLoader.getAddresses { [weak self] addresses in
             guard let self else { return }

@@ -5,9 +5,12 @@
 //  Created by Zakhar on 26.08.25.
 //
 
+import CoreLocation
+
 protocol IMapPresenterInput: AnyObject {
     func viewDidLoad()
     func didSelectRestoran(address: Address)
+    func searchAddress(query: String)
 }
 
 final class MapPresenter {
@@ -21,6 +24,11 @@ final class MapPresenter {
 }
 
 extension MapPresenter: IMapPresenterInput {
+    func searchAddress(query: String) {
+        guard !query.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
+        interactor.geocode(query)
+    }
+    
     func viewDidLoad() {
         interactor.getRestorans()
     }
@@ -38,6 +46,14 @@ extension MapPresenter: IMapInteractorOutput {
     func didFail(_ error: any Error) {
         
     }
+    
+    func didGeocode(query: String, coordinate: CLLocationCoordinate2D, city: String?) {
+        view?.showUserPin(at: coordinate, title: query, subtitle: city)
+    }
+    func didFailGeocode(_ error: Error) {
+        print("Geocode error:", error.localizedDescription)
+    }
+    
 }
 
 private extension MapPresenter {

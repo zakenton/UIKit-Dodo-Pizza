@@ -11,149 +11,105 @@ import MapKit
 protocol IMapVCInput: AnyObject {
     func fetchRestorans(address: [Address])
     func fetchUserAddress(address: [Address])
+    func showUserPin(at coordinate: CLLocationCoordinate2D, title: String, subtitle: String?)
 }
 
 class MapVC: UIViewController {
-    
     private let presenter: IMapPresenterInput
-    
     private lazy var selectOptions = SelectorView()
     lazy var mapView = MapView()
     lazy var bottomSheet = BottomSheetView()
-    
-    private var searchTimer: Timer?
-    private let searchDelay: TimeInterval = 2.0
-    
-    init(presenter: IMapPresenterInput, searchTimer: Timer? = nil) {
+
+    private let inputDebouncer = Debouncer(delay: 0.6)
+
+    init(presenter: IMapPresenterInput) {
         self.presenter = presenter
-        self.searchTimer = searchTimer
         super.init(nibName: nil, bundle: nil)
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter.viewDidLoad()
-        
         setupViews()
-        
+
         selectOptions.addTarget(self, action: #selector(selectionChanged), for: .valueChanged)
         bottomSheet.configure(for: .delivery)
+
+        bottomSheet.addressDelegate = self
+        bottomSheet.bindAddressInput()
     }
 }
 
+// MARK: - IMapVCInput
 extension MapVC: IMapVCInput {
     func fetchRestorans(address: [Address]) {
         mapView.setupMap(restaurants: address)
     }
-    
-    func fetchUserAddress(address: [Address]) {
-        
+
+    func fetchUserAddress(address: [Address]) { /* по необходимости */ }
+
+    func showUserPin(at coordinate: CLLocationCoordinate2D, title: String, subtitle: String?) {
+        mapView.centerMap(on: coordinate)
+        mapView.addAnnotation(at: coordinate, title: title, subtitle: subtitle)
     }
 }
 
-// MARK: Private
-private extension MapVC {
-    
-    @objc private func selectionChanged(_ sender: SelectorView) {
-        if sender.selectedIndex == 0 {
-            bottomSheet.configure(for: .delivery)
-        } else {
-            bottomSheet.configure(for: .order)
+// MARK: - AddressInputViewDelegate
+extension MapVC: AddressInputViewDelegate {
+    func addressInputDidChange(_ text: String) {
+        inputDebouncer.submit { [weak self] in
+            self?.presenter.searchAddress(query: text) // геокодинг теперь вне VC
         }
     }
-    
-    @objc private func addressTextChanged(_ textField: UITextField) {
-        searchTimer?.invalidate()
-        
-        searchTimer = Timer.scheduledTimer(
-            timeInterval: searchDelay,
-            target: self,
-            selector: #selector(performAddressSearch),
-            userInfo: nil,
-            repeats: false
-        )
-    }
-    
-    @objc private func performAddressSearch() {
-        guard let address = bottomSheet.deliveryView.addressTextField.text, !address.isEmpty else { return }
-        
-        let geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(address) { [weak self] (placemarks, error) in
-            guard let self = self else { return }
-            
-            if let error = error {
-                print("Ошибка геокодирования: \(error.localizedDescription)")
-                return
-            }
-            
-            if let placemark = placemarks?.first, let location = placemark.location {
-                mapView.centerMap(on: location.coordinate)
-                
-                mapView.addAnnotation(
-                    at: location.coordinate,
-                    title: address,
-                    subtitle: placemark.locality
-                )
-            }
-        }
+    func addressInputDidSubmit(_ text: String) {
+        presenter.searchAddress(query: text)
     }
 }
 
-// MARK: Setup
+// MARK: - Private
 private extension MapVC {
+    @objc func selectionChanged(_ sender: SelectorView) {
+        bottomSheet.configure(for: sender.selectedIndex == 0 ? .delivery : .order)
+    }
+
     func setupViews() {
         view.backgroundColor = .white
-        
         addViews()
         setupConstraints()
-        
         bottomSheet.fetchAdresses(restorant: StoreService.fetchStores())
-        setupAddressTextField()
     }
-    
+
     func addViews() {
         view.addSubview(mapView)
         view.addSubview(selectOptions)
         view.addSubview(bottomSheet)
     }
-    
-    private func setupAddressTextField() {
-        bottomSheet.deliveryView.addressTextField.delegate = self
-        bottomSheet.deliveryView.addressTextField.addTarget(
-            self,
-            action: #selector(addressTextChanged(_:)),
-            for: .editingChanged
-        )
-    }
-    
+
     func setupConstraints() {
-        mapView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+        mapView.snp.makeConstraints { $0.edges.equalToSuperview() }
+        selectOptions.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(Layout.offset8)
+            $0.left.right.equalToSuperview().inset(30)
+            $0.height.equalTo(40)
         }
-        
-        selectOptions.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).inset(Layout.offset8)
-            make.left.equalToSuperview().inset(30)
-            make.right.equalToSuperview().inset(30)
-            make.height.equalTo(40)
-        }
-        
-        bottomSheet.snp.makeConstraints { make in
-            make.left.right.bottom.equalToSuperview()
-            make.height.equalToSuperview().multipliedBy(0.40)
+        bottomSheet.snp.makeConstraints {
+            $0.left.right.bottom.equalToSuperview()
+            $0.height.equalToSuperview().multipliedBy(0.40)
         }
     }
 }
 
-// MARK: - UITextFieldDelegate
-extension MapVC: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        performAddressSearch()
-        return true
+final class Debouncer {
+    private let delay: TimeInterval
+    private var workItem: DispatchWorkItem?
+
+    init(delay: TimeInterval) { self.delay = delay }
+
+    func submit(_ action: @escaping () -> Void) {
+        workItem?.cancel()
+        let item = DispatchWorkItem(block: action)
+        workItem = item
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: item)
     }
 }

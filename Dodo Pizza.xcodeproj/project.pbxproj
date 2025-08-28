@@ -87,6 +87,7 @@
 		90C1DB862E5DE140008689F4 /* MapInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C1DB852E5DE140008689F4 /* MapInteractor.swift */; };
 		90C1DB882E5F2A91008689F4 /* AddressResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C1DB872E5F2A91008689F4 /* AddressResponse.swift */; };
 		90C1DB8A2E5F2C00008689F4 /* AddressLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C1DB892E5F2C00008689F4 /* AddressLoader.swift */; };
+		90C1DB8C2E5F3EF6008689F4 /* GeocodingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C1DB8B2E5F3EF6008689F4 /* GeocodingService.swift */; };
 		90F21B0A2E3D03FF00836E95 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F21B092E3D03FF00836E95 /* EmptyView.swift */; };
 		90F21B0C2E3E096A00836E95 /* CartBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F21B0B2E3E096A00836E95 /* CartBottomView.swift */; };
 /* End PBXBuildFile section */
@@ -173,6 +174,7 @@
 		90C1DB852E5DE140008689F4 /* MapInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapInteractor.swift; sourceTree = "<group>"; };
 		90C1DB872E5F2A91008689F4 /* AddressResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressResponse.swift; sourceTree = "<group>"; };
 		90C1DB892E5F2C00008689F4 /* AddressLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressLoader.swift; sourceTree = "<group>"; };
+		90C1DB8B2E5F3EF6008689F4 /* GeocodingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeocodingService.swift; sourceTree = "<group>"; };
 		90F21B092E3D03FF00836E95 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		90F21B0B2E3E096A00836E95 /* CartBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartBottomView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -407,6 +409,7 @@
 			children = (
 				907ECED32E1D76DC00A1BBB9 /* Loaders */,
 				907ECED42E1D76DC00A1BBB9 /* CartUserDefaultsService.swift */,
+				90C1DB8B2E5F3EF6008689F4 /* GeocodingService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -620,6 +623,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				907ECEDC2E1D76DC00A1BBB9 /* AppDelegate.swift in Sources */,
+				90C1DB8C2E5F3EF6008689F4 /* GeocodingService.swift in Sources */,
 				907ECEDD2E1D76DC00A1BBB9 /* SceneDelegate.swift in Sources */,
 				907ECF732E23DEE800A1BBB9 /* BannerCarouselView.swift in Sources */,
 				907ECEE12E1D76DC00A1BBB9 /* CategoryCell.swift in Sources */,
