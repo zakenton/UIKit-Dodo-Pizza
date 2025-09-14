@@ -10,14 +10,16 @@ final class MapAssembly {
     
     private let addressLoader: IAddressLoaderService
     private let geocoding: IGeocodingService
+    private let addressStore: IUserAddressStore
     
-    init(addressLoader: IAddressLoaderService, geocoding: IGeocodingService) {
+    init(addressLoader: IAddressLoaderService, geocoding: IGeocodingService, addressStore: IUserAddressStore) {
         self.addressLoader = addressLoader
         self.geocoding = geocoding
+        self.addressStore = addressStore
     }
     
     func build() -> UIViewController {
-        let interactor = MapInteractor(restoransLoader: addressLoader, geocoding: geocoding)
+        let interactor = MapInteractor(restoransLoader: addressLoader, geocoding: geocoding, addressStore: addressStore)
         let presenter = MapPresenter(interactor: interactor)
         let mapVC = MapVC(presenter: presenter)
         mapVC.tabBarItem = UITabBarItem(title: "Map",

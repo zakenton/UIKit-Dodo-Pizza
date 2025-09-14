@@ -24,7 +24,7 @@ final class DeliveryView: UIView {
         return tf
     }()
 
-    private let saveAddressButton = Button(style: .useThisAddress("Use this Address"))
+    let saveAddressButton = Button(style: .useThisAddress("Use this Address"))
 
     // Наш новый список
     private let addressListView = AddressListView()

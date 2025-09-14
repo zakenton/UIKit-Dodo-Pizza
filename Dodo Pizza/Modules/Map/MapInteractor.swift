@@ -10,14 +10,22 @@ import CoreLocation
 
 protocol IMapInteractorInput: AnyObject {
     func getRestorans()
+    func getUserAddress()
     func geocode(_ query: String)
+    func confirmAddressSelection(candidate: AddressCandidate)
+    func saveAddress(candidate: AddressCandidate, mark: Mark)
 }
 
 protocol IMapInteractorOutput: AnyObject {
     func didLoad(addresses: [Address])
     func didFail(_ error: Error)
-    func didGeocode(query: String, coordinate: CLLocationCoordinate2D, city: String?)
+    func didGeocode(query: String,
+                    coordinate: CLLocationCoordinate2D,
+                    city: String?)
     func didFailGeocode(_ error: Error)
+    func addressAlreadyExists(_ address: Address)
+    func needUserToConfirmSave(candidate: AddressCandidate)
+    func didSaveAddress(_ address: Address)
 }
 
 final class MapInteractor {
@@ -25,14 +33,20 @@ final class MapInteractor {
     
     private let restoransLoader: IAddressLoaderService
     private let geocoding: IGeocodingService
+    private let addressStore: IUserAddressStore
     
-    init(restoransLoader: IAddressLoaderService, geocoding: IGeocodingService) {
+    init(restoransLoader: IAddressLoaderService, geocoding: IGeocodingService, addressStore: IUserAddressStore) {
         self.restoransLoader = restoransLoader
         self.geocoding = geocoding
+        self.addressStore = addressStore
     }
 }
 
 extension MapInteractor: IMapInteractorInput {
+    func getUserAddress() {
+        
+    }
+    
     func geocode(_ query: String) {
         geocoding.geocode(query: query) { result in
             switch result {
@@ -91,6 +105,33 @@ extension MapInteractor: IMapInteractorInput {
             }
         }
         return result
+    }
+    
+    func confirmAddressSelection(candidate: AddressCandidate) {
+        if let existing = addressStore.exists(candidate: candidate, epsilonMeters: 30) {
+            presenter?.addressAlreadyExists(existing)
+        } else {
+            presenter?.needUserToConfirmSave(candidate: candidate)
+        }
+    }
+    
+    func saveAddress(candidate: AddressCandidate, mark: Mark) {
+        // Safety: не даём сохранить restaurant
+        let safeMark: Mark = (mark == .restaurant) ? .custom : mark
+        let address = Address(
+            id: nil,
+            label: safeMark,
+            address: candidate.address,
+            zipcode: candidate.zipcode,
+            city: candidate.city,
+            coordinate: candidate.coordinate
+        )
+        do {
+            let saved = try addressStore.save(address)
+            presenter?.didSaveAddress(saved)
+        } catch {
+            presenter?.didFail(error)
+        }
     }
 }
 

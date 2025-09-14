@@ -12,6 +12,8 @@ protocol IMapVCInput: AnyObject {
     func fetchRestorans(address: [Address])
     func fetchUserAddress(address: [Address])
     func showUserPin(at coordinate: CLLocationCoordinate2D, title: String, subtitle: String?)
+    func showMessage(_ text: String)
+    func promptSaveAddress(availableMarks: [Mark])
 }
 
 class MapVC: UIViewController {
@@ -35,7 +37,9 @@ class MapVC: UIViewController {
 
         selectOptions.addTarget(self, action: #selector(selectionChanged), for: .valueChanged)
         bottomSheet.configure(for: .delivery)
-
+        bottomSheet.onConfirmTap = { [weak self] in
+                self?.presenter.confirmCurrentAddress()
+            }
         bottomSheet.addressDelegate = self
         bottomSheet.bindAddressInput()
     }
@@ -47,11 +51,34 @@ extension MapVC: IMapVCInput {
         mapView.setupMap(restaurants: address)
     }
 
-    func fetchUserAddress(address: [Address]) { /* по необходимости */ }
-
+    func fetchUserAddress(address: [Address]) {
+        
+    }
+    
     func showUserPin(at coordinate: CLLocationCoordinate2D, title: String, subtitle: String?) {
         mapView.centerMap(on: coordinate)
         mapView.addAnnotation(at: coordinate, title: title, subtitle: subtitle)
+    }
+    
+    func promptSaveAddress(availableMarks: [Mark]) {
+        let alert = UIAlertController(title: "Сохранить адрес?",
+                                      message: "Выберите метку для адреса.",
+                                      preferredStyle: .actionSheet)
+        for m in availableMarks {
+            alert.addAction(UIAlertAction(title: m.rawValue, style: .default, handler: { [weak self] _ in
+                self?.presenter.saveConfirmedAddress(with: m)
+            }))
+        }
+        alert.addAction(UIAlertAction(title: "Не сохранять", style: .cancel))
+        present(alert, animated: true)
+    }
+    
+    func showMessage(_ text: String) {
+        let alert = UIAlertController(title: nil, message: text, preferredStyle: .alert)
+        present(alert, animated: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) { [weak alert] in
+            alert?.dismiss(animated: true)
+        }
     }
 }
 
@@ -67,12 +94,12 @@ extension MapVC: AddressInputViewDelegate {
     }
 }
 
-// MARK: - Private
+// MARK: - SetupViews
 private extension MapVC {
     @objc func selectionChanged(_ sender: SelectorView) {
         bottomSheet.configure(for: sender.selectedIndex == 0 ? .delivery : .order)
     }
-
+    
     func setupViews() {
         view.backgroundColor = .white
         addViews()
@@ -100,6 +127,7 @@ private extension MapVC {
     }
 }
 
+//MARK: Debouncer
 final class Debouncer {
     private let delay: TimeInterval
     private var workItem: DispatchWorkItem?

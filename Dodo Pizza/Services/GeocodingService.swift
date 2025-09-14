@@ -14,6 +14,7 @@ struct GeocodeResult {
     let query: String
     let coordinate: CLLocationCoordinate2D
     let city: String?
+    let postalCode: String?
 }
 
 enum GeocodingError: Error {
@@ -24,7 +25,6 @@ enum GeocodingError: Error {
 }
 
 // MARK: - Protocol
-
 protocol IGeocodingService {
     func geocode(query: String, completion: @escaping (Result<GeocodeResult, GeocodingError>) -> Void)
     func batchGeocode(addresses: [Address],
@@ -82,8 +82,9 @@ final class GeocodingService: IGeocodingService {
                         return
                     }
 
-                    let city = pm.locality ?? pm.subLocality ?? pm.administrativeArea
-                    let result = GeocodeResult(query: key, coordinate: loc.coordinate, city: city)
+                    let city  = pm.locality ?? pm.subLocality ?? pm.administrativeArea
+                    let zip   = pm.postalCode
+                    let result = GeocodeResult(query: key, coordinate: loc.coordinate, city: city, postalCode: zip)
                     self.cache.set(key: key, result: result)
                     completion(.success(result))
                 }
@@ -180,7 +181,7 @@ final class GeocodeCache {
 
         let city = dict["city"] as? String
         let coord = CLLocationCoordinate2D(latitude: lat, longitude: lon)
-        return GeocodeResult(query: key, coordinate: coord, city: city)
+        return GeocodeResult(query: key, coordinate: coord, city: city, postalCode: nil)
     }
 
     func set(key: String, result: GeocodeResult) {

@@ -20,12 +20,13 @@ protocol AddressInputViewDelegate: AnyObject {
 }
 
 final class BottomSheetView: UIView, UITextFieldDelegate {
-    
-    private var userAddress: [Address] = []
-    private var restorantAddress: [Address] = []
-    private var addressText: String? { deliveryView.addressTextField.text }
-    
+    var onConfirmTap: (() -> Void)?
     weak var addressDelegate: AddressInputViewDelegate?
+    
+    private var addressText: String? { deliveryView.addressTextField.text }
+    private var restorantAddress: [Address] = []
+    private var userAddress: [Address] = []
+    
     
     // MARK: UI Elements
     let deliveryView = DeliveryView()
@@ -36,6 +37,10 @@ final class BottomSheetView: UIView, UITextFieldDelegate {
         super.init(frame: frame)
         orderView.setupTable(with: restorantAddress)
         setupView()
+        deliveryView.saveAddressButton.addTarget(self,
+                                                 action: #selector(confirmTapped),
+                                                 for: .touchUpInside)
+        bindAddressInput()
     }
     
     required init?(coder: NSCoder) {
@@ -56,10 +61,12 @@ extension BottomSheetView {
     
     func fetchAdresses(user: [Address]) {
         self.userAddress = user
+        deliveryView.setSavedAddresses(user)
     }
     
     func fetchAdresses(restorant: [Address]) {
         self.restorantAddress = restorant
+        orderView.setupTable(with: restorant)
     }
     
     func setAddressText(_ text: String?) {
@@ -77,11 +84,12 @@ private extension BottomSheetView {
     @objc private func textChanged(_ tf: UITextField) {
         addressDelegate?.addressInputDidChange(tf.text ?? "")
     }
+    
+    @objc private func confirmTapped() { onConfirmTap?() }
 }
 
-// MARK: - PRIVATE
+//MARK: View Configurations
 private extension BottomSheetView {
-    
     func showDeliveryView() {
         deliveryView.isHidden = false
         setHeight(multiplier: 0.40)
@@ -106,6 +114,12 @@ private extension BottomSheetView {
             superview.layoutIfNeeded()
         }
     }
+}
+
+// MARK: - SetupViews
+private extension BottomSheetView {
+    
+    
     //MARK: setup View
     func setupView() {
         backgroundColor = .white

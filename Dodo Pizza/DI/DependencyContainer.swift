@@ -19,6 +19,7 @@ final class DependencyContainer {
     let productsLoader: LoaderService
     let addressLoader: AddressLoaderService
     let cartServise: CartService
+    let addressStore: UserAddressStore
     let geocodingService: GeocodingService
     
     
@@ -33,6 +34,7 @@ final class DependencyContainer {
         decoder = JSONDecoder()
         encoder = JSONEncoder()
         userDefaults = UserDefaults.standard
+        addressStore = UserAddressStore()
         geocodingService = GeocodingService(throttleInterval: 0.4)
         
         productsLoader = LoaderService(session: session, decoder: decoder)
@@ -41,7 +43,7 @@ final class DependencyContainer {
         
         menuAssembly = MenuAssembly(loaderService: productsLoader, cartServise: cartServise)
         
-        mapAssembly = MapAssembly(addressLoader: addressLoader, geocoding: geocodingService)
+        mapAssembly = MapAssembly(addressLoader: addressLoader, geocoding: geocodingService, addressStore: addressStore)
         
         cartAssembly = CartAssembly(cartServise: cartServise)
         

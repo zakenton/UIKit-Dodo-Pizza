@@ -88,6 +88,7 @@
 		90C1DB882E5F2A91008689F4 /* AddressResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C1DB872E5F2A91008689F4 /* AddressResponse.swift */; };
 		90C1DB8A2E5F2C00008689F4 /* AddressLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C1DB892E5F2C00008689F4 /* AddressLoader.swift */; };
 		90C1DB8C2E5F3EF6008689F4 /* GeocodingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C1DB8B2E5F3EF6008689F4 /* GeocodingService.swift */; };
+		90C1DB8E2E605155008689F4 /* UserAddressStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C1DB8D2E605155008689F4 /* UserAddressStore.swift */; };
 		90F21B0A2E3D03FF00836E95 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F21B092E3D03FF00836E95 /* EmptyView.swift */; };
 		90F21B0C2E3E096A00836E95 /* CartBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F21B0B2E3E096A00836E95 /* CartBottomView.swift */; };
 /* End PBXBuildFile section */
@@ -175,6 +176,7 @@
 		90C1DB872E5F2A91008689F4 /* AddressResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressResponse.swift; sourceTree = "<group>"; };
 		90C1DB892E5F2C00008689F4 /* AddressLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressLoader.swift; sourceTree = "<group>"; };
 		90C1DB8B2E5F3EF6008689F4 /* GeocodingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeocodingService.swift; sourceTree = "<group>"; };
+		90C1DB8D2E605155008689F4 /* UserAddressStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAddressStore.swift; sourceTree = "<group>"; };
 		90F21B092E3D03FF00836E95 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		90F21B0B2E3E096A00836E95 /* CartBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartBottomView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -400,6 +402,7 @@
 			children = (
 				907ECED22E1D76DC00A1BBB9 /* ProductsLoader.swift */,
 				90C1DB892E5F2C00008689F4 /* AddressLoader.swift */,
+				90C1DB8D2E605155008689F4 /* UserAddressStore.swift */,
 			);
 			path = Loaders;
 			sourceTree = "<group>";
@@ -652,6 +655,7 @@
 				907ECEF22E1D76DC00A1BBB9 /* CategoryView.swift in Sources */,
 				909F87A62E27F935003A189A /* QuantityControll.swift in Sources */,
 				90C1DB842E5DE11D008689F4 /* MapPresenter.swift in Sources */,
+				90C1DB8E2E605155008689F4 /* UserAddressStore.swift in Sources */,
 				90F21B0A2E3D03FF00836E95 /* EmptyView.swift in Sources */,
 				907ECEF32E1D76DC00A1BBB9 /* ProductCart.swift in Sources */,
 				907ECF202E1EFF3F00A1BBB9 /* DefaultValues.swift in Sources */,

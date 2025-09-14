@@ -17,6 +17,14 @@ struct Address {
     let coordinate: CLLocationCoordinate2D?
 }
 
+struct AddressCandidate {
+    let address: String
+    let zipcode: String
+    let city: String
+    let coordinate: CLLocationCoordinate2D
+}
+
+
 enum Mark: String {
     case home = "Home"
     case work = "Work"
