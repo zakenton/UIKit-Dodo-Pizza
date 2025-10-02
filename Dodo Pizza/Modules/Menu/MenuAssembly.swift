@@ -1,11 +1,3 @@
-//
-//  MenuBuilder.swift
-//  Dodo Pizza
-//
-//  Created by Zakhar on 02.07.25.
-//
-
-import Foundation
 import UIKit
 
 final class MenuAssembly {
@@ -19,23 +11,16 @@ final class MenuAssembly {
     
     func build() -> UIViewController {
         let router = MenuRouter()
-        
         let interector = MenuInteractor(loaderService: loaderService, cartServise: cartServise)
-        
-        let presenter = MenuPresenter(interactor: interector,
-                                      router: router)
-        
+        let presenter = MenuPresenter(interactor: interector, router: router)
         let menuVC = MenuVC(presenter: presenter)
         
         menuVC.tabBarItem = UITabBarItem(title: "Menu",
                                         image: UIImage(systemName: "menucard"),
                                         selectedImage: UIImage(systemName: "menucard"))
         router.menuPresenter = presenter
-        
         presenter.menuVC = menuVC
-        
         interector.presenter = presenter
-        
         router.menuVC = menuVC
         
         return menuVC

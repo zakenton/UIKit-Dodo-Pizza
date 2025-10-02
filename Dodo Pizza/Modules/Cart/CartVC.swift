@@ -1,20 +1,19 @@
-//
-//  CartVC.swift
-//  Dodo Pizza
-//
-//  Created by Zakhar on 03.07.25.
-//
-
-import Foundation
 import UIKit
+
+protocol ICartVCInput: AnyObject {
+    func setupTableView(with product: [ProductCart])
+    func setupBottomView(with price: String)
+    func showEmptyView()
+    func showTableView()
+}
 
 class CartVC: UIViewController {
     
     private let presenter: ICartPresenterInput
     
-    lazy var tableView = CartTableView()
-    lazy var bottomView = CartBottomView()
-    lazy var emptyView = EmptyView()
+    private lazy var tableView = CartTableView()
+    private lazy var bottomView = CartBottomView()
+    private lazy var emptyView = EmptyView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +30,8 @@ class CartVC: UIViewController {
     init(presenter: ICartPresenterInput) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
+        tableView.view = self
+        bottomView.delegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -38,16 +39,13 @@ class CartVC: UIViewController {
     }
 }
 
-//MARK: - Setup
-extension CartVC {
+extension CartVC: ICartVCInput {
+    func setupTableView(with products: [ProductCart]) {
+        tableView.fetchProducts(with: products)
+    }
     
-    func setupViews() {
-        view.backgroundColor = .white
-        view.addSubview(tableView)
-        view.addSubview(bottomView)
-        
-        view.addSubview(emptyView)
-        tableView.presenter = presenter
+    func setupBottomView(with price: String) {
+        bottomView.setTotalPrice(price)
     }
     
     func showEmptyView() {
@@ -59,6 +57,42 @@ extension CartVC {
     func showTableView() {
         emptyView.isHidden = true
         tableView.isHidden = false
+        bottomView.isHidden = false
+    }
+    
+}
+
+extension CartVC: ICartTableViewDelegate, ICartBottomViewDelegate {
+    func didTapIncrementQuantity(for cartId: UUID) {
+        presenter.incrementProductQuantity(for: cartId)
+    }
+    
+    func didTapDecrementQuantity(for cartId: UUID) {
+        presenter.decrementProductQuantity(for: cartId)
+    }
+    
+    func didTapDeleteProduct(with cartId: UUID) {
+        presenter.removeProduct(with: cartId)
+    }
+    
+    func didTapChangeButton(for product: ProductCart) {
+        presenter.addAdditionalProduct(product)
+    }
+    
+    func didTapCheckout() {
+        presenter.checkout()
+    }
+}
+
+//MARK: - Setup
+private extension CartVC {
+    
+    func setupViews() {
+        view.backgroundColor = .white
+        view.addSubview(tableView)
+        view.addSubview(bottomView)
+        
+        view.addSubview(emptyView)
     }
     
     func setupConstraints() {

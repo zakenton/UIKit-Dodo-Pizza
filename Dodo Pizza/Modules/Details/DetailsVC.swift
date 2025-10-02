@@ -1,13 +1,15 @@
-//
-//  DetailsVC.swift
-//  Dodo Pizza
-//
-//  Created by Zakhar on 02.07.25.
-//
-
 import Foundation
 import UIKit
 import SnapKit
+
+protocol IDetailViewInput: AnyObject {
+    func setImage(imageURL: String)
+    func setDescription(description: String)
+    func setDough(option: [ProductOption])
+    func setSize(option: [ProductOption])
+    func setAdditives(option: [ProductAdditiveView])
+    func setPrice(price: Double)
+}
 
 final class DetailsVC: UIViewController {
     
@@ -34,17 +36,12 @@ final class DetailsVC: UIViewController {
     // MARK: - Init
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("DetailVC init ✅")
         setupView()
         presenter?.viewDidLoad()
         
         additivesCollection.onSelect = { [weak self] index in
             self?.presenter?.didSelectAdditive(index: index)
         }
-    }
-    
-    deinit {
-        print("DetailVC DEINIT ✅")
     }
     
     init(presenter: IDetailPresenterInput) {
@@ -112,9 +109,6 @@ private extension DetailsVC  {
         presenter?.didSelectDough(index: index)
     }
 }
-
-
-
 
 // MARK: - Setup View
 private extension DetailsVC {

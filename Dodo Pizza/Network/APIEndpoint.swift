@@ -1,10 +1,3 @@
-//
-//  RequestBuilder.swift
-//  dodo-base
-//
-//  Created by Zakhar on 28.06.25.
-//
-
 import Foundation
 
 enum APIEndpoint {

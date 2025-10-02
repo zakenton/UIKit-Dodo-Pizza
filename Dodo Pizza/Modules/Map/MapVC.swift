@@ -1,10 +1,3 @@
-//
-//  MapVC.swift
-//  dodo-pizza-work
-//
-//  Created by Zakhar on 29.06.25.
-//
-
 import UIKit
 import MapKit
 
@@ -61,15 +54,15 @@ extension MapVC: IMapVCInput {
     }
     
     func promptSaveAddress(availableMarks: [Mark]) {
-        let alert = UIAlertController(title: "Сохранить адрес?",
-                                      message: "Выберите метку для адреса.",
+        let alert = UIAlertController(title: "Save address?",
+                                      message: "Chois point on map",
                                       preferredStyle: .actionSheet)
         for m in availableMarks {
             alert.addAction(UIAlertAction(title: m.rawValue, style: .default, handler: { [weak self] _ in
                 self?.presenter.saveConfirmedAddress(with: m)
             }))
         }
-        alert.addAction(UIAlertAction(title: "Не сохранять", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Don't save", style: .cancel))
         present(alert, animated: true)
     }
     
@@ -121,7 +114,7 @@ private extension MapVC {
             $0.height.equalTo(40)
         }
         bottomSheet.snp.makeConstraints {
-            $0.left.right.bottom.equalToSuperview()
+            $0.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
             $0.height.equalToSuperview().multipliedBy(0.40)
         }
     }

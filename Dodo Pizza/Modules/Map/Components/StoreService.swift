@@ -1,10 +1,3 @@
-//
-//  StoreService.swift
-//  ViewBuilderPlayground
-//
-//  Created by Zakhar on 17.07.25.
-//
-
 import Foundation
 import MapKit
 

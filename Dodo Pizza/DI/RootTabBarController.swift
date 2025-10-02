@@ -1,14 +1,4 @@
-//
-//  MainTabBarC.swift
-//  dodo-pizza-project-final
-//
-//  Created by Zakhar on 29.06.25.
-//
-
-import Foundation
 import UIKit
-import SnapKit
-
 
 final class RootTabBarController: UITabBarController {
     private let menuAssembly: MenuAssembly
@@ -28,16 +18,13 @@ final class RootTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setup()
-        
-        viewControllers = [menuAssembly.build(),
-                           mapAssembly.build(),
-                           cartAssembly.build()]
+        viewControllers = [menuAssembly.build(), mapAssembly.build(), cartAssembly.build()]
     }
-    
-    
-    private func setup() {
+}
+
+private extension RootTabBarController {
+    func setup() {
         tabBar.tintColor = .orange
         tabBar.backgroundColor = .white
     }

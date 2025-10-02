@@ -1,10 +1,3 @@
-//
-//  UserAddressStore.swift
-//  Dodo Pizza
-//
-//  Created by Zakhar on 28.08.25.
-//
-
 import Foundation
 import CoreLocation
 
@@ -24,7 +17,7 @@ final class UserAddressStore: IUserAddressStore {
     private let key = "user_addresses_v1"
     private let ud = UserDefaults.standard
     
-    // DTO для хранения
+    
     private struct AddressDTO: Codable {
         let id: Int
         let label: String
@@ -81,7 +74,7 @@ final class UserAddressStore: IUserAddressStore {
     
     func exists(candidate: AddressCandidate, epsilonMeters: CLLocationDistance = 30) -> Address? {
         let all = list()
-        // По строкам (нормализованная строка) или по расстоянию координат
+        
         let normCandidate = normalize("\(candidate.address), \(candidate.zipcode) \(candidate.city)")
         
         for a in all {
@@ -98,7 +91,7 @@ final class UserAddressStore: IUserAddressStore {
     @discardableResult
     func save(_ address: Address) throws -> Address {
         var all = list()
-        // id генерим сами (максимум + 1), если у address.id == nil
+        
         let nextID = (all.compactMap { $0.id }.max() ?? 0) + 1
         let toInsert = Address(
             id: address.id ?? nextID,

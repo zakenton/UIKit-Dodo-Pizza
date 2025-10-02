@@ -1,11 +1,11 @@
-//
-//  MenuManager.swift
-//  dodo-pizza-work
-//
-//  Created by Zakhar on 30.06.25.
-//
-
 import Foundation
+
+protocol IMenuInteractorInput: AnyObject {
+    func getProducts(by category: CategoryView)
+    func getBanners()
+    func getCategories()
+    func saveProduct(_ product: ProductView)
+}
 
 final class MenuInteractor {
     
@@ -21,50 +21,6 @@ final class MenuInteractor {
     init(loaderService: ILoaderService, cartServise: ICartServiseInput) {
         self.loaderService = loaderService
         self.cartServise = cartServise
-    }
-}
-
-//MARK: Logic
-private extension MenuInteractor {
-
-    
-}
-
-//MARK: Loaders
-private extension MenuInteractor {
-    
-    func loadProducts(by category: CategoryView) {
-        loaderService.getProducts(by: category) { [weak self] products in
-            guard let self = self else { return }
-            
-            self.products[category] = products
-            DispatchQueue.main.async {
-                self.presenter?.didGetProducts(products)
-            }
-        }
-    }
-    
-    func loadBanners() {
-        loaderService.getBanners { [weak self] banners in
-            guard let self = self else { return }
-            
-            self.banners = banners
-            DispatchQueue.main.async {
-                self.presenter?.didGetBanners(banners)
-            }
-        }
-    }
-    
-    func loadCategories() {
-        print(3)
-        loaderService.getCategories { [weak self] categories in
-            guard let self = self else { return }
-            
-            self.categories = categories
-            DispatchQueue.main.async {
-                self.presenter?.didGetCategories(categories)
-            }
-        }
     }
 }
 
@@ -96,6 +52,41 @@ extension MenuInteractor: IMenuInteractorInput {
     func saveProduct(_ product: ProductView) {
         let productCart = product.toProductCart()
         cartServise.saveOrIncrementProduct(productCart)
-        print("Product saved: " + product.name)
+    }
+}
+
+private extension MenuInteractor {
+    
+    func loadProducts(by category: CategoryView) {
+        loaderService.getProducts(by: category) { [weak self] products in
+            guard let self = self else { return }
+            
+            self.products[category] = products
+            DispatchQueue.main.async {
+                self.presenter?.didGetProducts(products)
+            }
+        }
+    }
+    
+    func loadBanners() {
+        loaderService.getBanners { [weak self] banners in
+            guard let self = self else { return }
+            
+            self.banners = banners
+            DispatchQueue.main.async {
+                self.presenter?.didGetBanners(banners)
+            }
+        }
+    }
+    
+    func loadCategories() {
+        loaderService.getCategories { [weak self] categories in
+            guard let self = self else { return }
+            
+            self.categories = categories
+            DispatchQueue.main.async {
+                self.presenter?.didGetCategories(categories)
+            }
+        }
     }
 }

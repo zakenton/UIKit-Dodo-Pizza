@@ -1,11 +1,3 @@
-//
-//  ProductsCell.swift
-//  dodo-pizza-work
-//
-//  Created by Zakhar on 29.06.25.
-//
-
-import Foundation
 import UIKit
 import SnapKit
 
@@ -18,7 +10,7 @@ final class ProductCell: UITableViewCell {
     weak var delegate: ProductCellDelegate?
     private var product: ProductView?
     
-    var verticalStackView: UIStackView = {
+    private var verticalStackView: UIStackView = {
         var stackView = UIStackView.init()
         stackView.axis = .vertical
         stackView.spacing = 15
@@ -27,13 +19,13 @@ final class ProductCell: UITableViewCell {
         return stackView
     }()
     
-    var title = Label(style: .productCellTitle)
+    private var title = Label(style: .productCellTitle)
     
-    var descriptions = Label(style: .productCellDescription)
+    private var descriptions = Label(style: .productCellDescription)
     
-    var image = ImageView(style: .productCell)
+    private var image = ImageView(style: .productCell)
     
-    var priceButton = Button(style: .price("0.00"))
+    private var priceButton = Button(style: .price("0.00"))
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

@@ -1,17 +1,9 @@
-//
-//  DeliveryView.swift
-//  Dodo Pizza
-//
-//  Created by Zakhar on 20.07.25.
-//
-
 import UIKit
 import SnapKit
 import CoreLocation
 
 final class DeliveryView: UIView {
 
-    // MARK: UI Elements
     private let myAddressButton = Button(style: .savedAddress("Saved Address"))
 
     let addressTextField: UITextField = {
@@ -26,13 +18,10 @@ final class DeliveryView: UIView {
 
     let saveAddressButton = Button(style: .useThisAddress("Use this Address"))
 
-    // Наш новый список
     private let addressListView = AddressListView()
 
-    // Паблик API: наружу отдаем выбранный адрес
     var onAddressPicked: ((Address) -> Void)?
 
-    // Локальное состояние
     private var isShowingList = false
 
     // MARK: Init
@@ -42,7 +31,7 @@ final class DeliveryView: UIView {
         addViews()
         setupConstraints()
         addTargets()
-        showAddNewAddressView() // стартуем с формы ввода
+        showAddNewAddressView()
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -50,7 +39,6 @@ final class DeliveryView: UIView {
 
 // MARK: Public
 extension DeliveryView {
-    /// Передай сохранённые адреса сюда — список обновится
     func setSavedAddresses(_ addresses: [Address]) {
         addressListView.update(addresses: addresses)
     }
@@ -62,11 +50,11 @@ private extension DeliveryView {
     func addTargets() {
         myAddressButton.addTarget(self, action: #selector(didTapChangeViewButton), for: .touchUpInside)
 
-        // обработка выбора адреса из списка
+        
         addressListView.onSelect = { [weak self] selected in
             guard let self else { return }
             self.onAddressPicked?(selected)
-            // Заполним поле и вернемся к форме
+            
             self.addressTextField.text = "\(selected.address), \(selected.zipcode) \(selected.city)"
             self.toggleMode(showList: false)
         }
@@ -95,7 +83,7 @@ private extension DeliveryView {
         saveAddressButton.isHidden = true
         addressListView.isHidden = false
         myAddressButton.configuration?.attributedTitle = AttributedString("+ Add new")
-        // затемним фон родительского DeliveryView и отключим взаимодействия вне списка
+        
         backgroundColor = UIColor.black.withAlphaComponent(0.03)
         isUserInteractionEnabled = true
     }
@@ -115,7 +103,6 @@ private extension DeliveryView {
         clipsToBounds = true
     }
 
-    //MARK: add Views
     func addViews() {
         addSubview(myAddressButton)
         addSubview(addressTextField)
@@ -142,7 +129,6 @@ private extension DeliveryView {
             make.top.equalTo(addressTextField.snp.bottom).offset(12)
             make.left.right.equalToSuperview().inset(16)
             make.height.equalTo(50)
-            make.bottom.equalToSuperview().inset(12)
         }
 
         addressListView.snp.makeConstraints { make in

@@ -1,15 +1,5 @@
-//
-//  QuantityControll.swift
-//  Dodo Pizza
-//
-//  Created by Zakhar on 16.07.25.
-//
-
-
-import Foundation
 import UIKit
 import SnapKit
-
 
 protocol IQuantityViewDelegate: AnyObject {
     func didTapPlusButton()
@@ -58,7 +48,6 @@ final class QuantityView: UIView {
 
 extension QuantityView {
     func setQuantity(_ count: UInt) {
-        print("setQuantity")
         quantityLabel.text = String(count)
     }
 }

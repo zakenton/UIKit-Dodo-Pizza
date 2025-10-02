@@ -21,7 +21,7 @@ class EmptyView: UIView {
     }
 }
 
-extension EmptyView {
+private extension EmptyView {
     func setupViews() {
         
         addSubview(emptyImageView)

@@ -1,17 +1,8 @@
-//
-//  AddressListView.swift
-//  Dodo Pizza
-//
-//  Created by Zakhar on 22.08.25.
-//
-
-import Foundation
 import UIKit
 import SnapKit
 
 final class AddressListView: UIView {
 
-    // Паблик API
     var onSelect: ((Address) -> Void)?
     func update(addresses: [Address]) {
         self.addresses = addresses
@@ -31,7 +22,6 @@ final class AddressListView: UIView {
         return tv
     }()
 
-    // Чтобы аккуратно вписываться в контейнер (DeliveryView) без "уплываний"
     private var heightConstraint: Constraint?
 
     // MARK: Init
@@ -62,7 +52,6 @@ private extension AddressListView {
             make.edges.equalToSuperview()
         }
 
-        // По умолчанию ограничим высоту (контейнер может переопределить при желании)
         self.snp.makeConstraints { make in
             heightConstraint = make.height.lessThanOrEqualTo(260).constraint
         }
@@ -75,7 +64,6 @@ private extension AddressListView {
     }
 
     func updateHeightConstraintIfNeeded() {
-        // Автоподгон по контенту (не растем выше 260)
         layoutIfNeeded()
         tableView.layoutIfNeeded()
         let contentHeight = tableView.contentSize.height
@@ -90,7 +78,7 @@ extension AddressListView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { addresses.count }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: AddressTableViewCell.reuseId, for: indexPath) as! AddressTableViewCell
+        let cell: AddressTableViewCell = tableView.dequeueCell(indexPath)
         cell.configure(address: addresses[indexPath.row])
         return cell
     }
@@ -101,6 +89,5 @@ extension AddressListView: UITableViewDataSource, UITableViewDelegate {
         onSelect?(selected)
     }
 
-    // Небольшие отступы между ячейками — читаемее
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat { 64 }
 }

@@ -1,16 +1,7 @@
-//
-//  AddressTableViewCell.swift
-//  Dodo Pizza
-//
-//  Created by Zakhar on 22.08.25.
-//
-
-import Foundation
 import UIKit
 import CoreLocation
 
 final class AddressTableViewCell: UITableViewCell {
-    static let reuseId = "AddressTableViewCell"
 
     private let iconLabel: UILabel = {
         let l = UILabel()

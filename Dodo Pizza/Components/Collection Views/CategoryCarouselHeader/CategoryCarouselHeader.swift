@@ -1,10 +1,3 @@
-//
-//  Untitled.swift
-//  Dodo Pizza
-//
-//  Created by Zakhar on 13.06.25.
-//
-
 import UIKit
 import SnapKit
 
@@ -85,13 +78,11 @@ extension CategoryCarouselHeader: UICollectionViewDelegate, UICollectionViewData
         let newSelectedCategory = categories[indexPath.item]
         guard newSelectedCategory != selectedCategory else { return }
         
-        /// find index of preview selected category
         if let previousIndex = categories.firstIndex(of: selectedCategory) {
             let previousIndexPath = IndexPath(item: previousIndex, section: 0)
             selectedCategory = newSelectedCategory
             let newIndexPath = indexPath
             
-            // Перезагрузим только старую и новую ячейку
             collectionView.reloadItems(at: [previousIndexPath, newIndexPath])
         } else {
             selectedCategory = newSelectedCategory

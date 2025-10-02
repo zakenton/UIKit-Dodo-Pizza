@@ -1,12 +1,20 @@
-//
-//  CartPresenter.swift
-//  Dodo Pizza
-//
-//  Created by Zakhar on 28.07.25.
-//
-
 import Foundation
 
+protocol ICartPresenterInput: AnyObject {
+    func getAllProducts()
+    func addAdditionalProduct(_ product: ProductCart)
+    func saveAdditedProduct(_ product: ProductCart)
+    func decrementProductQuantity(for cartId: UUID)
+    func incrementProductQuantity(for cartId: UUID)
+    func removeProduct(with cartId: UUID)
+    func checkout()
+}
+
+protocol ICartInteractorOutput: AnyObject {
+    func didLoadPeoducts(_ products: [ProductCart])
+    func didChangProductQuantity(by cartId: UUID)
+    func didRemoveProduct(by cartId: UUID)
+}
 
 //MARK: Init
 final class CartPresenter {
@@ -30,10 +38,10 @@ private extension CartPresenter {
         }
         
         view?.showTableView()
-        view?.tableView.updateProducts(products)
+        view?.setupTableView(with: products)
         
         let totalPrice = countTotalPrice(with: products)
-        view?.bottomView.setTotalPrice(mapPrice(totalPrice))
+        view?.setupBottomView(with: mapPrice(totalPrice))
     }
     
     func countTotalPrice(with products: [ProductCart]) -> Double {
@@ -98,6 +106,10 @@ extension CartPresenter: ICartPresenterInput {
     
     func removeProduct(with cartId: UUID) {
         interactor.removeProducts(by: cartId)
+    }
+    
+    func checkout() {
+        interactor.makeCheckout()
     }
 }
 

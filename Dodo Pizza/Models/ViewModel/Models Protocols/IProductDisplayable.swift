@@ -1,10 +1,3 @@
-//
-//  ProductDisplayable.swift
-//  Dodo Pizza
-//
-//  Created by Zakhar on 15.07.25.
-//
-
 import Foundation
 
 protocol IProductDisplayable {

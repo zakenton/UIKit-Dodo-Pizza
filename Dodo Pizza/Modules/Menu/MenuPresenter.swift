@@ -1,13 +1,18 @@
-//
-//  MenuPresenter.swift
-//  Dodo Pizza
-//
-//  Created by Zakhar on 02.07.25.
-//
+protocol IMenuPresenterInput: AnyObject {
+    func getProducts(by category: CategoryView)
+    func getBanners()
+    func getCategories()
+    func didSelectProduct(_ product: ProductView)
+    func saveProduct(_ product: ProductView)
+}
 
-import Foundation
+protocol IMenuInteractorOutput: AnyObject {
+    func didGetProducts(_ products: [ProductView])
+    func didGetBanners(_ products: [ProductView])
+    func didGetCategories(_ categories: [CategoryView])
+}
 
-class MenuPresenter {
+final class MenuPresenter {
     
     weak var menuVC: IMenuVCInput?
     

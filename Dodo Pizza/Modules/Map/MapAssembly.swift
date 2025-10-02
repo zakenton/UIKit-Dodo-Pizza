@@ -1,9 +1,3 @@
-//
-//  MapBuilder.swift
-//  Dodo Pizza
-//
-//  Created by Zakhar on 03.07.25.
-//
 import UIKit
 
 final class MapAssembly {

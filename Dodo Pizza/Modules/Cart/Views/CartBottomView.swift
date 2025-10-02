@@ -1,15 +1,13 @@
-//
-//  CartBottomView.swift
-//  Dodo Pizza
-//
-//  Created by Zakhar on 02.08.25.
-//
-
-import Foundation
 import UIKit
 import SnapKit
 
+protocol ICartBottomViewDelegate: AnyObject{
+    func didTapCheckout()
+}
+
 final class CartBottomView: UIView {
+    
+    weak var delegate: ICartBottomViewDelegate?
     
     private let orderButton = Button(style: .checkout)
     private let priceLabel = Label(style: .cartPrice)
@@ -33,7 +31,7 @@ extension CartBottomView {
 
 private extension CartBottomView {
     @objc func checkoutAction() {
-        print("Chackout")
+        delegate?.didTapCheckout()
     }
 }
 

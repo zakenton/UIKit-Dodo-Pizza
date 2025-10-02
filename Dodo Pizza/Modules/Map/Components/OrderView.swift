@@ -1,10 +1,3 @@
-//
-//  OrderView.swift
-//  Dodo Pizza
-//
-//  Created by Zakhar on 05.08.25.
-//
-
 import UIKit
 import SnapKit
 

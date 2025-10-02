@@ -1,13 +1,10 @@
-//
-//  MenuRouter.swift
-//  Dodo Pizza
-//
-//  Created by Zakhar on 02.07.25.
-//
-
 import Foundation
 import UIKit
 
+protocol IRouter: AnyObject {
+    func showDitailView(with product: IProductDisplayable)
+    func saveProduct(_ product: IProductDisplayable)
+}
 
 final class MenuRouter {
     

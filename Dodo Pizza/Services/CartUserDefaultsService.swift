@@ -1,12 +1,3 @@
-//
-//  CartUserDefaults.swift
-//  Dodo Pizza
-//
-//  Created by Zakhar on 05.07.25.
-//
-
-import Foundation
-
 import Foundation
 
 protocol ICartServiseInput {

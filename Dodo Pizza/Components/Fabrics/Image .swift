@@ -1,10 +1,3 @@
-//
-//  Image .swift
-//  dodo-pizza-work
-//
-//  Created by Zakhar on 29.06.25.
-//
-
 import UIKit
 
 enum ImageStyle {

@@ -1,12 +1,10 @@
-//
-//  DetailRouter.swift
-//  Dodo Pizza
-//
-//  Created by Zakhar on 06.07.25.
-//
-
 import Foundation
 import UIKit
+
+protocol IDetailRouterInput: AnyObject {
+    func closeDetails()
+    func routeProductToSave(_ product: IProductDisplayable)
+}
 
 final class DetailRouter {
     weak var detailsVC: DetailsVC?

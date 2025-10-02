@@ -1,11 +1,3 @@
-//
-//  DependencyContainer.swift
-//  dodo-pizza-project-final
-//
-//  Created by Zakhar on 29.06.25.
-//
-
-import Foundation
 import UIKit
 
 final class DependencyContainer {
@@ -34,6 +26,7 @@ final class DependencyContainer {
         decoder = JSONDecoder()
         encoder = JSONEncoder()
         userDefaults = UserDefaults.standard
+        
         addressStore = UserAddressStore()
         geocodingService = GeocodingService(throttleInterval: 0.4)
         

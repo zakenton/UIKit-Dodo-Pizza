@@ -1,18 +1,8 @@
-//
-//  CartRouter.swift
-//  Dodo Pizza
-//
-//  Created by Zakhar on 28.07.25.
-//
-
-import Foundation
-
 import Foundation
 import UIKit
 
 
 final class CartRouter {
-    
     weak var cartVC: CartVC?
     weak var cartPresenter: ICartPresenterInput?
 }

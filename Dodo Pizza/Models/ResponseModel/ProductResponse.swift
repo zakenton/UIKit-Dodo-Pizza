@@ -1,10 +1,3 @@
-//
-//  ProductResponse.swift
-//  dodo-pizza-work
-//
-//  Created by Zakhar on 30.06.25.
-//
-
 import Foundation
 
 struct ProductResponse: Codable {

@@ -1,11 +1,3 @@
-//
-//  BanerCell.swift
-//  ListOfProduct
-//
-//  Created by Zakhar on 11.06.25.
-//
-
-import Foundation
 import SnapKit
 import UIKit
 
@@ -49,7 +41,6 @@ class BannerCarouselView: UIView {
         banners = products
         print(banners.count)
         collectionView.reloadData()
-        print("reloadData")
     }
 }
 // MARK: - Setup
@@ -75,7 +66,7 @@ private extension BannerCarouselView {
 extension BannerCarouselView: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("🟢 Нажата ячейка на indexPath: \(indexPath.row)")
+        
     }
 
     
@@ -86,7 +77,6 @@ extension BannerCarouselView: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueCell(indexPath) as BannerCollectionViewCell
         cell.update(banners[indexPath.row])
-        print("return Cell CollectionView")
         return cell
     }
 }

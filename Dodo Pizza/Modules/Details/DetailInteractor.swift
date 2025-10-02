@@ -1,11 +1,12 @@
-//
-//  DetailInteractor.swift
-//  Dodo Pizza
-//
-//  Created by Zakhar on 06.07.25.
-//
-
 import Foundation
+
+protocol IDetailInteractorInput: AnyObject {
+    func setupView()
+    func setSelectedDough(index: Int)
+    func setSelectedOption(index: Int)
+    func setSelectedAdditive(index: Int)
+    func saveProductToCart()
+}
 
 final class DetailInteractor {
     weak var presenter: IDetailInteractorOutput?
@@ -38,9 +39,7 @@ private extension DetailInteractor {
     
     func toggleAdditive(at index: Int) {
         guard let additives = product.additive, additives.indices.contains(index) else { return }
-
         product.additive![index].isSelected.toggle()
-        print("Toggle")
     }
     
     func countTotalPrice() -> Double {
@@ -58,7 +57,6 @@ private extension DetailInteractor {
 // MARK: Input
 extension DetailInteractor: IDetailInteractorInput {
     func setupView() {
-        print("Set Peoduct")
         presenter?.didSetupView(imageURL: product.imageURL,
                                 description: product.description,
                                 dough: product.dough,
@@ -94,4 +92,3 @@ extension DetailInteractor: IDetailInteractorInput {
         presenter?.didSaveProduct(product)
     }
 }
-
