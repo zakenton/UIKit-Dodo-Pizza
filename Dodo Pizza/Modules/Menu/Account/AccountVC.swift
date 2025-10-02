@@ -1,13 +1,4 @@
-//
-//  AccountView.swift
-//  Dodo Pizza
-//
-//  Created by Zakhar on 20.08.25.
-//
-
-import Foundation
 import UIKit
-import SnapKit
 
 final class AccountView: UIViewController {
     override func viewDidLoad() {
@@ -15,7 +6,7 @@ final class AccountView: UIViewController {
         view.backgroundColor = .systemGray6
         
         let label = UILabel()
-        label.text = "Здесь меню"
+        label.text = "To do!!!"
         label.font = .systemFont(ofSize: 20, weight: .bold)
         
         view.addSubview(label)

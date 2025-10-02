@@ -1,11 +1,3 @@
-//
-//  CartTableViewCell.swift
-//  Dodo Pizza
-//
-//  Created by Zakhar on 16.07.25.
-//
-
-import Foundation
 import UIKit
 import SnapKit
 
@@ -19,12 +11,10 @@ protocol ICartTableViewCellDelegate: AnyObject {
 final class CartTableViewCell: UITableViewCell {
     
     // MARK: - Properties
-    
     weak var delegate: ICartTableViewCellDelegate?
     private var product: ProductCart?
     
     // MARK: - UI Components
-    
     private let productImageView = ImageView(style: .cart, imageUrl: "")
     private let titleLabel = Label(style: .cartTitle)
     private let optionLabel = Label(style: .cartOption)
@@ -34,7 +24,6 @@ final class CartTableViewCell: UITableViewCell {
     private let removeButton = Button(style: .cross)
     
     // MARK: - Init
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupView()
@@ -48,7 +37,6 @@ final class CartTableViewCell: UITableViewCell {
 }
 
 // MARK: - Configuration
-
 extension CartTableViewCell {
     func configure(with product: ProductCart) {
         self.product = product
@@ -84,7 +72,6 @@ extension CartTableViewCell {
 
 
 // MARK: - QuantityViewDelegate
-
 extension CartTableViewCell: IQuantityViewDelegate {
     func didTapPlusButton() {
         guard let product = product else { return }
@@ -98,7 +85,6 @@ extension CartTableViewCell: IQuantityViewDelegate {
 }
 
 // MARK: - Action Handlers
-
 private extension CartTableViewCell {
     @objc func changeButtonTapped() {
         guard let product = product else { return }

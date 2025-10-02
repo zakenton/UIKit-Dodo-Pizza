@@ -1,10 +1,3 @@
-//
-//  UICollectionView + dequeueCell.swift
-//  dodo-base
-//
-//  Created by Artur on 04.11.2024.
-//
-
 import UIKit
 
 extension UICollectionViewCell: Reusable{}

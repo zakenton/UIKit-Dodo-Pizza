@@ -1,10 +1,3 @@
-//
-//  TopPicksCell.swift
-//  Dodo Pizza
-//
-//  Created by Zakhar on 13.06.25.
-//
-
 import UIKit
 import SnapKit
 

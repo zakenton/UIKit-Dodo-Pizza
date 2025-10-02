@@ -1,10 +1,3 @@
-//
-//  Header.swift
-//  dodo-pizza-project
-//
-//  Created by Zakhar on 19.06.25.
-//
-
 import UIKit
 import SnapKit
 

@@ -1,10 +1,3 @@
-//
-//  Category.swift
-//  dodo-base
-//
-//  Created by Artur on 10.11.2024.
-//
-
 import Foundation
 
 enum CategoryMappingError: Error {

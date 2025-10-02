@@ -1,10 +1,3 @@
-//
-//  FindAdressView.swift
-//  Dodo Pizza
-//
-//  Created by Zakhar on 19.07.25.
-//
-
 import Foundation
 import UIKit
 import SnapKit
@@ -14,10 +7,18 @@ enum SheetType: String, Equatable {
     case order = "Order"
 }
 
-final class BottomSheetView: UIView {
+protocol AddressInputViewDelegate: AnyObject {
+    func addressInputDidChange(_ text: String)
+    func addressInputDidSubmit(_ text: String)
+}
+
+final class BottomSheetView: UIView, UITextFieldDelegate {
+    var onConfirmTap: (() -> Void)?
+    weak var addressDelegate: AddressInputViewDelegate?
     
-    private var userAddress: [Address] = []
+    private var addressText: String? { deliveryView.addressTextField.text }
     private var restorantAddress: [Address] = []
+    private var userAddress: [Address] = []
     
     
     // MARK: UI Elements
@@ -29,8 +30,10 @@ final class BottomSheetView: UIView {
         super.init(frame: frame)
         orderView.setupTable(with: restorantAddress)
         setupView()
-        addViews()
-        setupConstraints()
+        deliveryView.saveAddressButton.addTarget(self,
+                                                 action: #selector(confirmTapped),
+                                                 for: .touchUpInside)
+        bindAddressInput()
     }
     
     required init?(coder: NSCoder) {
@@ -51,33 +54,42 @@ extension BottomSheetView {
     
     func fetchAdresses(user: [Address]) {
         self.userAddress = user
+        deliveryView.setSavedAddresses(user)
     }
     
     func fetchAdresses(restorant: [Address]) {
         self.restorantAddress = restorant
+        orderView.setupTable(with: restorant)
+    }
+    
+    func setAddressText(_ text: String?) {
+        deliveryView.addressTextField.text = text
+    }
+    
+    func bindAddressInput() {
+        deliveryView.addressTextField.delegate = self
+        deliveryView.addressTextField.addTarget(self, action: #selector(textChanged(_:)), for: .editingChanged)
     }
 }
 
 //MARK: Button Action
 private extension BottomSheetView {
+    @objc private func textChanged(_ tf: UITextField) {
+        addressDelegate?.addressInputDidChange(tf.text ?? "")
+    }
     
+    @objc private func confirmTapped() { onConfirmTap?() }
 }
 
-// MARK: - PRIVATE
+//MARK: View Configurations
 private extension BottomSheetView {
-    
     func showDeliveryView() {
-        // Показываем только форму адреса
         deliveryView.isHidden = false
         setHeight(multiplier: 0.40)
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-//            self.deliveryView.addressTextField.becomeFirstResponder()
-//        }
         orderView.isHidden = true
     }
     
     func showOrderView() {
-        // Показываем только список ресторанов
         deliveryView.isHidden = true
         setHeight(multiplier: 0.30)
         orderView.isHidden = false
@@ -85,19 +97,30 @@ private extension BottomSheetView {
     
     func setHeight(multiplier: CGFloat) {
         guard let superview = superview else { return }
+        
         snp.remakeConstraints { make in
             make.left.right.bottom.equalToSuperview()
             make.height.equalTo(superview.snp.height).multipliedBy(multiplier)
         }
+        
         UIView.animate(withDuration: 0.3) {
             superview.layoutIfNeeded()
         }
     }
+}
+
+// MARK: - SetupViews
+private extension BottomSheetView {
+    
+    
     //MARK: setup View
     func setupView() {
         backgroundColor = .white
         layer.cornerRadius = 15
         clipsToBounds = true
+        
+        addViews()
+        setupConstraints()
     }
     
     //MARK: add Views

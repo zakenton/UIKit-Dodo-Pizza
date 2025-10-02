@@ -1,10 +1,3 @@
-//
-//  Untitled.swift
-//  dodo-pizza-project
-//
-//  Created by Zakhar on 23.06.25.
-//
-
 import UIKit
 import SnapKit
 final class DitailSegmentControl: UIControl {

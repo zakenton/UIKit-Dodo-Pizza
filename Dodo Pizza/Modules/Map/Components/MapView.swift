@@ -1,10 +1,3 @@
-//
-//  Map.swift
-//  ViewBuilderPlayground
-//
-//  Created by Zakhar on 17.07.25.
-//
-
 import Foundation
 import UIKit
 import MapKit
@@ -71,15 +64,41 @@ extension MapView: MKMapViewDelegate {
     }
 }
 
+//MARK: Add Restorans
 private extension MapView {
     func addRestaurantAnnotations() {
         // Сначала удаляем предыдущие аннотации
         self.removeAnnotations(self.annotations)
-
+        
+        let geocoder = CLGeocoder()
+        
         for address in self.restaurants {
-            guard let _ = address.coordinate else { continue } // Только с координатами
-            let annotation = RestaurantAnnotation(address: address)
-            addAnnotation(annotation)
+            if address.coordinate != nil {
+                // Уже есть координаты → добавляем сразу
+                let annotation = RestaurantAnnotation(address: address)
+                addAnnotation(annotation)
+            } else {
+                // Нет координат → пробуем геокодить
+                let fullAddress = "\(address.address), \(address.zipcode) \(address.city)"
+                
+                geocoder.geocodeAddressString(fullAddress) { [weak self] placemarks, error in
+                    guard let self = self,
+                          let placemark = placemarks?.first,
+                          let location = placemark.location else { return }
+                    
+                    let newAddress = Address(
+                        id: address.id,
+                        label: address.label,
+                        address: address.address,
+                        zipcode: address.zipcode,
+                        city: address.city,
+                        coordinate: location.coordinate
+                    )
+                    
+                    let annotation = RestaurantAnnotation(address: newAddress)
+                    self.addAnnotation(annotation)
+                }
+            }
         }
     }
 }

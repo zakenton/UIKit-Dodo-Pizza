@@ -1,11 +1,13 @@
-//
-//  CartInteractor.swift
-//  Dodo Pizza
-//
-//  Created by Zakhar on 28.07.25.
-//
-
 import Foundation
+
+protocol ICartInteractorInput: AnyObject {
+    func getAllProducts()
+    func saveModifiedProduct(_ product: ProductCart)
+    func decrementProduct(by cartId: UUID)
+    func incrementProduct(by cartId: UUID)
+    func removeProducts(by cartId: UUID)
+    func makeCheckout()
+}
 
 // MARK: Init
 final class CartInteractor {
@@ -72,5 +74,9 @@ extension CartInteractor: ICartInteractorInput {
         
         let products = cartServise.loadProducts()
         presenter?.didLoadPeoducts(products)
+    }
+    
+    func makeCheckout() {
+        print("Checkout")
     }
 }

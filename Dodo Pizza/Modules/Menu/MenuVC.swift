@@ -1,11 +1,11 @@
-//
-//  MenuVC.swift
-//  dodo-pizza-project-final
-//
-//  Created by Zakhar on 29.06.25.
-//
 import UIKit
 import SnapKit
+
+protocol IMenuVCInput: AnyObject {
+    func showProducts(_ products: [ProductView])
+    func showBanners(_ banners: [ProductView])
+    func showCategories(_ categories: [CategoryView])
+}
 
 final class MenuVC: UIViewController {
 
@@ -13,20 +13,20 @@ final class MenuVC: UIViewController {
     private var accountVC: AccountView!
     private var isAccountVisible = false
     private let accountWidth: CGFloat = 300
-    private var accountRightConstraint: Constraint? // SnapKit constraint
+    private var accountRightConstraint: Constraint?
 
-    // MARK: - UI (контент меню)
+    // MARK: - UI
     private let categoriesCarousel = CategoryCarouselHeader()
     private lazy var tableView = TableViewFactory.makeMenuTableView(delegate: self)
 
-    // MARK: - Dimming поверх контента MenuVC (под AccountView)
+    // MARK: - Dimming
     private let dimmingView: UIView = {
-        let v = UIView()
-        v.backgroundColor = UIColor.black.withAlphaComponent(0.4)
-        v.alpha = 0
-        v.isHidden = true
-        v.isUserInteractionEnabled = true // ловит тап для закрытия
-        return v
+        let view = UIView()
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.4)
+        view.alpha = 0
+        view.isHidden = true
+        view.isUserInteractionEnabled = true
+        return view
     }()
 
     // MARK: - Data
@@ -77,16 +77,25 @@ extension MenuVC: IMenuVCInput {
     }
 }
 
-// MARK: - Delegates (из ячеек)
+// MARK: - Delegates (From cell)
 extension MenuVC: ProductCellDelegate, TopBarCellDelegate {
-    func openAccountView() { toggleAccount() }
+    
+    //TODO: AccountView
+    func openAccountView() {
+        toggleAccount()
+    }
+    
     func didTapPriceButton(for product: ProductView) {
         presenter.didSelectProduct(product)
     }
 }
 
 // MARK: - Sections
-enum MenuCells: Int, CaseIterable { case topBar, banner, productList }
+enum MenuCells: Int, CaseIterable {
+    case topBar
+    case banner
+    case productList
+}
 
 // MARK: - UITableViewDelegate/DataSource
 extension MenuVC: UITableViewDelegate, UITableViewDataSource {
@@ -142,33 +151,31 @@ extension MenuVC: UITableViewDelegate, UITableViewDataSource {
 private extension MenuVC {
     func setupView() {
         view.backgroundColor = .systemBackground
-
-        // Контент
+        // content
         view.addSubview(tableView)
-
-        // Dimming над контентом (будет блокировать взаимодействия с меню при открытом аккаунте)
+        // Dimming block interection when account view is open
         view.addSubview(dimmingView)
 
-        // AccountVC как независимый элемент (добавляем только здесь)
+        // AccountVC
         accountVC = AccountView()
         addChild(accountVC)
         view.addSubview(accountVC.view)
         accountVC.didMove(toParent: self)
 
-        // Порядок слоев: tableView (низ) -> dimming (середина) -> account (верх)
+        //tableView -> dimming -> account
         view.bringSubviewToFront(dimmingView)
         view.bringSubviewToFront(accountVC.view)
-
-        // Закрытие по тапу на затемнение
+        
+        //close after tap on dimming
         let tap = UITapGestureRecognizer(target: self, action: #selector(didTapDimming))
         dimmingView.addGestureRecognizer(tap)
 
-        // Свайп по самому аккаунт-меню для интерактивного закрытия
+        //swipe on account view to close
         let pan = UIPanGestureRecognizer(target: self, action: #selector(handleAccountPan(_:)))
         pan.cancelsTouchesInView = true
         accountVC.view.addGestureRecognizer(pan)
 
-        // Если AccountView имеет кнопку «крестик», можно пробросить колбэк:
+        //TODO: close using button
         if var closable = accountVC as? AccountClosable {
             closable.onClose = { [weak self] in self?.hideAccount(animated: true) }
         }
@@ -185,7 +192,7 @@ private extension MenuVC {
             make.edges.equalToSuperview()
         }
 
-        // accountVC — спрятан за правым краем (trailing = +accountWidth)
+        // accountVC — (trailing = +accountWidth)
         accountVC.view.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview()
             make.width.equalTo(accountWidth)
@@ -200,7 +207,6 @@ private extension MenuVC {
     }
 
     func setupGestures() {
-        // Открывающий свайп с правого края экрана
         let edgePan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handleEdgeOpen(_:)))
         edgePan.edges = .right
         view.addGestureRecognizer(edgePan)
@@ -218,10 +224,9 @@ private extension MenuVC {
     func showAccount(animated: Bool) {
         guard !isAccountVisible else { return }
         isAccountVisible = true
-
-        // Блокируем взаимодействия с контентом MenuVC
+        ///Block Interaction with main View
         tableView.isUserInteractionEnabled = false
-
+        ///Dimmint for main View
         dimmingView.isHidden = false
         accountRightConstraint?.update(offset: 0)
 
@@ -229,6 +234,7 @@ private extension MenuVC {
             self.view.layoutIfNeeded()
             self.dimmingView.alpha = 1
         }
+        
         if animated {
             UIView.animate(withDuration: 0.28,
                            delay: 0,
@@ -242,10 +248,8 @@ private extension MenuVC {
     func hideAccount(animated: Bool) {
         guard isAccountVisible else { return }
         isAccountVisible = false
-
-        // Разрешаем взаимодействия с контентом MenuVC
+        ///Exept interaction with main View
         tableView.isUserInteractionEnabled = true
-
         accountRightConstraint?.update(offset: accountWidth)
         let animations = {
             self.view.layoutIfNeeded()
@@ -263,38 +267,40 @@ private extension MenuVC {
         } else { animations(); completion(true) }
     }
 
-    // Свайп по самому меню (интерактивное закрытие)
+    // Swipe on menu to close
     @objc func handleAccountPan(_ g: UIPanGestureRecognizer) {
         let translation = g.translation(in: view)
-        let dx = max(0, translation.x) // учитываем только движение вправо (закрытие)
-
+        let dx = max(0, translation.x)
+        
         switch g.state {
         case .began:
             dimmingView.isHidden = false
+            
         case .changed:
             let clamped = min(accountWidth, dx)
             accountRightConstraint?.update(offset: clamped)
             let progress = clamped / accountWidth
             dimmingView.alpha = 1 - progress
             view.layoutIfNeeded()
+            
         case .ended, .cancelled:
             let vx = g.velocity(in: view).x
             let shouldClose = (accountRightConstraint?.layoutConstraints.first?.constant ?? 0) > accountWidth * 0.35 || vx > 500
             shouldClose ? hideAccount(animated: true) : showAccount(animated: true)
+            
         default: break
         }
     }
 
-    // Открытие свайпом с правого края
+    //open AccountVC from right slide
     @objc func handleEdgeOpen(_ g: UIScreenEdgePanGestureRecognizer) {
         switch g.state {
         case .began:
             if !isAccountVisible {
-                // подготовим состояния для интерактива открытия
                 dimmingView.isHidden = false
             }
         case .changed:
-            let dx = -g.translation(in: view).x // из правого края тянем влево → отрицательное
+            let dx = -g.translation(in: view).x
             let progress = min(max(dx / accountWidth, 0), 1)
             accountRightConstraint?.update(offset: accountWidth * (1 - progress))
             dimmingView.alpha = progress
@@ -307,7 +313,7 @@ private extension MenuVC {
     }
 }
 
-// MARK: - Протокол для независимости AccountView (опционально)
+// MARK: - AccountView Protocol
 protocol AccountClosable {
     var onClose: (() -> Void)? { get set }
 }

@@ -1,11 +1,29 @@
-//
-//  DetailPresenter.swift
-//  Dodo Pizza
-//
-//  Created by Zakhar on 06.07.25.
-//
-
 import Foundation
+
+protocol IDetailPresenterInput: AnyObject {
+    func viewDidLoad()
+    
+    func didSelectDough(index: Int)
+    func didSelectSize(index: Int)
+    func didSelectAdditive(index: Int)
+    
+    func didTapAddToCart()
+    func didTapCloseButton()
+}
+
+protocol IDetailInteractorOutput: AnyObject {
+    func didSetupView(imageURL: String,
+                      description: String,
+                      dough: [ProductOption]?,
+                      options: [ProductOption]?,
+                      additives: [ProductAdditiveView]?,
+                      price: Double)
+    
+    func didСhangedOption(price: Double)
+    func didSetAdditive(index: Int, isSelected: Bool)
+    func didSaveProduct(_ product: IProductDisplayable)
+    func didErrorSavingProduct()
+}
 
 final class DetailPresenter {
     weak var detailVC: DetailsVC?

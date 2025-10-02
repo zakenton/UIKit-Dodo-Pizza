@@ -1,25 +1,19 @@
-//
-//  CartTableView.swift
-//  Dodo Pizza
-//
-//  Created by Zakhar on 16.07.25.
-//
-
-import Foundation
 import UIKit
 import SnapKit
 
+protocol ICartTableViewDelegate: AnyObject {
+    func didTapIncrementQuantity(for cartId: UUID)
+    func didTapDecrementQuantity(for cartId: UUID)
+    func didTapDeleteProduct(with cartId: UUID)
+    func didTapChangeButton(for product: ProductCart)
+}
+
 final class CartTableView: UITableView {
-    // MARK: - Properties
-    weak var presenter: ICartPresenterInput?
     
-    private var products: [ProductCart] = [] {
-        didSet {
-            reloadData()
-        }
-    }
+    weak var view: ICartTableViewDelegate?
     
-    // MARK: - Init
+    private var products: [ProductCart] = []
+    
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
         setupTableView()
@@ -27,6 +21,11 @@ final class CartTableView: UITableView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func fetchProducts(with products: [ProductCart]) {
+        self.products = products
+        reloadData()
     }
     
     private func setupTableView() {
@@ -39,31 +38,24 @@ final class CartTableView: UITableView {
 // MARK: - Cell Delegate
 extension CartTableView: ICartTableViewCellDelegate {
     func didTapIncrementQuantity(for cartId: UUID) {
-        presenter?.incrementProductQuantity(for: cartId)
+        view?.didTapIncrementQuantity(for: cartId)
     }
     
     func didTapDecrementQuantity(for cartId: UUID) {
-        presenter?.decrementProductQuantity(for: cartId)
+        view?.didTapDecrementQuantity(for: cartId)
     }
     
     func didTapDeleteProduct(with cartId: UUID) {
-        presenter?.removeProduct(with: cartId)
+        view?.didTapDeleteProduct(with: cartId)
     }
     
     func didTapChangeButton(for product: ProductCart) {
-        presenter?.addAdditionalProduct(product)
+        view?.didTapChangeButton(for: product)
     }
 }
 
-// MARK: - UITableViewDelegate
-extension CartTableView: UITableViewDelegate {
-    func updateProducts(_ products: [ProductCart]) {
-        self.products = products
-    }
-}
-
-// MARK: - UITableViewDataSource
-extension CartTableView: UITableViewDataSource {
+// MARK: - DataSource / Delegate
+extension CartTableView: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         products.count

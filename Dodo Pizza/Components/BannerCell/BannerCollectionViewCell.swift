@@ -1,11 +1,3 @@
-//
-//  BanerCollectionViewCell.swift
-//  ListOfProduct
-//
-//  Created by Zakhar on 11.06.25.
-//
-
-import Foundation
 import UIKit
 import SnapKit
 
@@ -13,9 +5,7 @@ class BannerCollectionViewCell: UICollectionViewCell {
     
     // MARK: - View Elements
     private let productImageView = ImageView(style: .bannerCell)
-    
     private let titleLebel = Label(style: .bannerTitle)
-    
     private let priceLabel = Label(style: .bannerPrice)
     
     private lazy var textStack: UIStackView = {

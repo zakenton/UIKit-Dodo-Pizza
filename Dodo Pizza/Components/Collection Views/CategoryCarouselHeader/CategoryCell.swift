@@ -1,11 +1,3 @@
-//
-//  CategoryButtonCollectionViewCell.swift
-//  Dodo Pizza
-//
-//  Created by Zakhar on 14.06.25.
-//
-
-import Foundation
 import UIKit
 import SnapKit
 

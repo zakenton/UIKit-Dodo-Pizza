@@ -1,13 +1,10 @@
-//
-//  MenuRouter.swift
-//  Dodo Pizza
-//
-//  Created by Zakhar on 02.07.25.
-//
-
 import Foundation
 import UIKit
 
+protocol IRouter: AnyObject {
+    func showDitailView(with product: IProductDisplayable)
+    func saveProduct(_ product: IProductDisplayable)
+}
 
 final class MenuRouter {
     
@@ -21,7 +18,7 @@ extension MenuRouter: IRouter {
     }
     
     func showDitailView(with product: IProductDisplayable) {
-        let detailsVC = DetailBuilder.build(product: product, router: self)
+        let detailsVC = DetailAssembly.build(product: product, router: self)
         menuVC?.present(detailsVC, animated: true)
     }
 }

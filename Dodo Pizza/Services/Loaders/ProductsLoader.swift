@@ -1,10 +1,3 @@
-//
-//  ProductsLoader.swift
-//  dodo-pizza-project-final
-//
-//  Created by Zakhar on 28.06.25.
-//
-
 import Foundation
 
 protocol ILoaderService {

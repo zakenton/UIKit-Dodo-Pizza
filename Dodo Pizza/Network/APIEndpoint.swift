@@ -1,16 +1,10 @@
-//
-//  RequestBuilder.swift
-//  dodo-base
-//
-//  Created by Zakhar on 28.06.25.
-//
-
 import Foundation
 
 enum APIEndpoint {
     case products(category: String?)
     case banners
     case categories
+    case address
     
     var path: String {
         switch self {
@@ -24,6 +18,8 @@ enum APIEndpoint {
             return "/banners"
         case .categories:
             return "/categories"
+        case .address:
+            return "/address"
         }
     }
 }

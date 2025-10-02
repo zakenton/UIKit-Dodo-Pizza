@@ -1,10 +1,3 @@
-//
-//  Product Mapper.swift
-//  Dodo Pizza
-//
-//  Created by Zakhar on 09.07.25.
-//
-
 import Foundation
 
 final class ProductMapper {

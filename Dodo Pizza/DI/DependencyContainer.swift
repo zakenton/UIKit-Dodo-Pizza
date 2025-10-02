@@ -1,11 +1,3 @@
-//
-//  DependencyContainer.swift
-//  dodo-pizza-project-final
-//
-//  Created by Zakhar on 29.06.25.
-//
-
-import Foundation
 import UIKit
 
 final class DependencyContainer {
@@ -16,8 +8,11 @@ final class DependencyContainer {
     
     private let userDefaults: UserDefaults
     
-    let loaderService: LoaderService
+    let productsLoader: LoaderService
+    let addressLoader: AddressLoaderService
     let cartServise: CartService
+    let addressStore: UserAddressStore
+    let geocodingService: GeocodingService
     
     
     let menuAssembly: MenuAssembly
@@ -32,14 +27,16 @@ final class DependencyContainer {
         encoder = JSONEncoder()
         userDefaults = UserDefaults.standard
         
-        loaderService = LoaderService(session: session, decoder: decoder)
+        addressStore = UserAddressStore()
+        geocodingService = GeocodingService(throttleInterval: 0.4)
         
-        
+        productsLoader = LoaderService(session: session, decoder: decoder)
+        addressLoader = AddressLoaderService(session: session, decoder: decoder)
         cartServise = CartService(userDefaults: userDefaults, encoder: encoder, decoder: decoder)
         
-        menuAssembly = MenuAssembly(loaderService: loaderService, cartServise: cartServise)
+        menuAssembly = MenuAssembly(loaderService: productsLoader, cartServise: cartServise)
         
-        mapAssembly = MapAssembly()
+        mapAssembly = MapAssembly(addressLoader: addressLoader, geocoding: geocodingService, addressStore: addressStore)
         
         cartAssembly = CartAssembly(cartServise: cartServise)
         
