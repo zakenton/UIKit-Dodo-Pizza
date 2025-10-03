@@ -10,7 +10,7 @@ A fully functional iOS clone of the Dodo Pizza web interface, built using native
 
 ## 📱 About The Project
 
-This application replicates the core functionality of the Dodo Pizza web interface, providing users with a convenient way to order pizza and other products. The project demonstrates proficiency with modern iOS development technologies.
+This application replicates the core functionality of the Dodo Pizza web interface, providing users with a convenient way to order pizza and other products.
 
 > ⚠️ Status: **Work in progress** — the delivery map and user menu are still under development.
 
@@ -23,6 +23,7 @@ This application replicates the core functionality of the Dodo Pizza web interfa
 - **SnapKit** — DSL for Auto Layout  
 - **MapKit** — maps & location services  
 - **URLSession** — network requests & API communication
+- **DI** - dependency injection
 
 ---
 
@@ -39,9 +40,6 @@ This application replicates the core functionality of the Dodo Pizza web interfa
 ---
 
 ## 📸 Screenshots
-
-> Помести изображения по путям `./Screenshots/main_screen.png`, `./Screenshots/pizza_menu.png`, `./Screenshots/delivery_map.png`, `./Screenshots/cart.png`.  
-> Обрати внимание на **регистр** папки/файлов: `Screenshots` ≠ `screenshots`.
 
 <div align="center">
   <img src="./Screenshots/Menu_Screen.png" width="260" alt="Main Screen" />
