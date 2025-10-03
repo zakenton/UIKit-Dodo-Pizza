@@ -44,13 +44,13 @@ This application replicates the core functionality of the Dodo Pizza web interfa
 > Обрати внимание на **регистр** папки/файлов: `Screenshots` ≠ `screenshots`.
 
 <div align="center">
-  <img src="./Screenshots/main_screen.png" width="260" alt="Main Screen" />
-  <img src="./Screenshots/pizza_menu.png" width="260" alt="Pizza Menu" />
+  <img src="./Screenshots/Menu_Screen.png" width="260" alt="Main Screen" />
+  <img src="./Screenshots/Detail_Screen.png" width="260" alt="Detail Screen" />
 </div>
 <br/>
 <div align="center">
-  <img src="./Screenshots/delivery_map.png" width="260" alt="Delivery Map" />
-  <img src="./Screenshots/cart.png" width="260" alt="Shopping Cart" />
+  <img src="./Screenshots/Map_Screen.png" width="260" alt="Delivery Map" />
+  <img src="./Screenshots/Cart_Screen.png" width="260" alt="Shopping Cart" />
 </div>
 
 ---
