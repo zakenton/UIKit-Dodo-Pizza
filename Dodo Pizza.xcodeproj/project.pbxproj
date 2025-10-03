@@ -200,9 +200,6 @@
 			isa = PBXGroup;
 			children = (
 				907ECEDB2E1D76DC00A1BBB9 /* Dodo Pizza */,
-				907ECEDA2E1D76DC00A1BBB9 /* LaunchScreen.storyboard */,
-				907ECED72E1D76DC00A1BBB9 /* Assets.xcassets */,
-				907ECED82E1D76DC00A1BBB9 /* Info.plist */,
 				901EB7A02E132162002DAD69 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -404,6 +401,7 @@
 			children = (
 				907ECECD2E1D76DC00A1BBB9 /* AppColor.swift */,
 				907ECECE2E1D76DC00A1BBB9 /* Layout.swift */,
+				907ECED72E1D76DC00A1BBB9 /* Assets.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -434,12 +432,14 @@
 				907ECE872E1D76DC00A1BBB9 /* App */,
 				907ECE952E1D76DC00A1BBB9 /* DI */,
 				907ECEC62E1D76DC00A1BBB9 /* Modules */,
-				907ECE9B2E1D76DC00A1BBB9 /* Extensions */,
-				907ECEAA2E1D76DC00A1BBB9 /* Models */,
-				907ECECA2E1D76DC00A1BBB9 /* Network */,
 				907ECF7A2E23DF0B00A1BBB9 /* Components */,
+				907ECE9B2E1D76DC00A1BBB9 /* Extensions */,
 				907ECED62E1D76DC00A1BBB9 /* Services */,
+				907ECECA2E1D76DC00A1BBB9 /* Network */,
+				907ECEAA2E1D76DC00A1BBB9 /* Models */,
 				907ECECF2E1D76DC00A1BBB9 /* Resources */,
+				907ECED82E1D76DC00A1BBB9 /* Info.plist */,
+				907ECEDA2E1D76DC00A1BBB9 /* LaunchScreen.storyboard */,
 			);
 			path = "Dodo Pizza";
 			sourceTree = "<group>";
