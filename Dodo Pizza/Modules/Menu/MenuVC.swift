@@ -14,6 +14,7 @@ final class MenuVC: UIViewController {
     private var isAccountVisible = false
     private let accountWidth: CGFloat = 300
     private var accountRightConstraint: Constraint?
+    
 
     // MARK: - UI
     private let categoriesCarousel = CategoryCarouselHeader()

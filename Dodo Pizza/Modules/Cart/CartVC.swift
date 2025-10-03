@@ -65,6 +65,7 @@ extension CartVC: ICartVCInput {
 extension CartVC: ICartTableViewDelegate, ICartBottomViewDelegate {
     func didTapIncrementQuantity(for cartId: UUID) {
         presenter.incrementProductQuantity(for: cartId)
+        print(2)
     }
     
     func didTapDecrementQuantity(for cartId: UUID) {
