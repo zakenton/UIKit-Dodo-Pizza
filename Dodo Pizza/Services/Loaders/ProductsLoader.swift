@@ -69,8 +69,6 @@ extension LoaderService: ILoaderService {
 
 //MARK: - Private
 private extension LoaderService {
-    
-    
     //MARK: loadProducts
     func loadProducts(by path: String, completion: @escaping (Result<[ProductResponse], NetworkError>) -> ()) {
         let host = NetworkConstants.MokServer

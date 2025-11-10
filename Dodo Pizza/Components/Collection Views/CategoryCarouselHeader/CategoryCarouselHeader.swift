@@ -92,4 +92,3 @@ extension CategoryCarouselHeader: UICollectionViewDelegate, UICollectionViewData
         onCategorySelect?(newSelectedCategory)
     }
 }
-

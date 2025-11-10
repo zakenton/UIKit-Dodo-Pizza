@@ -60,16 +60,6 @@ This application replicates the core functionality of the Dodo Pizza web interfa
 git clone https://github.com/your-username/dodo-pizza-ios-clone.git
 cd dodo-pizza-ios-clone
 
-# Open the project
-open DodoPizza.xcodeproj   # или .xcworkspace, если используешь CocoaPods
-
-# (Optional) Install pods
-# pod install
-
-# Run in Simulator or on a device
-# ⌘ + R
-
-── App
    │   ├── AppDelegate.swift
    │   └── SceneDelegate.swift
    ├── Base.lproj
